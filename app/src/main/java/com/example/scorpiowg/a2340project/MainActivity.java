@@ -23,18 +23,14 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
-
                 startActivity(loginPage);
-
             }
         });
 
         registration.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
-
                 startActivity(registerPage);
-
             }
         });
 
