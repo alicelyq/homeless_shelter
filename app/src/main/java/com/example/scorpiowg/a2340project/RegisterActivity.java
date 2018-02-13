@@ -18,9 +18,18 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration);
 
-        if (getIntent().getStringExtra("error") != null) {
-            TextView error = findViewById(R.id.error);
-            error.setVisibility(View.VISIBLE);
+        String error = getIntent().getStringExtra("error");
+        if (error != null) {
+            TextView passwordError = findViewById(R.id.passwordCheck);
+            TextView usernameError = findViewById(R.id.usernameTaken);
+            if (error.equals("all")) {
+                passwordError.setVisibility(View.VISIBLE);
+                usernameError.setVisibility(View.VISIBLE);
+            } else if (error.equals("password")) {
+                passwordError.setVisibility(View.VISIBLE);
+            } else if (error.equals("name")) {
+                usernameError.setVisibility(View.VISIBLE);
+            }
         }
 
         Button cancelRegister = findViewById(R.id.cancel);
@@ -42,13 +51,25 @@ public class RegisterActivity extends AppCompatActivity {
 
          register.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if (passinput.getText().toString().equals(confinput.getText().toString())) {
+                    if (passinput.getText().toString().equals(confinput.getText().toString()) && !userinput.getText().toString().equals("user")) {
                         startActivity(loginPage);
                     } else {
-                        Bundle b = new Bundle();
-                        b.putString("error", "true");
-                        registerPage.putExtras(b);
-                        startActivity(registerPage);
+                        if (!passinput.getText().toString().equals(confinput.getText().toString()) && userinput.getText().toString().equals("user")) {
+                            Bundle b = new Bundle();
+                            b.putString("error", "all");
+                            registerPage.putExtras(b);
+                            startActivity(registerPage);
+                        } else if (!passinput.getText().toString().equals(confinput.getText().toString())) {
+                            Bundle b = new Bundle();
+                            b.putString("error", "password");
+                            registerPage.putExtras(b);
+                            startActivity(registerPage);
+                        } else {
+                            Bundle b = new Bundle();
+                            b.putString("error", "name");
+                            registerPage.putExtras(b);
+                            startActivity(registerPage);
+                        }
                     }
                 }
             });
