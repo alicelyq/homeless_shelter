@@ -1,13 +1,17 @@
-package com.example.scorpiowg.a2340project;
+package com.example.scorpiowg.a2340project.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.scorpiowg.a2340project.R;
+import com.example.scorpiowg.a2340project.model.Model;
+
+import java.util.HashMap;
 
 /**
  * Created by wangjingbo on 2/11/18.
@@ -18,21 +22,25 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        //database hashmap
+        final HashMap<String, String> database = Model.getInstance().getDatabase();
 
+        // check if this page was loaded from a login error
         if (getIntent().getStringExtra("error") != null) {
             TextView error = findViewById(R.id.error);
             error.setVisibility(View.VISIBLE);
         }
 
+        // two buttons
         Button cancellogin = findViewById(R.id.cancellogin);
         Button submitlogin = findViewById(R.id.submitlogin);
-        final EditText usernameinput = findViewById(R.id.usernameinput);
-        final EditText passwordinput = findViewById(R.id.passwordinput);
 
+        // next actions after button clicked
         final Intent mainPage = new Intent(this, MainActivity.class);
         final Intent homePage = new Intent(this, HomepageActivity.class);
         final Intent loginErrorPage = new Intent(this, LoginActivity.class);
 
+        // button action
         cancellogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(mainPage);
@@ -40,12 +48,22 @@ public class LoginActivity extends AppCompatActivity {
         });
         submitlogin.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if (usernameinput.getText().toString().equals("user") && passwordinput.getText().toString().equals("pass")) {
+                    // two login text box
+                    EditText usernameinput = findViewById(R.id.usernameinput);
+                    EditText passwordinput = findViewById(R.id.passwordinput);
+                    // login info data
+                    String userId = usernameinput.getText().toString();
+                    String password = passwordinput.getText().toString();
+
+                    // login info validation
+                    if (database.get(userId) != null && database.get(userId).equals(password)) {
+                        homePage.putExtra("database", database);
                         startActivity(homePage);
                     } else {
                         Bundle b = new Bundle();
                         b.putString("error", "true");
                         loginErrorPage.putExtras(b);
+                        loginErrorPage.putExtra("database", database);
                         startActivity(loginErrorPage);
                     }
                 }
