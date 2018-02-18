@@ -5,7 +5,11 @@ package com.example.scorpiowg.a2340project.model;
  */
 
 public class Admin extends User {
-    public Admin(String name, String userId, String password, String accountState) {
+    public Admin(String name, String userId, String password, boolean accountState) {
         super(name, userId, password, accountState, "admin");
+    }
+
+    public String toString() {
+        return "ADMIN\nname: " + getName() + "\nID: " + getUserId();
     }
 }

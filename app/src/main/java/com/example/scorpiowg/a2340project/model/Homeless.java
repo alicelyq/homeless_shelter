@@ -14,7 +14,7 @@ public class Homeless extends User {
     private int familyNum;
     private int age;
 
-    public Homeless(String name, String userId, String password, String accountState, String govId, String gender, boolean isVeteran, boolean isFamily, int familyNum, int age) {
+    public Homeless(String name, String userId, String password, boolean accountState, String govId, String gender, boolean isVeteran, boolean isFamily, int familyNum, int age) {
         super(name, userId, password, accountState, "homeless");
         this.govId = govId;
         this.gender = gender;
@@ -46,5 +46,10 @@ public class Homeless extends User {
 
     public int getAge() {
         return age;
+    }
+
+    public String toString() {
+        return "HOMELESS\nname: " + getName() + "\nID: " + getUserId() + "\nGOV ID: " + getGovId() + "\ngender: " + getGender()
+                + "\nveteran: " + getIsVeteran() + "\nisFamily: " + getIsFamily() + "\nfamily number: " + getFamilyNum() + "\nage: " + getAge();
     }
 }

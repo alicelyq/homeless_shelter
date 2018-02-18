@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Model;
+import com.example.scorpiowg.a2340project.model.User;
 
 import java.util.HashMap;
 
@@ -23,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         //database hashmap
-        final HashMap<String, String> database = Model.getInstance().getDatabase();
+        final HashMap<String, User> database = Model.getInstance().getDatabase();
 
         // check if this page was loaded from a login error
         if (getIntent().getStringExtra("error") != null) {
@@ -56,14 +57,13 @@ public class LoginActivity extends AppCompatActivity {
                     String password = passwordinput.getText().toString();
 
                     // login info validation
-                    if (database.get(userId) != null && database.get(userId).equals(password)) {
-                        homePage.putExtra("database", database);
+                    if (database.get(userId) != null && database.get(userId).getPassword().equals(password)) {
+                        homePage.putExtra("userId", userId);
                         startActivity(homePage);
                     } else {
                         Bundle b = new Bundle();
                         b.putString("error", "true");
                         loginErrorPage.putExtras(b);
-                        loginErrorPage.putExtra("database", database);
                         startActivity(loginErrorPage);
                     }
                 }
