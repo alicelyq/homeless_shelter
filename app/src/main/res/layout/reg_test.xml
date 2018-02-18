@@ -9,13 +9,10 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
         android:text="REGISTRATION"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="90dp"
+        tools:layout_editor_absoluteY="28dp" />
 
     <EditText
         android:id="@+id/username"
@@ -28,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        tools:layout_editor_absoluteY="151dp" />
 
     <EditText
         android:id="@+id/password"
@@ -86,14 +83,10 @@
     <TextView
         android:id="@+id/textView6"
         android:layout_width="74dp"
-        android:layout_height="23dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="33dp"
         android:text="USERNAME"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTaken" />
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="106dp" />
 
     <TextView
         android:id="@+id/textView7"
@@ -101,12 +94,11 @@
         android:layout_height="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
         android:text="PASSWORD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordCheck" />
+        tools:layout_editor_absoluteY="249dp" />
 
     <TextView
         android:id="@+id/textView8"
@@ -114,25 +106,10 @@
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
         android:text="CONFIRM PASSWORD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
-
-    <TextView
-        android:id="@+id/usernameTaken"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:text="username taken"
-        android:textColor="@android:color/holo_red_dark"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        tools:layout_editor_absoluteY="339dp" />
 
     <TextView
         android:id="@+id/passwordCheck"
@@ -140,12 +117,11 @@
         android:layout_height="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
         android:text="confirm password doesn't match password"
         android:textColor="@android:color/holo_red_dark"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        tools:layout_editor_absoluteY="221dp" />
 </android.support.constraint.ConstraintLayout>

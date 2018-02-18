@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         // next actions after button clicked
         final Intent loginPage = new Intent(this, LoginActivity.class);
-        final Intent registerPage = new Intent(this, RegisterActivity.class);
+        final Intent registerPage = new Intent(this, RegUserTypeActivity.class);
 
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

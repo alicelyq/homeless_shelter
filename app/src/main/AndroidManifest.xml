@@ -22,6 +22,14 @@
         </activity>
         <activity android:name=".controllers.HomepageActivity">
         </activity>
+        <activity android:name=".controllers.RegUserTypeActivity">
+        </activity>
+        <activity android:name=".controllers.ShelterEmpRegActivity">
+        </activity>
+        <activity android:name=".controllers.HomelessUserRegActivity">
+        </activity>
+        <activity android:name=".controllers.AdminUserRegActivity">
+        </activity>
     </application>
 
 </manifest>
