@@ -22,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.registration);
+        setContentView(R.layout.shelter_emp_reg);
 
         //database hashmap
         final HashMap<String, String> database = Model.getInstance().getDatabase();
@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
         String error = getIntent().getStringExtra("error");
         if (error != null) {
             TextView passwordError = findViewById(R.id.passwordCheck);
-            TextView usernameError = findViewById(R.id.usernameTaken);
+            TextView usernameError = findViewById(R.id.useridtaken);
             if (error.equals("all")) {
                 passwordError.setVisibility(View.VISIBLE);
                 usernameError.setVisibility(View.VISIBLE);
