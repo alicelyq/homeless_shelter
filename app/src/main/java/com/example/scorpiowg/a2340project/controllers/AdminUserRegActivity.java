@@ -10,7 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.scorpiowg.a2340project.R;
+import com.example.scorpiowg.a2340project.model.Admin;
 import com.example.scorpiowg.a2340project.model.Model;
+import com.example.scorpiowg.a2340project.model.User;
 
 import java.util.HashMap;
 
@@ -26,13 +28,13 @@ public class AdminUserRegActivity extends AppCompatActivity {
         setContentView(R.layout.admin_user_reg);
 
         //database hashmap
-        final HashMap<String, String> database = Model.getInstance().getDatabase();
+        final HashMap<String, User> database = Model.getInstance().getDatabase();
 
         // check if this page was loaded from a registration error
         String error = getIntent().getStringExtra("error");
         if (error != null) {
-            TextView passwordError = findViewById(R.id.passwordCheck);
-            TextView useridError = findViewById(R.id.useridtaken);
+            TextView passwordError = findViewById(R.id.passwordError);
+            TextView useridError = findViewById(R.id.userIDError);
             if (error.equals("all")) {
                 passwordError.setVisibility(View.VISIBLE);
                 useridError.setVisibility(View.VISIBLE);
@@ -51,7 +53,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
         // init next actions
         final Intent reg_user_typePage = new Intent(this, RegUserTypeActivity.class);
         final Intent loginPage = new Intent(this, LoginActivity.class);
-        final Intent registerPage = new Intent(this, RegisterActivity.class);
+        final Intent registerPage = new Intent(this, AdminUserRegActivity.class);
 
         // click actions
         cancelRegister.setOnClickListener(new View.OnClickListener() {
@@ -71,12 +73,12 @@ public class AdminUserRegActivity extends AppCompatActivity {
 
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
-                    database.put(userId, password);
-                    loginPage.putExtra("database",database);
-                    Log.d("debug", Integer.toString(database.size()));
+                    //success
+                    EditText nameinput = findViewById(R.id.input_name);
+                    String username = nameinput.getText().toString();
+                    database.put(userId, new Admin(username, userId, password, true));
                     startActivity(loginPage);
                 } else {
-                    registerPage.putExtra("database", database);
                     if (!password.equals(confirm) && database.containsKey(userId)) {
                         Bundle b = new Bundle();
                         b.putString("error", "all");

@@ -13,7 +13,7 @@ public class Model {
     public static Model getInstance() { return _instance; }
 
     /** holds the list of all courses */
-    private HashMap<String, String> database;
+    private HashMap<String, User> database;
 
     /**
      * make a new model

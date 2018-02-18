@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("debug", Integer.toString(Model.getInstance().getDatabase().size()));
 
         // two options:login and registration
         Button login = findViewById(R.id.login);

@@ -12,7 +12,9 @@ import android.widget.TextView;
 import android.widget.Spinner;
 
 import com.example.scorpiowg.a2340project.R;
+import com.example.scorpiowg.a2340project.model.Homeless;
 import com.example.scorpiowg.a2340project.model.Model;
+import com.example.scorpiowg.a2340project.model.User;
 
 import java.util.HashMap;
 
@@ -28,8 +30,8 @@ public class HomelessUserRegActivity extends AppCompatActivity {
         setContentView(R.layout.homeless_user_reg);
 
         //get the spinner from the xml
-        Spinner genderSpinner = findViewById(R.id.gender);
-        Spinner veteranSpinner = findViewById(R.id.veteran);
+        final Spinner genderSpinner = findViewById(R.id.gender);
+        final Spinner veteranSpinner = findViewById(R.id.veteran);
 
         String[] genderchoice = new String[]{"Male", "Female", "Other"};
         String[] veteranchoice = new String[]{"Yes", "No"};
@@ -41,13 +43,13 @@ public class HomelessUserRegActivity extends AppCompatActivity {
         veteranSpinner.setAdapter(veteranadapter);
 
         //database hashmap
-        final HashMap<String, String> database = Model.getInstance().getDatabase();
+        final HashMap<String, User> database = Model.getInstance().getDatabase();
 
         // check if this page was loaded from a registration error
         String error = getIntent().getStringExtra("error");
         if (error != null) {
-            TextView passwordError = findViewById(R.id.passwordCheck);
-            TextView useridError = findViewById(R.id.useridtaken);
+            TextView passwordError = findViewById(R.id.passwordError);
+            TextView useridError = findViewById(R.id.userIDError);
             if (error.equals("all")) {
                 passwordError.setVisibility(View.VISIBLE);
                 useridError.setVisibility(View.VISIBLE);
@@ -66,7 +68,7 @@ public class HomelessUserRegActivity extends AppCompatActivity {
         // init next actions
         final Intent reg_user_typePage = new Intent(this, RegUserTypeActivity.class);
         final Intent loginPage = new Intent(this, LoginActivity.class);
-        final Intent registerPage = new Intent(this, RegisterActivity.class);
+        final Intent registerPage = new Intent(this, HomelessUserRegActivity.class);
 
         // click actions
         cancelRegister.setOnClickListener(new View.OnClickListener() {
@@ -87,12 +89,19 @@ public class HomelessUserRegActivity extends AppCompatActivity {
 
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
-                    database.put(userId, password);
-                    loginPage.putExtra("database",database);
-                    Log.d("debug", Integer.toString(database.size()));
+                    String username = ((EditText)findViewById(R.id.input_name)).getText().toString();
+                    String govId = ((EditText)findViewById(R.id.govid)).getText().toString();
+                    String gender = genderSpinner.getSelectedItem().toString();
+                    int age = Integer.parseInt(((EditText)findViewById(R.id.age)).getText().toString());
+                    int familyNum = Integer.parseInt(((EditText)findViewById(R.id.familynum)).getText().toString());
+                    boolean isFamily = true;
+                    if (familyNum <= 1) {
+                        isFamily = false;
+                    }
+                    boolean isVeteran = Boolean.valueOf(veteranSpinner.getSelectedItem().toString());
+                    database.put(userId, new Homeless(username, userId, password, true, govId, gender, isVeteran, isFamily, familyNum, age));
                     startActivity(loginPage);
                 } else {
-                    registerPage.putExtra("database", database);
                     if (!password.equals(confirm) && database.containsKey(userId)) {
                         Bundle b = new Bundle();
                         b.putString("error", "all");

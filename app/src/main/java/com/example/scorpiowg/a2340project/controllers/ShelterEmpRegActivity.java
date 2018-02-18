@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Model;
+import com.example.scorpiowg.a2340project.model.ShelterEmployee;
+import com.example.scorpiowg.a2340project.model.User;
 
 import java.util.HashMap;
 
@@ -26,13 +28,13 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
         setContentView(R.layout.shelter_emp_reg);
 
         //database hashmap
-        final HashMap<String, String> database = Model.getInstance().getDatabase();
+        final HashMap<String, User> database = Model.getInstance().getDatabase();
 
         // check if this page was loaded from a registration error
         String error = getIntent().getStringExtra("error");
         if (error != null) {
-            TextView passwordError = findViewById(R.id.passwordCheck);
-            TextView useridError = findViewById(R.id.useridtaken);
+            TextView passwordError = findViewById(R.id.passwordError);
+            TextView useridError = findViewById(R.id.userIDError);
             if (error.equals("all")) {
                 passwordError.setVisibility(View.VISIBLE);
                 useridError.setVisibility(View.VISIBLE);
@@ -51,7 +53,7 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
         // init next actions
         final Intent reg_user_typePage = new Intent(this, RegUserTypeActivity.class);
         final Intent loginPage = new Intent(this, LoginActivity.class);
-        final Intent registerPage = new Intent(this, RegisterActivity.class);
+        final Intent registerPage = new Intent(this, ShelterEmpRegActivity.class);
 
         // click actions
         cancelRegister.setOnClickListener(new View.OnClickListener() {
@@ -65,18 +67,21 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                 EditText userinput = findViewById(R.id.userid);
                 EditText passinput = findViewById(R.id.password);
                 EditText confinput = findViewById(R.id.confirm);
+                EditText nameinput = findViewById(R.id.input_name);
                 String userId = userinput.getText().toString();
                 String password = passinput.getText().toString();
                 String confirm = confinput.getText().toString();
+                String username = nameinput.getText().toString();
 
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
-                    database.put(userId, password);
-                    loginPage.putExtra("database",database);
-                    Log.d("debug", Integer.toString(database.size()));
+                    //success
+//                    String username = ((EditText)findViewById(R.id.input_name)).getText().toString();
+                    Log.d("debug", "here");
+                    database.put(userId, new ShelterEmployee(username, userId, password, true, "1"));
                     startActivity(loginPage);
                 } else {
-                    registerPage.putExtra("database", database);
+                    //error
                     if (!password.equals(confirm) && database.containsKey(userId)) {
                         Bundle b = new Bundle();
                         b.putString("error", "all");
