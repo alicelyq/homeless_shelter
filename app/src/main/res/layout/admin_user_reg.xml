@@ -27,7 +27,7 @@
                 android:id="@+id/registation_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RERISTRATION"
+                android:text="REGISTRATION"
                 android:textAlignment="center"
                 android:textSize="24sp" />
 
@@ -99,6 +99,15 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/codeError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="invalid code"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="match_parent"

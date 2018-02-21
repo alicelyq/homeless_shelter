@@ -35,6 +35,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
         if (error != null) {
             TextView passwordError = findViewById(R.id.passwordError);
             TextView useridError = findViewById(R.id.userIDError);
+            TextView codeError = findViewById(R.id.codeError);
             if (error.equals("all")) {
                 passwordError.setVisibility(View.VISIBLE);
                 useridError.setVisibility(View.VISIBLE);
@@ -42,6 +43,9 @@ public class AdminUserRegActivity extends AppCompatActivity {
                 passwordError.setVisibility(View.VISIBLE);
             } else if (error.equals("name")) {
                 useridError.setVisibility(View.VISIBLE);
+            }
+            if (error.equals("code")) {
+                codeError.setVisibility(View.VISIBLE);
             }
         }
 
@@ -67,17 +71,27 @@ public class AdminUserRegActivity extends AppCompatActivity {
                 EditText userinput = findViewById(R.id.userid);
                 EditText passinput = findViewById(R.id.password);
                 EditText confinput = findViewById(R.id.confirm);
+                EditText admincodeinput = findViewById(R.id.admincode);
                 String userId = userinput.getText().toString();
                 String password = passinput.getText().toString();
                 String confirm = confinput.getText().toString();
+                String admincode = admincodeinput.getText().toString();
 
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
-                    //success
-                    EditText nameinput = findViewById(R.id.input_name);
-                    String username = nameinput.getText().toString();
-                    database.put(userId, new Admin(username, userId, password, true));
-                    startActivity(loginPage);
+                    //code check only if all other conditions passed
+                    if (!admincode.equals("code")) {
+                        Bundle b = new Bundle();
+                        b.putString("error", "code");
+                        registerPage.putExtras(b);
+                        startActivity(registerPage);
+                    } else {
+                        //success
+                        EditText nameinput = findViewById(R.id.input_name);
+                        String username = nameinput.getText().toString();
+                        database.put(userId, new Admin(username, userId, password, true));
+                        startActivity(loginPage);
+                    }
                 } else {
                     if (!password.equals(confirm) && database.containsKey(userId)) {
                         Bundle b = new Bundle();
