@@ -27,7 +27,7 @@ public class Model {
      */
     private Model() {
         database = new HashMap<>();
-        shelterdb = new HashMap<>();
+        shelters = new HashMap<>();
     }
 
     public HashMap getDatabase() {
@@ -47,8 +47,9 @@ public class Model {
     @Override
     public String toString() {
         return "hello";
-
-    public void setShelterdb(Map<Integer, String[]> shelterInfo) {
-        shelterdb = shelterInfo;
     }
+
+//    public void setShelterdb(Map<Integer, String[]> shelterInfo) {
+//        shelters = shelterInfo;
+//    }
 }
