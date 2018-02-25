@@ -10,6 +10,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.scorpiowg.a2340project.R;
+import com.example.scorpiowg.a2340project.model.CSVFile;
+import com.example.scorpiowg.a2340project.model.Model;
+
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +32,16 @@ public class MainActivity extends AppCompatActivity {
         // next actions after button clicked
         final Intent loginPage = new Intent(this, LoginActivity.class);
         final Intent registerPage = new Intent(this, RegUserTypeActivity.class);
+
+        //read csv file
+        InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_db);
+        CSVFile shelterFile = new CSVFile(inputStream);
+        Map<Integer, String[]> shelterinfo = shelterFile.read();
+
+
+        //put data in shelterdb
+        Model.getInstance().setShelterdb(shelterinfo);
+
 
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
