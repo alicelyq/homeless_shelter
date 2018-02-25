@@ -1,16 +1,15 @@
 package com.example.scorpiowg.a2340project.controllers;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.scorpiowg.a2340project.R;
-import com.example.scorpiowg.a2340project.model.Model;
-
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
+                Log.d("debug", "login button");
                 startActivity(loginPage);
             }
         });
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         registration.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
+                Log.d("debug", "register button");
                 startActivity(registerPage);
             }
         });

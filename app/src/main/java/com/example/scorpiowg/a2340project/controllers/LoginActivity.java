@@ -3,6 +3,7 @@ package com.example.scorpiowg.a2340project.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // next actions after button clicked
         final Intent mainPage = new Intent(this, MainActivity.class);
-        final Intent homePage = new Intent(this, HomepageActivity.class);
+        final Intent shelterPage = new Intent(this, ShelterListActivity.class);
         final Intent loginErrorPage = new Intent(this, LoginActivity.class);
 
         // button action
@@ -58,8 +59,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     // login info validation
                     if (database.get(userId) != null && database.get(userId).getPassword().equals(password)) {
-                        homePage.putExtra("userId", userId);
-                        startActivity(homePage);
+                        Log.d("debug", "inLoginActivity submit successful");
+                        shelterPage.putExtra("userId", userId);
+                        startActivity(shelterPage);
                     } else {
                         Bundle b = new Bundle();
                         b.putString("error", "true");

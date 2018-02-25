@@ -15,6 +15,8 @@ public class Model {
     /** holds the list of all courses */
     private HashMap<String, User> database;
 
+    private HashMap<String, Shelter> shelters;
+
     /**
      * make a new model
      */
@@ -24,5 +26,19 @@ public class Model {
 
     public HashMap getDatabase() {
         return database;
+    }
+
+    public HashMap getShelters() {
+        shelters = new HashMap<>();
+        Shelter one = new Shelter("0", "one", "100", null, "long", "lat", "address", "special", "phone number");
+        Shelter two = new Shelter("1", "two", "100", null, "long", "lat", "address", "special", "phone number");
+        shelters.put("0", one);
+        shelters.put("1", two);
+        return shelters;
+    }
+
+    @Override
+    public String toString() {
+        return "hello";
     }
 }

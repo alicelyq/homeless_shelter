@@ -28,6 +28,10 @@
         </activity>
         <activity android:name=".controllers.AdminUserRegActivity">
         </activity>
+        <activity android:name=".controllers.ShelterListActivity">
+        </activity>
+        <activity android:name=".controllers.ShelterInfoActivity">
+        </activity>
     </application>
 
 </manifest>
