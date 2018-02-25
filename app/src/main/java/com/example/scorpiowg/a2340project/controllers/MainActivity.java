@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.CSVFile;
 import com.example.scorpiowg.a2340project.model.Model;
+import com.example.scorpiowg.a2340project.model.Shelter;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -36,11 +37,15 @@ public class MainActivity extends AppCompatActivity {
         //read csv file
         InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_db);
         CSVFile shelterFile = new CSVFile(inputStream);
-        Map<Integer, String[]> shelterinfo = shelterFile.read();
+        Map<String, String[]> shelterinfo = shelterFile.read();
 
-
-        //put data in shelterdb
-        Model.getInstance().setShelterdb(shelterinfo);
+        for (String s: shelterinfo.keySet()) {
+            String[] shelterVal = shelterinfo.get(s);
+            Shelter newShelter = new Shelter(s,shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7]);
+            HashMap<String, Shelter> newPair = new HashMap<>();
+            newPair.put(s, newShelter);
+            Model.getInstance().setShelters(newPair);
+        }
 
 
         login.setOnClickListener(new View.OnClickListener() {

@@ -16,10 +16,8 @@ public class Model {
     /** holds the list of all users */
     private HashMap<String, User> database;
 
-
-    private HashMap<String, Shelter> shelters;
-
     /** holds the list of all shelters */
+    private HashMap<String, Shelter> shelters;
 
 
     /**
@@ -36,11 +34,11 @@ public class Model {
 
 
     public HashMap getShelters() {
-        shelters = new HashMap<>();
-        Shelter one = new Shelter("0", "one", "100", null, "long", "lat", "address", "special", "phone number");
-        Shelter two = new Shelter("1", "two", "100", null, "long", "lat", "address", "special", "phone number");
-        shelters.put("0", one);
-        shelters.put("1", two);
+//        shelters = new HashMap<>();
+//        Shelter one = new Shelter("0", "one", "100", null, "long", "lat", "address", "special", "phone number");
+//        Shelter two = new Shelter("1", "two", "100", null, "long", "lat", "address", "special", "phone number");
+//        shelters.put("0", one);
+//        shelters.put("1", two);
         return shelters;
     }
 
@@ -49,7 +47,7 @@ public class Model {
         return "hello";
     }
 
-//    public void setShelterdb(Map<Integer, String[]> shelterInfo) {
-//        shelters = shelterInfo;
-//    }
+    public void setShelters(HashMap<String, Shelter> shelterInfo) {
+        shelters = shelterInfo;
+    }
 }
