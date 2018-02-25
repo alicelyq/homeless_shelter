@@ -27,6 +27,7 @@ public class RegUserTypeActivity extends AppCompatActivity {
         Button homeless_user = findViewById(R.id.homeless_user);
         Button shelter_emp_user = findViewById(R.id.shelter_emp_user);
         Button admin_user = findViewById(R.id.admin_user);
+
         Button cancel_reg_user_type = findViewById(R.id.cancel_reg_user_type);
 
         // next actions after button clicked
