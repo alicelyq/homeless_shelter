@@ -38,14 +38,18 @@ public class MainActivity extends AppCompatActivity {
         InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_db);
         CSVFile shelterFile = new CSVFile(inputStream);
         Map<String, String[]> shelterinfo = shelterFile.read();
+        Log.d("debug", Integer.toString(shelterinfo.size()));
+
+        HashMap<String, Shelter> newPair = new HashMap<>();
 
         for (String s: shelterinfo.keySet()) {
+            Log.d("debug", s);
             String[] shelterVal = shelterinfo.get(s);
             Shelter newShelter = new Shelter(s,shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7]);
-            HashMap<String, Shelter> newPair = new HashMap<>();
             newPair.put(s, newShelter);
-            Model.getInstance().setShelters(newPair);
         }
+
+        Model.getInstance().setShelters(newPair);
 
 
         login.setOnClickListener(new View.OnClickListener() {
