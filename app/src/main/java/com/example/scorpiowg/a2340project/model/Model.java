@@ -39,11 +39,6 @@ public class Model {
 
 
     public HashMap getShelters() {
-//        shelters = new HashMap<>();
-//        Shelter one = new Shelter("0", "one", "100", null, "long", "lat", "address", "special", "phone number");
-//        Shelter two = new Shelter("1", "two", "100", null, "long", "lat", "address", "special", "phone number");
-//        shelters.put("0", one);
-//        shelters.put("1", two);
         return shelters;
     }
 

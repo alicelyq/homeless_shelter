@@ -34,6 +34,10 @@
         </activity>
         <activity android:name=".controllers.ShelterInfoActivity">
         </activity>
+        <activity android:name=".controllers.DashboardActivity">
+        </activity>
+        <activity android:name=".controllers.FilterActivity">
+        </activity>
     </application>
 
 </manifest>
