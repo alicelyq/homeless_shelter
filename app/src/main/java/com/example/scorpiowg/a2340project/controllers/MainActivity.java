@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
         nancytestdb.child("nancytest").setValue("hi");
 
-        /*
 
-        Without using database
+
+//        Without using database
 
         HashMap<String, Shelter> newPair = new HashMap<>();
         for (String s: shelterinfo.keySet()) {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Model.getInstance().setShelters(newPair);
 
-        */
+
 
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
