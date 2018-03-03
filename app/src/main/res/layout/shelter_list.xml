@@ -15,6 +15,28 @@
             android:text="All Shelters:"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="back to dashboard"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="filter"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/clear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Clear Filter"
+            android:textStyle="bold" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">

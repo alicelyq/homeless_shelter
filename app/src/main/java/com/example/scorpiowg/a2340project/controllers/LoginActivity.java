@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // next actions after button clicked
         final Intent mainPage = new Intent(this, MainActivity.class);
-        final Intent shelterPage = new Intent(this, ShelterListActivity.class);
+        final Intent dashboardPage = new Intent(this, DashboardActivity.class);
         final Intent loginErrorPage = new Intent(this, LoginActivity.class);
 
         // button action
@@ -60,8 +60,8 @@ public class LoginActivity extends AppCompatActivity {
                     // login info validation
                     if (database.get(userId) != null && database.get(userId).getPassword().equals(password)) {
                         Log.d("debug", "inLoginActivity submit successful");
-                        shelterPage.putExtra("userId", userId);
-                        startActivity(shelterPage);
+                        dashboardPage.putExtra("userId", userId);
+                        startActivity(dashboardPage);
                     } else {
                         Bundle b = new Bundle();
                         b.putString("error", "true");
