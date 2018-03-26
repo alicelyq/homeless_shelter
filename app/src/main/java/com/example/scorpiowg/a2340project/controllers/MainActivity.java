@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         final Intent loginPage = new Intent(this, LoginActivity.class);
         final Intent registerPage = new Intent(this, RegUserTypeActivity.class);
 
-        DatabaseReference nancytestdb = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference nancytestdb = FirebaseDatabase.getInstance().getReference();
 
         //read csv file
         InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_db);
@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
         Map<String, String[]> shelterinfo = shelterFile.read();
 
 
-        for (String s: shelterinfo.keySet()) {
-            String[] shelterVal = shelterinfo.get(s);
-            Model.getInstance().addNewShelter(s,shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7]);
-        }
+//        for (String s: shelterinfo.keySet()) {
+//            String[] shelterVal = shelterinfo.get(s);
+//            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], shelterVal[1]);
+//        }
 
-        nancytestdb.child("nancytest").setValue("hi");
+//        nancytestdb.child("nancytest").setValue("hi");
 
 
 
