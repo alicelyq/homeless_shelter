@@ -130,7 +130,7 @@ public class ShelterListActivity extends AppCompatActivity {
         if (ageRange.equals("Anyone")) {
             ageRangeCheck = true;
         } else {
-            if (constraint.indexOf(ageRange) != -1) {
+            if (constraint.toLowerCase().indexOf(ageRange.toLowerCase()) != -1) {
                 ageRangeCheck = true;
             }
             if (ageRange.equals("Families with newborns") && constraint.indexOf("Families w") != -1) {
