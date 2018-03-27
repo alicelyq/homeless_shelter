@@ -2,6 +2,9 @@ package com.example.scorpiowg.a2340project.model;
 
 import android.support.compat.BuildConfig;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +22,13 @@ public class Model {
     /** holds the list of all shelters */
     private HashMap<String, Shelter> shelters;
 
+
     private User user;
 
     private Shelter shelter;
 
+    // add in db
+    DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
     /**
      * make a new model
@@ -55,6 +61,19 @@ public class Model {
 
     public void setCurrentShelter(Shelter shelter) {
         this.shelter = shelter;
+
+    public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, String available) {
+//            Shelter shelter = new Shelter();
+        db.child("shelters").child(shelterId).child("name").setValue(name);
+        db.child("shelters").child(shelterId).child("capacity").setValue(capacity);
+        db.child("shelters").child(shelterId).child("restriction").setValue(restriction);
+        db.child("shelters").child(shelterId).child("longitude").setValue(longitude);
+        db.child("shelters").child(shelterId).child("latitude").setValue(latitude);
+        db.child("shelters").child(shelterId).child("address").setValue(address);
+        db.child("shelters").child(shelterId).child("specialNotes").setValue(specialNotes);
+        db.child("shelters").child(shelterId).child("phoneNum").setValue(phoneNum);
+        db.child("shelters").child(shelterId).child("available").setValue(available);
+
     }
 
     @Override
