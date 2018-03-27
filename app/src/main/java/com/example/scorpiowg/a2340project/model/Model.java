@@ -19,6 +19,10 @@ public class Model {
     /** holds the list of all shelters */
     private HashMap<String, Shelter> shelters;
 
+    private User user;
+
+    private Shelter shelter;
+
 
     /**
      * make a new model
@@ -35,6 +39,22 @@ public class Model {
 
     public HashMap getShelters() {
         return shelters;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Shelter getShelter() {
+        return shelter;
+    }
+
+    public void setCurrentShelter(Shelter shelter) {
+        this.shelter = shelter;
     }
 
     @Override

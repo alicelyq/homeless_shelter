@@ -14,6 +14,8 @@ public class User {
     private String password;
     private boolean accountState;
     private String type;
+    private Shelter claim;
+    private int beds;
 
     public User(String name, String userId, String password, boolean accountState, String type) {
         this.name = name;
@@ -21,6 +23,8 @@ public class User {
         this.password = password;
         this.accountState = accountState;
         this.type = type;
+        this.claim = null;
+        this.beds = 0;
     }
 
     public String getName() {
@@ -37,6 +41,18 @@ public class User {
 
     public boolean getAccountState() {
         return accountState;
+    }
+
+    public Shelter getClaim() {
+        return claim;
+    }
+
+    public void clearClaim() {
+        claim = null;
+    }
+
+    public int getBeds() {
+        return beds;
     }
 
 

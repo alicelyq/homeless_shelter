@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Model;
+import com.example.scorpiowg.a2340project.model.User;
 
 /**
  * Created by wangjingbo on 3/3/18.
@@ -21,7 +22,12 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.dashboard);
 
         TextView user = findViewById(R.id.userinfo);
-        user.setText(Model.getInstance().getDatabase().get(getIntent().getStringExtra("userId")).toString());
+        if (getIntent().getStringExtra("userId").equals("test")) {
+            user.setText("test");
+        } else {
+            Model.getInstance().setUser((User) Model.getInstance().getDatabase().get(getIntent().getStringExtra("userId")));
+            user.setText(Model.getInstance().getDatabase().get(getIntent().getStringExtra("userId")).toString());
+        }
 
         Button shelter = findViewById(R.id.search);
         final Intent shelterPage = new Intent(this, ShelterListActivity.class);

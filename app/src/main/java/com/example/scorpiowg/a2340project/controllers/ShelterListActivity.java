@@ -76,7 +76,11 @@ public class ShelterListActivity extends AppCompatActivity {
 
 
         TextView user = findViewById(R.id.user);
-        user.setText(Model.getInstance().getDatabase().get(getIntent().getStringExtra("userId")).toString());
+        if (getIntent().getStringExtra("userId").equals("test")) {
+            user.setText("test");
+        } else {
+            user.setText(Model.getInstance().getDatabase().get(getIntent().getStringExtra("userId")).toString());
+        }
 
         // find parent frame
         LinearLayout parentLayout = findViewById(R.id.parentLayout);
