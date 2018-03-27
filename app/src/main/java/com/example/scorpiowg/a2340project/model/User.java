@@ -47,12 +47,16 @@ public class User {
         return claim;
     }
 
-    public void clearClaim() {
-        claim = null;
+    public void setClaim(Shelter shelter) {
+        claim = shelter;
     }
 
     public int getBeds() {
         return beds;
+    }
+
+    public void setBeds(int beds) {
+        this.beds = beds;
     }
 
 
