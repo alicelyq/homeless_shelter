@@ -73,6 +73,10 @@ public class Shelter {
         return occupied;
     }
 
+    public void setOccupied(String newOccupied) {
+        this.occupied = newOccupied;
+    }
+
     public String toString() {
         return "SHELTER\nname: " + getName() + "\nID: " + getShelterId() + "\nCapacity: " + getCapacity() +
                 "\nOccupied: " + getOccupied() + "\nAvailable: " + (Integer.parseInt(getCapacity()) - Integer.parseInt(getOccupied())) +

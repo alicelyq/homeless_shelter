@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        for (String s: shelterinfo.keySet()) {
 //            String[] shelterVal = shelterinfo.get(s);
-//            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], shelterVal[1]);
+//            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], "0");
 //        }
 
 //        nancytestdb.child("nancytest").setValue("hi");
