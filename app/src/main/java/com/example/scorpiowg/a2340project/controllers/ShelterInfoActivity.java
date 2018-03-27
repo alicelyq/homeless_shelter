@@ -29,48 +29,40 @@ public class ShelterInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shelter_info);
 
+        // database
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
+        // check for bed claiming
         if (getIntent().getStringExtra("claim") != null) {
             Log.d("debug", "successfully detect claim");
             if (Model.getInstance().getUser().getClaim() != null) {
                 TextView error = findViewById(R.id.error);
                 error.setVisibility(View.VISIBLE);
-            }
-            if (Model.getInstance().getUser().getClaim() == null) {
+            } else if (Integer.parseInt(getIntent().getStringExtra("claim").toString()) > Integer.parseInt(Model.getInstance().getShelter().getCapacity()) - Model.getInstance().getShelter().getOccupied()) {
+                TextView limit = findViewById(R.id.limit);
+                limit.setVisibility(View.VISIBLE);
+            } else {
                 Log.d("debug", "successful claim");
                 Model.getInstance().getUser().setClaim(Model.getInstance().getShelter());
-                //Model.getInstance().getUser().setBeds(Integer.parseInt(getIntent().getStringExtra("claim").toString()));
+                Model.getInstance().getUser().setBeds(Integer.parseInt(getIntent().getStringExtra("claim").toString()));
+                Log.d("debug", "this user claimed shelter " + Model.getInstance().getUser().getClaim().toString());
+                Log.d("debug", "this user claimed " + Integer.toString(Model.getInstance().getUser().getBeds()) + "bedspaces");
                 TextView success = findViewById(R.id.success);
                 success.setVisibility(View.VISIBLE);
 
                 final Shelter myshelter = Model.getInstance().getShelter();
-                // get occupied space
-//                Log.d("testdb", database.child("shelters").child(myshelter.getShelterId()).child("occupied").);
-                database.child("shelters").child(myshelter.getShelterId()).child("occupied").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String curoccupied = dataSnapshot.getValue(String.class);
-                        Log.d("snapshot", curoccupied);
-                        Model.getInstance().getShelter().setOccupied(curoccupied);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) { }
-                });
 
                 //update firebase with new occupied value
-                Log.d("nancytestclaim", "hi" + getIntent().getStringExtra("claim"));
-                String claimed = getIntent().getStringExtra("claim");
+                int claimed = Integer.parseInt(getIntent().getStringExtra("claim"));
 //                String newOcc = Integer.toString(Integer.parseInt(myshelter.getOccupied()) + Integer.parseInt(claimed));
-                Log.d("myshelter.getOccupied()", Model.getInstance().getShelter().getOccupied());
-                String newOcc = Integer.toString(Integer.parseInt(Model.getInstance().getShelter().getOccupied()) + 5);
+                Log.d("debug", "updating database");
+                int newOcc = Model.getInstance().getShelter().getOccupied() + claimed;
                 database.child("shelters").child(myshelter.getShelterId()).child("occupied").setValue(newOcc);
                 myshelter.setOccupied(newOcc);
-                Log.d("myshelter.getOccupied()", Model.getInstance().getShelter().getOccupied());
             }
         }
 
+        // handle refresh from claim button
         if (getIntent().getStringExtra("shelterId") != null) {
             String id = getIntent().getStringExtra("shelterId");
             TextView info = findViewById(R.id.info);
@@ -81,25 +73,26 @@ public class ShelterInfoActivity extends AppCompatActivity {
             info.setText(Model.getInstance().getShelter().toString());
         }
 
+        // claim button functionaloty
         final Intent claimBedspace = new Intent(this, ShelterInfoActivity.class);
         Button claim = findViewById(R.id.claim);
-        TextView beds = findViewById(R.id.beds);
-        final String bedNum = beds.getText().toString();
+        final TextView beds = findViewById(R.id.beds);
         claim.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                String bedNum = beds.getText().toString();
                 Log.d("debug", "claim");
                 claimBedspace.putExtra("claim", bedNum);
+                Log.d("debug", "claim " + bedNum + " bed spaces");
                 startActivity(claimBedspace);
             }
         });
 
-        // Jingbo need to change!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // cancel button
         Button toDashboardButton = findViewById(R.id.toDashboard);
         final Intent dashboardPage = new Intent(this, DashboardActivity.class);
         toDashboardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                dashboardPage.putExtra("userID", Model.getInstance().getUser().getUserId());
-                Log.d("nancytest_intent",Model.getInstance().getUser().getUserId());
+                dashboardPage.putExtra("userId", Model.getInstance().getUser().getUserId());
                 startActivity(dashboardPage);
             }
         });

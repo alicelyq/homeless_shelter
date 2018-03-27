@@ -13,8 +13,11 @@ import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.CSVFile;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.Shelter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -44,17 +47,6 @@ public class MainActivity extends AppCompatActivity {
         Map<String, String[]> shelterinfo = shelterFile.read();
 
 
-//        for (String s: shelterinfo.keySet()) {
-//            String[] shelterVal = shelterinfo.get(s);
-//            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], "0");
-//        }
-
-//        nancytestdb.child("nancytest").setValue("hi");
-
-
-
-//        Without using database
-
         HashMap<String, Shelter> newPair = new HashMap<>();
         for (String s: shelterinfo.keySet()) {
             Log.d("debug", s);
@@ -64,6 +56,24 @@ public class MainActivity extends AppCompatActivity {
         }
         Model.getInstance().setShelters(newPair);
 
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference DBsheltersRef = database.child("shelters");
+
+        DBsheltersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("debug" ,"calls database data");
+                HashMap<String, Shelter> shelters = Model.getInstance().getShelters();
+                for (String s: shelters.keySet()) {
+                    int occupied = dataSnapshot.child(shelters.get(s).getShelterId()).child("occupied").getValue(Integer.class);
+                    shelters.get(s).setOccupied(occupied);
+                    Log.d("debug", s + ": " + shelters.get(s).getOccupied());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
 
 
         login.setOnClickListener(new View.OnClickListener() {
