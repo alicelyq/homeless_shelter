@@ -13,6 +13,8 @@ import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.CSVFile;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.Shelter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -34,22 +36,34 @@ public class MainActivity extends AppCompatActivity {
         final Intent loginPage = new Intent(this, LoginActivity.class);
         final Intent registerPage = new Intent(this, RegUserTypeActivity.class);
 
+//        DatabaseReference nancytestdb = FirebaseDatabase.getInstance().getReference();
+
         //read csv file
         InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_db);
         CSVFile shelterFile = new CSVFile(inputStream);
         Map<String, String[]> shelterinfo = shelterFile.read();
-        Log.d("debug", Integer.toString(shelterinfo.size()));
+
+
+//        for (String s: shelterinfo.keySet()) {
+//            String[] shelterVal = shelterinfo.get(s);
+//            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], shelterVal[1]);
+//        }
+
+//        nancytestdb.child("nancytest").setValue("hi");
+
+
+
+//        Without using database
 
         HashMap<String, Shelter> newPair = new HashMap<>();
-
         for (String s: shelterinfo.keySet()) {
             Log.d("debug", s);
             String[] shelterVal = shelterinfo.get(s);
             Shelter newShelter = new Shelter(s,shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7]);
             newPair.put(s, newShelter);
         }
-
         Model.getInstance().setShelters(newPair);
+
 
 
         login.setOnClickListener(new View.OnClickListener() {

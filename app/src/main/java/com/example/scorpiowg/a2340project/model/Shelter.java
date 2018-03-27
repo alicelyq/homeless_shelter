@@ -16,6 +16,9 @@ public class Shelter {
     private String phoneNum;
     private String occupied;
 
+    public Shelter() {
+        //used for db
+    }
 
     public Shelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum) {
         this.shelterId = shelterId;
