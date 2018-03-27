@@ -14,6 +14,7 @@ public class Shelter {
     private String address;
     private String specialNotes;
     private String phoneNum;
+    private String occupied;
 
     public Shelter() {
         //used for db
@@ -29,6 +30,7 @@ public class Shelter {
         this.address = address;
         this.specialNotes = specialNotes;
         this.phoneNum = phoneNum;
+        this.occupied = "0";
     }
 
     public String getShelterId() {
@@ -67,8 +69,13 @@ public class Shelter {
         return specialNotes;
     }
 
+    public String getOccupied() {
+        return occupied;
+    }
+
     public String toString() {
         return "SHELTER\nname: " + getName() + "\nID: " + getShelterId() + "\nCapacity: " + getCapacity() +
+                "\nOccupied: " + getOccupied() + "\nAvailable: " + (Integer.parseInt(getCapacity()) - Integer.parseInt(getOccupied())) +
                 "\nRestriction: " + getRestriction() + "\nLongitude: " + getLongitude() + "\nLatitude: " + getLatitude() +
                 "\nAddress: " + getAddress() + "\nPhone Number: " + getPhoneNum() + "\nSpecial Notes: " + getSpecialNotes();
     }

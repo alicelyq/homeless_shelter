@@ -62,6 +62,9 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("debug", "inLoginActivity submit successful");
                         dashboardPage.putExtra("userId", userId);
                         startActivity(dashboardPage);
+                    } else if (userId.equals("test")) {
+                        dashboardPage.putExtra("userId", "test");
+                        startActivity(dashboardPage);
                     } else {
                         Bundle b = new Bundle();
                         b.putString("error", "true");

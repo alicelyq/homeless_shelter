@@ -22,6 +22,11 @@ public class Model {
     /** holds the list of all shelters */
     private HashMap<String, Shelter> shelters;
 
+
+    private User user;
+
+    private Shelter shelter;
+
     // add in db
     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
@@ -42,6 +47,21 @@ public class Model {
         return shelters;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Shelter getShelter() {
+        return shelter;
+    }
+
+    public void setCurrentShelter(Shelter shelter) {
+        this.shelter = shelter;
+
     public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, String available) {
 //            Shelter shelter = new Shelter();
         db.child("shelters").child(shelterId).child("name").setValue(name);
@@ -53,6 +73,7 @@ public class Model {
         db.child("shelters").child(shelterId).child("specialNotes").setValue(specialNotes);
         db.child("shelters").child(shelterId).child("phoneNum").setValue(phoneNum);
         db.child("shelters").child(shelterId).child("available").setValue(available);
+
     }
 
     @Override
