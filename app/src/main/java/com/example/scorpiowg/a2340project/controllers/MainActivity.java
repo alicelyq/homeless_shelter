@@ -59,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference DBsheltersRef = database.child("shelters");
 
+//        save for populating database
+//        for (String s: shelterinfo.keySet()) {
+//            String[] shelterVal = shelterinfo.get(s);
+//            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], 0);
+//        }
+
         DBsheltersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
