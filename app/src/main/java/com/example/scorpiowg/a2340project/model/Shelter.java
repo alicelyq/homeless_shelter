@@ -1,5 +1,7 @@
 package com.example.scorpiowg.a2340project.model;
 
+import android.util.Log;
+
 /**
  * Created by wangjingbo on 2/25/18.
  */
@@ -78,6 +80,7 @@ public class Shelter {
     }
 
     public String toString() {
+//        Log.d("nancytestparseint","test: " + getCapacity());
         return "SHELTER\nname: " + getName() + "\nID: " + getShelterId() + "\nCapacity: " + getCapacity() +
                 "\nOccupied: " + getOccupied() + "\nAvailable: " + (Integer.parseInt(getCapacity()) - getOccupied()) +
                 "\nRestriction: " + getRestriction() + "\nLongitude: " + getLongitude() + "\nLatitude: " + getLatitude() +

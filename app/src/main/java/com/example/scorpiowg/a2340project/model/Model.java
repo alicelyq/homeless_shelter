@@ -63,7 +63,7 @@ public class Model {
         this.shelter = shelter;
     }
 
-    public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, String occupied) {
+    public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, int occupied) {
 //            Shelter shelter = new Shelter();
         db.child("shelters").child(shelterId).child("name").setValue(name);
         db.child("shelters").child(shelterId).child("capacity").setValue(capacity);
