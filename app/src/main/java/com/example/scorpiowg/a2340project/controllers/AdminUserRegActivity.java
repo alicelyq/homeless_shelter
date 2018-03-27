@@ -13,6 +13,8 @@ import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Admin;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
@@ -29,6 +31,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
 
         //database hashmap
         final HashMap<String, User> database = Model.getInstance().getDatabase();
+        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
         String error = getIntent().getStringExtra("error");
@@ -90,6 +93,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
                         EditText nameinput = findViewById(R.id.input_name);
                         String username = nameinput.getText().toString();
                         database.put(userId, new Admin(username, userId, password, true));
+                        firebaseref.child("users").child("admin").setValue(database);
                         startActivity(loginPage);
                     }
                 } else {

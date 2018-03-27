@@ -77,6 +77,23 @@ public class Model {
 
     }
 
+    DatabaseReference firebaseShelterEmployee = FirebaseDatabase.getInstance().getReference().child("users").child("shelterEmployee");
+    public void addNewShelterEmployee(String name, String userId, String password, boolean accountState, String shelterId,
+                                      Shelter claim, int beds) {
+        firebaseShelterEmployee.child(userId).child("name").setValue(name);
+        firebaseShelterEmployee.child(userId).child("userId").setValue(userId);
+        firebaseShelterEmployee.child(userId).child("password").setValue(password);
+        firebaseShelterEmployee.child(userId).child("accountState").setValue(accountState);
+        firebaseShelterEmployee.child(userId).child("shelterId").setValue(shelterId);
+        firebaseShelterEmployee.child(userId).child("type").setValue("shelterEmployee");
+        if (claim != null) {
+            firebaseShelterEmployee.child(userId).child("claim").setValue(claim.getName());
+        } else {
+            firebaseShelterEmployee.child(userId).child("claim").setValue("null");
+        }
+        firebaseShelterEmployee.child(userId).child("beds").setValue(beds);
+    }
+
     @Override
     public String toString() {
         return "hello";
