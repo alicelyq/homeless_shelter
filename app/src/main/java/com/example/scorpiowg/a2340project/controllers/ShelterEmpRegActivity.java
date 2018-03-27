@@ -79,7 +79,7 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
 //                    String username = ((EditText)findViewById(R.id.input_name)).getText().toString();
                     //Log.d("debug", "here");
                     database.put(userId, new ShelterEmployee(username, userId, password, true, "1"));
-                    startActivity(loginPage);
+                    startActivity(loginPage); //NANCY add db here
                 } else {
                     //error
                     if (!password.equals(confirm) && database.containsKey(userId)) {

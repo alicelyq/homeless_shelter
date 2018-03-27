@@ -63,7 +63,7 @@ public class Model {
         this.shelter = shelter;
     }
 
-    public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, String available) {
+    public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, String occupied) {
 //            Shelter shelter = new Shelter();
         db.child("shelters").child(shelterId).child("name").setValue(name);
         db.child("shelters").child(shelterId).child("capacity").setValue(capacity);
@@ -73,7 +73,7 @@ public class Model {
         db.child("shelters").child(shelterId).child("address").setValue(address);
         db.child("shelters").child(shelterId).child("specialNotes").setValue(specialNotes);
         db.child("shelters").child(shelterId).child("phoneNum").setValue(phoneNum);
-        db.child("shelters").child(shelterId).child("available").setValue(available);
+        db.child("shelters").child(shelterId).child("occupied").setValue(occupied);
 
     }
 
