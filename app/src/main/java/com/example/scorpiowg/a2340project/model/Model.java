@@ -61,6 +61,7 @@ public class Model {
 
     public void setCurrentShelter(Shelter shelter) {
         this.shelter = shelter;
+    }
 
     public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, String available) {
 //            Shelter shelter = new Shelter();
