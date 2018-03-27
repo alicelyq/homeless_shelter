@@ -32,12 +32,8 @@ public class DashboardActivity extends AppCompatActivity {
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         TextView user = findViewById(R.id.userinfo);
-        if (getIntent().getStringExtra("userId").equals("test")) {
-            user.setText("test");
-        } else {
-            Model.getInstance().setUser((User) Model.getInstance().getDatabase().get(getIntent().getStringExtra("userId")));
-            user.setText(Model.getInstance().getDatabase().get(getIntent().getStringExtra("userId")).toString());
-        }
+        Model.getInstance().setUser((User) Model.getInstance().getDatabase().get(getIntent().getStringExtra("userId")));
+        user.setText(Model.getInstance().getDatabase().get(getIntent().getStringExtra("userId")).toString());
 
         Button releaseButton = findViewById(R.id.release);
         final Intent dashboardPage = new Intent(this, DashboardActivity.class);
@@ -48,22 +44,10 @@ public class DashboardActivity extends AppCompatActivity {
             releaseButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     myuser.setClaim(null);
-//                    int releaseNum = myuser.getBeds();
-                    int releaseNum = 3; // Jingbo need to change!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-//                    database.child("shelters").child(myshelter.getShelterId()).child("occupied").addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            String curoccupied = dataSnapshot.getValue(String.class);
-//                            myshelter.setOccupied(curoccupied);
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) { }
-//                    });
+                    int releaseNum = myuser.getBeds();
 
                     //update firebase with new occupied value
-                    String newOcc = Integer.toString(Integer.parseInt(myshelter.getOccupied()) - releaseNum);
+                    int newOcc = myshelter.getOccupied() - releaseNum;
                     database.child("shelters").child(myshelter.getShelterId()).child("occupied").setValue(newOcc);
                     myshelter.setOccupied(newOcc);
 
