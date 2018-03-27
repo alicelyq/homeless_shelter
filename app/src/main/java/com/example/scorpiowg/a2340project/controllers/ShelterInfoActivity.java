@@ -3,6 +3,7 @@ package com.example.scorpiowg.a2340project.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
@@ -24,11 +25,15 @@ public class ShelterInfoActivity extends AppCompatActivity {
         setContentView(R.layout.shelter_info);
 
         if (getIntent().getStringExtra("claim") != null) {
+            Log.d("debug", "successfully detect claim");
             if (Model.getInstance().getUser().getClaim() != null) {
                 TextView error = findViewById(R.id.error);
                 error.setVisibility(View.VISIBLE);
             }
             if (Model.getInstance().getUser().getClaim() == null) {
+                Log.d("debug", "successful claim");
+                Model.getInstance().getUser().setClaim(Model.getInstance().getShelter());
+                //Model.getInstance().getUser().setBeds(Integer.parseInt(getIntent().getStringExtra("claim").toString()));
                 TextView success = findViewById(R.id.success);
                 success.setVisibility(View.VISIBLE);
             }
@@ -46,9 +51,12 @@ public class ShelterInfoActivity extends AppCompatActivity {
 
         final Intent claimBedspace = new Intent(this, ShelterInfoActivity.class);
         Button claim = findViewById(R.id.claim);
+        TextView beds = findViewById(R.id.beds);
+        final String bedNum = beds.getText().toString();
         claim.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                claimBedspace.putExtra("claim", 1);
+                Log.d("debug", "claim");
+                claimBedspace.putExtra("claim", bedNum);
                 startActivity(claimBedspace);
             }
         });
