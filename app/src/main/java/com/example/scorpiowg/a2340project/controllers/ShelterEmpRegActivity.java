@@ -81,12 +81,11 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                 if (password.equals(confirm) && !database.containsKey(userId)) {
                     //success
 //                    String username = ((EditText)findViewById(R.id.input_name)).getText().toString();
-                    //Log.d("debug", "here");
                     User myuser = new ShelterEmployee(username, userId, password, true, "1");
                     database.put(userId, myuser);
                     Model.getInstance().addNewShelterEmployee(username, userId, password, true, "1",
                                                                 myuser.getClaim(), myuser.getBeds());
-                    startActivity(loginPage); //NANCY add db here
+                    startActivity(loginPage);
                 } else {
                     //error
                     if (!password.equals(confirm) && database.containsKey(userId)) {

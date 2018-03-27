@@ -92,8 +92,9 @@ public class AdminUserRegActivity extends AppCompatActivity {
                         //success
                         EditText nameinput = findViewById(R.id.input_name);
                         String username = nameinput.getText().toString();
-                        database.put(userId, new Admin(username, userId, password, true));
-                        firebaseref.child("users").child("admin").setValue(database);
+                        User myuser = new Admin(username, userId, password, true);
+                        database.put(userId, myuser);
+                        Model.getInstance().addNewAdmin(username, userId, password, true, myuser.getClaim(), myuser.getBeds());
                         startActivity(loginPage);
                     }
                 } else {

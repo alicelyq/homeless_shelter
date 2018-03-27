@@ -102,8 +102,10 @@ public class HomelessUserRegActivity extends AppCompatActivity {
                         isFamily = false;
                     }
                     boolean isVeteran = Boolean.valueOf(veteranSpinner.getSelectedItem().toString());
-                    database.put(userId, new Homeless(username, userId, password, true, govId, gender, isVeteran, isFamily, familyNum, age));
-                    firebaseref.child("users").child("homeless").setValue(database);
+                    User myuser = new Homeless(username, userId, password, true, govId, gender, isVeteran, isFamily, familyNum, age);
+                    database.put(userId, myuser);
+                    Model.getInstance().addNewHomeles(username, userId, password, true, govId, gender, isVeteran,
+                                                        isFamily, familyNum, age, myuser.getClaim(), myuser.getBeds());
                     startActivity(loginPage);
                 } else {
                     if (!password.equals(confirm) && database.containsKey(userId)) {
