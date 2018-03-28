@@ -32,6 +32,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
 
         //database hashmap
         final HashMap<String, User> database = Model.getInstance().getDatabase();
+        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
         String error = getIntent().getStringExtra("error");
@@ -99,6 +100,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
                         realDB.child("users").child(userId).child("claim").setValue(curUser.getClaim());
                         realDB.child("users").child(userId).child("beds").setValue(curUser.getBeds());
                         realDB.child("users").child(userId).child("type").setValue("Admin");
+                     
                         startActivity(loginPage);
                     }
                 } else {

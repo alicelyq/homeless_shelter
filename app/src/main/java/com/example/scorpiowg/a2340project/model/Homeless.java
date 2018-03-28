@@ -14,7 +14,8 @@ public class Homeless extends User {
     private int familyNum;
     private int age;
 
-    public Homeless(String name, String userId, String password, boolean accountState, String govId, String gender, boolean isVeteran, boolean isFamily, int familyNum, int age) {
+    public Homeless(String name, String userId, String password, boolean accountState, String govId,
+                    String gender, boolean isVeteran, boolean isFamily, int familyNum, int age) {
         super(name, userId, password, accountState, "homeless");
         this.govId = govId;
         this.gender = gender;
