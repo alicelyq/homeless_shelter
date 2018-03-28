@@ -13,6 +13,8 @@ import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.ShelterEmployee;
 import com.example.scorpiowg.a2340project.model.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
@@ -76,10 +78,14 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
                     //success
-//                    String username = ((EditText)findViewById(R.id.input_name)).getText().toString();
-                    //Log.d("debug", "here");
-                    database.put(userId, new ShelterEmployee(username, userId, password, true, "1"));
-                    startActivity(loginPage); //NANCY add db here
+                    User curUser = new ShelterEmployee(username, userId, password, true, "1");
+                    database.put(userId, curUser);
+                    DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
+                    realDB.child("users").child(userId).setValue(curUser);
+                    realDB.child("users").child(userId).child("claim").setValue(curUser.getClaim());
+                    realDB.child("users").child(userId).child("beds").setValue(curUser.getBeds());
+                    realDB.child("users").child(userId).child("type").setValue("ShelterEmployee");
+                    startActivity(loginPage);
                 } else {
                     //error
                     if (!password.equals(confirm) && database.containsKey(userId)) {

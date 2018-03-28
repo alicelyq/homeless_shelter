@@ -12,13 +12,8 @@ import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.Shelter;
 import com.example.scorpiowg.a2340project.model.User;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.Map;
 
 /**
  * Created by wangjingbo on 3/3/18.
@@ -29,60 +24,59 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
 
+        /** display user info */
+        TextView user = findViewById(R.id.userinfo);
+        user.setText(Model.getInstance().getUser().toString());
+        /** button */
+        Button releaseButton = findViewById(R.id.release);
+        Button shelter = findViewById(R.id.search);
+
+        /** intents */
+        final Intent dashboardPage = new Intent(this, DashboardActivity.class);
+        final Intent shelterPage = new Intent(this, ShelterListActivity.class);
+
+        /** real database */
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
-        TextView user = findViewById(R.id.userinfo);
-        Model.getInstance().setUser((User) Model.getInstance().getDatabase().get(getIntent().getStringExtra("userId")));
-        user.setText(Model.getInstance().getDatabase().get(getIntent().getStringExtra("userId")).toString());
-
-        Button releaseButton = findViewById(R.id.release);
-        final Intent dashboardPage = new Intent(this, DashboardActivity.class);
+        /** current state */
         final User myuser = Model.getInstance().getUser();
         final Shelter myshelter = myuser.getClaim();
+
+        /** check if current user has shelter booked */
         if (myshelter != null) {
+            /** add a release button to release his booking */
             releaseButton.setVisibility(View.VISIBLE);
             releaseButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    myuser.setClaim(null);
-                    int releaseNum = myuser.getBeds();
-
-                    //update firebase with new occupied value
-                    int newOcc = myshelter.getOccupied() - releaseNum;
+                    int newOcc = myshelter.getOccupied() - myuser.getBeds();
+                    /** update shelter side info
+                     *  1. change occupied number on database
+                     *  2. change occupied number locally
+                     * */
                     database.child("shelters").child(myshelter.getShelterId()).child("occupied").setValue(newOcc);
                     myshelter.setOccupied(newOcc);
 
-                    //reload dashboard
-                    dashboardPage.putExtra("userId", getIntent().getStringExtra("userId").toString());
+                    /** update user side info
+                     *  1. change booking status on database
+                     *  2. change booking status locally
+                     * */
+                    database.child("users").child(myuser.getUserId()).child("claim").setValue(null);
+                    myuser.setClaim(null);
+
+                    /** reload dashboard */
                     startActivity(dashboardPage);
                 }
             });
         }
 
-        Button shelter = findViewById(R.id.search);
-        final Intent shelterPage = new Intent(this, ShelterListActivity.class);
+        /** go to shelter search page */
         shelter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shelterPage.putExtra("userId", getIntent().getStringExtra("userId").toString());
                 shelterPage.putExtra("filter", "0");
                 startActivity(shelterPage);
-                Log.d("debug", "to shelter list");
+                Log.d("process", "click search");
             }
         });
 
     }
 }
-
-
-//note: get current available through firebase
-/*
-database.child("shelters").child(myshelter.getShelterId()).child("occupied").addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-                String curoccupied = dataSnapshot.getValue(String.class);
-                myshelter.setOccupied(curoccupied);
-                }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) { }
-  });
-*/

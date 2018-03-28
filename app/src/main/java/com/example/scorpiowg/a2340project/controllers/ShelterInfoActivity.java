@@ -34,7 +34,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
 
         // check for bed claiming
         if (getIntent().getStringExtra("claim") != null) {
-            Log.d("debug", "successfully detect claim");
+            Log.d("process", "claim clicked");
             if (Model.getInstance().getUser().getClaim() != null) {
                 TextView error = findViewById(R.id.error);
                 error.setVisibility(View.VISIBLE);
@@ -42,23 +42,23 @@ public class ShelterInfoActivity extends AppCompatActivity {
                 TextView limit = findViewById(R.id.limit);
                 limit.setVisibility(View.VISIBLE);
             } else {
-                Log.d("debug", "successful claim");
+                Log.d("process", "successful claim");
                 Model.getInstance().getUser().setClaim(Model.getInstance().getShelter());
                 Model.getInstance().getUser().setBeds(Integer.parseInt(getIntent().getStringExtra("claim").toString()));
-                Log.d("debug", "this user claimed shelter " + Model.getInstance().getUser().getClaim().toString());
-                Log.d("debug", "this user claimed " + Integer.toString(Model.getInstance().getUser().getBeds()) + "bedspaces");
+                Log.d("process", "this user claimed shelter " + Model.getInstance().getUser().getClaim().toString());
+                Log.d("process", "this user claimed " + Integer.toString(Model.getInstance().getUser().getBeds()) + "bedspaces");
                 TextView success = findViewById(R.id.success);
                 success.setVisibility(View.VISIBLE);
 
+                //update firebase
                 final Shelter myshelter = Model.getInstance().getShelter();
-
-                //update firebase with new occupied value
                 int claimed = Integer.parseInt(getIntent().getStringExtra("claim"));
-//                String newOcc = Integer.toString(Integer.parseInt(myshelter.getOccupied()) + Integer.parseInt(claimed));
-                Log.d("debug", "updating database");
                 int newOcc = Model.getInstance().getShelter().getOccupied() + claimed;
-                database.child("shelters").child(myshelter.getShelterId()).child("occupied").setValue(newOcc);
                 myshelter.setOccupied(newOcc);
+                Log.d("process", "updating database");
+                database.child("shelters").child(myshelter.getShelterId()).child("occupied").setValue(newOcc);
+                database.child("users").child(Model.getInstance().getUser().getUserId()).child("claim").setValue(myshelter);
+                database.child("users").child(Model.getInstance().getUser().getUserId()).child("beds").setValue(newOcc);
             }
         }
 

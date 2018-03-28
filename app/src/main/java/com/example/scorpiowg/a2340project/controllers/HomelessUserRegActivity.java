@@ -12,9 +12,12 @@ import android.widget.TextView;
 import android.widget.Spinner;
 
 import com.example.scorpiowg.a2340project.R;
+import com.example.scorpiowg.a2340project.model.Admin;
 import com.example.scorpiowg.a2340project.model.Homeless;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
@@ -86,20 +89,27 @@ public class HomelessUserRegActivity extends AppCompatActivity {
                 String userId = userinput.getText().toString();
                 String password = passinput.getText().toString();
                 String confirm = confinput.getText().toString();
+                String username = ((EditText)findViewById(R.id.input_name)).getText().toString();
+                String govId = ((EditText)findViewById(R.id.govid)).getText().toString();
+                String gender = genderSpinner.getSelectedItem().toString();
+                int age = Integer.parseInt(((EditText)findViewById(R.id.age)).getText().toString());
+                int familyNum = Integer.parseInt(((EditText)findViewById(R.id.familynum)).getText().toString());
+                boolean isFamily = true;
+                if (familyNum <= 1) {
+                    isFamily = false;
+                }
+                boolean isVeteran = Boolean.valueOf(veteranSpinner.getSelectedItem().toString());
 
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
-                    String username = ((EditText)findViewById(R.id.input_name)).getText().toString();
-                    String govId = ((EditText)findViewById(R.id.govid)).getText().toString();
-                    String gender = genderSpinner.getSelectedItem().toString();
-                    int age = Integer.parseInt(((EditText)findViewById(R.id.age)).getText().toString());
-                    int familyNum = Integer.parseInt(((EditText)findViewById(R.id.familynum)).getText().toString());
-                    boolean isFamily = true;
-                    if (familyNum <= 1) {
-                        isFamily = false;
-                    }
-                    boolean isVeteran = Boolean.valueOf(veteranSpinner.getSelectedItem().toString());
-                    database.put(userId, new Homeless(username, userId, password, true, govId, gender, isVeteran, isFamily, familyNum, age));
+                    // success
+                    User curUser = new Homeless(username, userId, password, true, govId, gender, isVeteran, isFamily, familyNum, age);
+                    database.put(userId, curUser);
+                    DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
+                    realDB.child("users").child(userId).setValue(curUser);
+                    realDB.child("users").child(userId).child("claim").setValue(curUser.getClaim());
+                    realDB.child("users").child(userId).child("beds").setValue(curUser.getBeds());
+                    realDB.child("users").child(userId).child("type").setValue("Homeless");
                     startActivity(loginPage);
                 } else {
                     if (!password.equals(confirm) && database.containsKey(userId)) {

@@ -1,18 +1,20 @@
 package com.example.scorpiowg.a2340project.controllers;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.scorpiowg.a2340project.R;
+import com.example.scorpiowg.a2340project.model.Admin;
 import com.example.scorpiowg.a2340project.model.CSVFile;
+import com.example.scorpiowg.a2340project.model.Homeless;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.Shelter;
+import com.example.scorpiowg.a2340project.model.ShelterEmployee;
+import com.example.scorpiowg.a2340project.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,49 +32,43 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // two options:login and registration
+        /** buttons */
         Button login = findViewById(R.id.login);
         Button registration = findViewById(R.id.registration);
 
-        // next actions after button clicked
+
+        /** intents */
         final Intent loginPage = new Intent(this, LoginActivity.class);
         final Intent registerPage = new Intent(this, RegUserTypeActivity.class);
 
-//        DatabaseReference nancytestdb = FirebaseDatabase.getInstance().getReference();
-
-        //read csv file
+        /** read csv file, put initial shelters in local device */
         InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_db);
         CSVFile shelterFile = new CSVFile(inputStream);
         Map<String, String[]> shelterinfo = shelterFile.read();
 
-
         HashMap<String, Shelter> newPair = new HashMap<>();
         for (String s: shelterinfo.keySet()) {
-            Log.d("debug", s);
             String[] shelterVal = shelterinfo.get(s);
             Shelter newShelter = new Shelter(s,shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7]);
             newPair.put(s, newShelter);
         }
         Model.getInstance().setShelters(newPair);
 
+        /** uncomment when refreshing database */
+//        refreshDatabase(shelterinfo);
+
+        /** shelters from database to local device */
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference DBsheltersRef = database.child("shelters");
-
-//        save for populating database
-//        for (String s: shelterinfo.keySet()) {
-//            String[] shelterVal = shelterinfo.get(s);
-//            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], 0);
-//        }
-
         DBsheltersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("debug" ,"calls database data");
+                Log.d("process" ,"Gets Database Shelter Data");
                 HashMap<String, Shelter> shelters = Model.getInstance().getShelters();
                 for (String s: shelters.keySet()) {
                     int occupied = dataSnapshot.child(shelters.get(s).getShelterId()).child("occupied").getValue(Integer.class);
                     shelters.get(s).setOccupied(occupied);
-                    Log.d("debug", s + ": " + shelters.get(s).getOccupied());
+                    Log.d("process", "Shelter ID: " + s + ": " + "Occupied: " + shelters.get(s).getOccupied());
                 }
             }
 
@@ -81,22 +76,75 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) { }
         });
 
+        /** users from database to local device */
+        final DatabaseReference DBusersRef = database.child("users");
+        DBusersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("process" ,"Gets Database User Data");
+                HashMap localUsers = Model.getInstance().getDatabase();
+                for (DataSnapshot user: dataSnapshot.getChildren()) {
+                    User curUser = null;
+                    if (user.child("type").getValue(String.class).equals("ShelterEmployee")) {
+                        curUser = new ShelterEmployee(user.child("name").getValue(String.class)
+                                , user.child("userId").getValue(String.class)
+                                , user.child("password").getValue(String.class)
+                                , user.child("accountState").getValue(boolean.class)
+                                , user.child("shelterId").getValue(String.class));
+                    } else if (user.child("type").getValue(String.class).equals("Admin")) {
+                        curUser = new Admin(user.child("name").getValue(String.class)
+                                , user.child("userId").getValue(String.class)
+                                , user.child("password").getValue(String.class)
+                                , user.child("accountState").getValue(boolean.class));
+                    } else {
+                        curUser = new Homeless(user.child("name").getValue(String.class)
+                                , user.child("userId").getValue(String.class)
+                                , user.child("password").getValue(String.class)
+                                , user.child("accountState").getValue(boolean.class)
+                                , user.child("govId").getValue(String.class)
+                                , user.child("gender").getValue(String.class)
+                                , user.child("isVeteran").getValue(boolean.class)
+                                , user.child("isFamily").getValue(boolean.class)
+                                , user.child("familyNum").getValue(int.class)
+                                , user.child("age").getValue(int.class));
+                    }
+                    if (curUser == null) {
+                        Log.d("debug", "type name might be wrong");
+                    } else {
+                        curUser.setBeds(user.child("beds").getValue(int.class));
+                        curUser.setClaim(user.child("claim").getValue(Shelter.class));
+                        localUsers.put(curUser.getUserId(), curUser);
+                    }
+                    Log.d("process", "User ID: " + curUser.getUserId());
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+
+        /** button functions */
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                Log.d("debug", "login button");
+                Log.d("process", "click login button");
                 startActivity(loginPage);
             }
         });
 
         registration.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                Log.d("debug", "register button");
+                Log.d("process", "click register button");
                 startActivity(registerPage);
             }
         });
-
     }
+
+    /** refresh database */
+    private void refreshDatabase(Map<String, String[]> shelterinfo) {
+        for (String s: shelterinfo.keySet()) {
+            String[] shelterVal = shelterinfo.get(s);
+            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], 0);
+        }
+    }
+
 }
