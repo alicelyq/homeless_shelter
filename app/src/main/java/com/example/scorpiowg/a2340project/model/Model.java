@@ -88,7 +88,7 @@ public class Model {
         firebaseUsers.child(userId).child("shelterId").setValue(shelterId);
         firebaseUsers.child(userId).child("type").setValue("shelterEmployee");
         if (claim != null) {
-            firebaseUsers.child(userId).child("claim").setValue(claim.getName());
+            firebaseUsers.child(userId).child("claim").setValue(claim.getShelterId());
         } else {
             firebaseUsers.child(userId).child("claim").setValue("null");
         }
@@ -103,7 +103,7 @@ public class Model {
         firebaseUsers.child(userId).child("accountState").setValue(accountState);
         firebaseUsers.child(userId).child("type").setValue("admin");
         if (claim != null) {
-            firebaseUsers.child(userId).child("claim").setValue(claim.getName());
+            firebaseUsers.child(userId).child("claim").setValue(claim.getShelterId());
         } else {
             firebaseUsers.child(userId).child("claim").setValue("null");
         }
@@ -125,7 +125,7 @@ public class Model {
         firebaseUsers.child(userId).child("age").setValue(age);
         firebaseUsers.child(userId).child("type").setValue("homeless");
         if (claim != null) {
-            firebaseUsers.child(userId).child("claim").setValue(claim.getName());
+            firebaseUsers.child(userId).child("claim").setValue(claim.getShelterId());
         } else {
             firebaseUsers.child(userId).child("claim").setValue("null");
         }

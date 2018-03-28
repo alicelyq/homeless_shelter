@@ -10,9 +10,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.scorpiowg.a2340project.R;
+import com.example.scorpiowg.a2340project.model.Admin;
 import com.example.scorpiowg.a2340project.model.CSVFile;
+import com.example.scorpiowg.a2340project.model.Homeless;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.Shelter;
+import com.example.scorpiowg.a2340project.model.ShelterEmployee;
 import com.example.scorpiowg.a2340project.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,15 +60,15 @@ public class MainActivity extends AppCompatActivity {
         }
         Model.getInstance().setShelters(newPair);
 
-        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        final DatabaseReference firebaseSheltersRef = database.child("shelters");
-        final DatabaseReference firebaseUsersRef = database.child("users");
+        final DatabaseReference firebase = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference firebaseSheltersRef = firebase.child("shelters");
+        final DatabaseReference firebaseUsersRef = firebase.child("users");
 
 //        save for populating database
-//        for (String s: shelterinfo.keySet()) {
-//            String[] shelterVal = shelterinfo.get(s);
-//            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], 0);
-//        }
+        for (String s: shelterinfo.keySet()) {
+            String[] shelterVal = shelterinfo.get(s);
+            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], 0);
+        }
 
         firebaseSheltersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -83,21 +86,55 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) { }
         });
 
-//        firebaseUsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Log.d("debug" ,"calls database data");
-//                HashMap<String, User> users = Model.getInstance().getDatabase();
-//                for (String s: users.keySet()) {
-//                    String = dataSnapshot.child(s).getValue();
-//                    shelters.get(s).setOccupied(occupied);
-//                    Log.d("debug", s + ": " + shelters.get(s).getOccupied());
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) { }
-//        });
+        firebaseUsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        Log.d("testloademp",userSnapshot.child("name").getValue(String.class));
+                        String name = userSnapshot.child("name").getValue(String.class);
+                        String userId = userSnapshot.child("userId").getValue(String.class);
+                        String password = userSnapshot.child("password").getValue(String.class);
+                        boolean accountState = userSnapshot.child("accountState").getValue(boolean.class);
+                        String claimid = userSnapshot.child("claim").getValue(String.class);
+                        Shelter claim = (Shelter)Model.getInstance().getShelters().get(claimid);
+                        int beds = userSnapshot.child("beds").getValue(int.class);
+
+                        if (((String)(userSnapshot.child("type").getValue())).equals("shelterEmployee")) {
+                            String shelterId = userSnapshot.child("shelterId").getValue(String.class);
+                            User myuser = new ShelterEmployee(name, userId, password, accountState, shelterId);
+                            myuser.setClaim(claim);
+                            myuser.setBeds(beds);
+                            Model.getInstance().getDatabase().put(userId, myuser);
+
+                        } else if (((String)(userSnapshot.child("type").getValue())).equals("admin")) {
+                            User myuser = new Admin(name, userId, password, accountState);
+                            myuser.setClaim(claim);
+                            myuser.setBeds(beds);
+                            Model.getInstance().getDatabase().put(userId, myuser);
+
+                        } else if (((String)(userSnapshot.child("type").getValue())).equals("homeless")) {
+                            String govId = userSnapshot.child("govId").getValue(String.class);
+                            String gender = userSnapshot.child("gener").getValue(String.class);
+                            boolean isVeteran = userSnapshot.child("isVeteran").getValue(boolean.class);
+                            boolean isFamily = userSnapshot.child("isFamily").getValue(boolean.class);
+                            int familyNum = userSnapshot.child("familyNum").getValue(int.class);
+                            int age = userSnapshot.child("age").getValue(int.class);
+
+                            User myuser = new Homeless(name, userId, password, accountState, govId,
+                                                    gender, isVeteran, isFamily, familyNum, age);
+                            myuser.setClaim(claim);
+                            myuser.setBeds(beds);
+                            Model.getInstance().getDatabase().put(userId, myuser);
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
 
 
         login.setOnClickListener(new View.OnClickListener() {
