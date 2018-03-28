@@ -80,11 +80,15 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
                     //success
-//                    String username = ((EditText)findViewById(R.id.input_name)).getText().toString();
-                    User myuser = new ShelterEmployee(username, userId, password, true, "1");
-                    database.put(userId, myuser);
-                    Model.getInstance().addNewShelterEmployee(username, userId, password, true, "1",
-                                                                myuser.getClaim(), myuser.getBeds());
+
+                    User curUser = new ShelterEmployee(username, userId, password, true, "1");
+                    database.put(userId, curUser);
+                    DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
+                    realDB.child("users").child(userId).setValue(curUser);
+                    realDB.child("users").child(userId).child("claim").setValue(curUser.getClaim());
+                    realDB.child("users").child(userId).child("beds").setValue(curUser.getBeds());
+                    realDB.child("users").child(userId).child("type").setValue("ShelterEmployee");
+                  
                     startActivity(loginPage);
                 } else {
                     //error

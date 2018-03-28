@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Admin;
 import com.example.scorpiowg.a2340project.model.Model;
+import com.example.scorpiowg.a2340project.model.ShelterEmployee;
 import com.example.scorpiowg.a2340project.model.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -82,6 +83,8 @@ public class AdminUserRegActivity extends AppCompatActivity {
 
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
+                    EditText nameinput = findViewById(R.id.input_name);
+                    String username = nameinput.getText().toString();
                     //code check only if all other conditions passed
                     if (!admincode.equals("code")) {
                         Bundle b = new Bundle();
@@ -90,11 +93,14 @@ public class AdminUserRegActivity extends AppCompatActivity {
                         startActivity(registerPage);
                     } else {
                         //success
-                        EditText nameinput = findViewById(R.id.input_name);
-                        String username = nameinput.getText().toString();
-                        User myuser = new Admin(username, userId, password, true);
-                        database.put(userId, myuser);
-                        Model.getInstance().addNewAdmin(username, userId, password, true, myuser.getClaim(), myuser.getBeds());
+                        User curUser = new Admin(username, userId, password, true);
+                        database.put(userId, curUser);
+                        DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
+                        realDB.child("users").child(userId).setValue(curUser);
+                        realDB.child("users").child(userId).child("claim").setValue(curUser.getClaim());
+                        realDB.child("users").child(userId).child("beds").setValue(curUser.getBeds());
+                        realDB.child("users").child(userId).child("type").setValue("Admin");
+                     
                         startActivity(loginPage);
                     }
                 } else {
