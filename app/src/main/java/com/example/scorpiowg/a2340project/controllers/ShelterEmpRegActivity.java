@@ -13,8 +13,11 @@ import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.ShelterEmployee;
 import com.example.scorpiowg.a2340project.model.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by nancy on 2/17/18.
@@ -29,6 +32,7 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
 
         //database hashmap
         final HashMap<String, User> database = Model.getInstance().getDatabase();
+        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
         String error = getIntent().getStringExtra("error");
@@ -77,9 +81,11 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                 if (password.equals(confirm) && !database.containsKey(userId)) {
                     //success
 //                    String username = ((EditText)findViewById(R.id.input_name)).getText().toString();
-                    //Log.d("debug", "here");
-                    database.put(userId, new ShelterEmployee(username, userId, password, true, "1"));
-                    startActivity(loginPage); //NANCY add db here
+                    User myuser = new ShelterEmployee(username, userId, password, true, "1");
+                    database.put(userId, myuser);
+                    Model.getInstance().addNewShelterEmployee(username, userId, password, true, "1",
+                                                                myuser.getClaim(), myuser.getBeds());
+                    startActivity(loginPage);
                 } else {
                     //error
                     if (!password.equals(confirm) && database.containsKey(userId)) {

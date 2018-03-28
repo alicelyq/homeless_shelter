@@ -15,6 +15,8 @@ import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Homeless;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
@@ -44,6 +46,7 @@ public class HomelessUserRegActivity extends AppCompatActivity {
 
         //database hashmap
         final HashMap<String, User> database = Model.getInstance().getDatabase();
+        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
         String error = getIntent().getStringExtra("error");
@@ -99,7 +102,10 @@ public class HomelessUserRegActivity extends AppCompatActivity {
                         isFamily = false;
                     }
                     boolean isVeteran = Boolean.valueOf(veteranSpinner.getSelectedItem().toString());
-                    database.put(userId, new Homeless(username, userId, password, true, govId, gender, isVeteran, isFamily, familyNum, age));
+                    User myuser = new Homeless(username, userId, password, true, govId, gender, isVeteran, isFamily, familyNum, age);
+                    database.put(userId, myuser);
+                    Model.getInstance().addNewHomeles(username, userId, password, true, govId, gender, isVeteran,
+                                                        isFamily, familyNum, age, myuser.getClaim(), myuser.getBeds());
                     startActivity(loginPage);
                 } else {
                     if (!password.equals(confirm) && database.containsKey(userId)) {
