@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Model.getInstance().setShelters(newPair);
 
+
         /** uncomment when refreshing database */
 //        refreshDatabase(shelterinfo);
 

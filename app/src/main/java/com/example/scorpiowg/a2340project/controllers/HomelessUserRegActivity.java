@@ -47,6 +47,7 @@ public class HomelessUserRegActivity extends AppCompatActivity {
 
         //database hashmap
         final HashMap<String, User> database = Model.getInstance().getDatabase();
+        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
         String error = getIntent().getStringExtra("error");
