@@ -30,10 +30,12 @@ public class DashboardActivity extends AppCompatActivity {
         /** button */
         Button releaseButton = findViewById(R.id.release);
         Button shelter = findViewById(R.id.search);
+        Button map = findViewById(R.id.map);
 
         /** intents */
         final Intent dashboardPage = new Intent(this, DashboardActivity.class);
         final Intent shelterPage = new Intent(this, ShelterListActivity.class);
+        final Intent mapPage = new Intent(this, MapActivity.class);
 
         /** real database */
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -75,6 +77,14 @@ public class DashboardActivity extends AppCompatActivity {
                 shelterPage.putExtra("filter", "0");
                 startActivity(shelterPage);
                 Log.d("process", "click search");
+            }
+        });
+
+        /** go to map page */
+        map.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(mapPage);
+                Log.d("process", "click map");
             }
         });
 
