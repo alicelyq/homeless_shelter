@@ -22,6 +22,10 @@ public class Model {
     /** holds the list of all shelters */
     private HashMap<String, Shelter> shelters;
 
+    /** holds the list of shelters after filtering */
+    private ArrayList<Shelter> currentShelterList;
+
+
 
     private User user;
 
@@ -36,6 +40,27 @@ public class Model {
     private Model() {
         database = new HashMap<>();
         shelters = new HashMap<>();
+    }
+
+    public ArrayList<Shelter> getCurrentShelterList() {
+        if (currentShelterList == null) {
+            currentShelterList = new ArrayList<>();
+        }
+        return currentShelterList;
+    }
+
+    public void addCurrentShelter(Shelter s) {
+        if (currentShelterList == null) {
+            currentShelterList = new ArrayList<>();
+        }
+        currentShelterList.add(s);
+    }
+
+    public void clearCurrentShelterList() {
+        if (currentShelterList == null) {
+            currentShelterList = new ArrayList<>();
+        }
+        currentShelterList.clear();
     }
 
     public HashMap getDatabase() {
