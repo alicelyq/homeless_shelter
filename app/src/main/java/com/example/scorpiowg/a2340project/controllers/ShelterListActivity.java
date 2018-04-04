@@ -3,6 +3,7 @@ package com.example.scorpiowg.a2340project.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.Shelter;
+
+import java.util.ArrayList;
 
 
 /**
@@ -28,17 +31,20 @@ public class ShelterListActivity extends AppCompatActivity {
         Button filter = findViewById(R.id.filter);
         Button back = findViewById(R.id.back);
         Button clear = findViewById(R.id.clear);
+        Button map = findViewById(R.id.map);
 
         /** intents */
         final Intent filterPage = new Intent(this, FilterActivity.class);
         final Intent dashboardPage = new Intent(this, DashboardActivity.class);
         final Intent currentPage = new Intent(this, ShelterListActivity.class);
         final Intent shelterInfo = new Intent(this, ShelterInfoActivity.class);
+        final Intent mapPage = new Intent(this, MapActivity.class);
 
         /** for filtering purposes */
         String gender = "";
         String ageRange = "";
         String shelterName = "";
+        Model.getInstance().clearCurrentShelterList();
 
         /** if filter is used */
         if (getIntent().getStringExtra("filter").equals("1")) {
@@ -73,6 +79,14 @@ public class ShelterListActivity extends AppCompatActivity {
             }
         });
 
+        /** map button function */
+        map.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(mapPage);
+                Log.d("process", "click map");
+            }
+        });
+
         /** set view: user info */
         TextView user = findViewById(R.id.user);
         user.setText(Model.getInstance().getUser().toString());
@@ -83,6 +97,7 @@ public class ShelterListActivity extends AppCompatActivity {
         /** iterate over shelters and put each into view as button */
         for (Object key : Model.getInstance().getShelters().keySet()) {
             if (checkFilter((String)key, gender, ageRange, shelterName)) {
+                Model.getInstance().addCurrentShelter((Shelter) Model.getInstance().getShelters().get(key));
                 final String id = (String) key;
                 final Button shelter = new Button(this);
                 LinearLayout.LayoutParams shelterListParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -122,7 +137,7 @@ public class ShelterListActivity extends AppCompatActivity {
         if (gender.equals("Any")) {
             genderCheck = true;
         } else {
-            if (constraint.toLowerCase().indexOf(gender.toLowerCase()) != -1) {
+            if (constraint.indexOf(gender) != -1) {
                 genderCheck = true;
             }
         }
@@ -144,12 +159,13 @@ public class ShelterListActivity extends AppCompatActivity {
             ageRangeCheck = true;
         }
 
+        Log.d("debug", "shelterNameCheck always set to true1");
         /** shelter name check */
         if (((Shelter)Model.getInstance().getShelters().get(key)).getName().toLowerCase().indexOf(sheltername.toLowerCase()) != -1) {
             shelterNameCheck = true;
         }
 
-        return (genderCheck && ageRangeCheck) || shelterNameCheck;
+        return genderCheck && ageRangeCheck && shelterNameCheck;
     }
 }
 

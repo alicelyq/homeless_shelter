@@ -21,7 +21,6 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter);
 
-        Log.d("debug", "here");
         final String genderFilter = "";
         final String ageRangeFilter = "";
         final String shelterNameFilter = "";

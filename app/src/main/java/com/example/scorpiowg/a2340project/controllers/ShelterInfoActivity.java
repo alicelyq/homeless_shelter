@@ -96,5 +96,14 @@ public class ShelterInfoActivity extends AppCompatActivity {
                 startActivity(dashboardPage);
             }
         });
+
+        Button toList = findViewById(R.id.backToList);
+        final Intent shelterListPage = new Intent(this, ShelterListActivity.class);
+        toList.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shelterListPage.putExtra("filter", "0");
+                startActivity(shelterListPage);
+            }
+        });
     }
 }

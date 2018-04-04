@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.scorpiowg.a2340project.R;
@@ -30,7 +31,6 @@ public class DashboardActivity extends AppCompatActivity {
         /** button */
         Button releaseButton = findViewById(R.id.release);
         Button shelter = findViewById(R.id.search);
-        Button map = findViewById(R.id.map);
 
         /** intents */
         final Intent dashboardPage = new Intent(this, DashboardActivity.class);
@@ -79,14 +79,5 @@ public class DashboardActivity extends AppCompatActivity {
                 Log.d("process", "click search");
             }
         });
-
-        /** go to map page */
-        map.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(mapPage);
-                Log.d("process", "click map");
-            }
-        });
-
     }
 }
