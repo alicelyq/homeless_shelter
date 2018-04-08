@@ -29,27 +29,28 @@ public class ShelterListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shelter_list);
 
-        /** buttons */
+        // buttons
         Button filter = findViewById(R.id.filter);
         Button back = findViewById(R.id.back);
         Button clear = findViewById(R.id.clear);
         Button map = findViewById(R.id.map);
 
-        /** intents */
+        // intents
         final Intent filterPage = new Intent(this, FilterActivity.class);
         final Intent dashboardPage = new Intent(this, DashboardActivity.class);
         final Intent currentPage = new Intent(this, ShelterListActivity.class);
         final Intent shelterInfo = new Intent(this, ShelterInfoActivity.class);
         final Intent mapPage = new Intent(this, MapActivity.class);
 
-        /** for filtering purposes */
+        // for filtering purposes
         String gender = "";
         String ageRange = "";
         String shelterName = "";
         //noinspection ChainedMethodCall
         Model.getInstance().clearCurrentShelterList();
 
-        /** if filter is used */
+
+        // if filter is used
         //noinspection ChainedMethodCall,ChainedMethodCall
         if ("1".equals(getIntent().getStringExtra("filter"))) {
             //noinspection ChainedMethodCall
@@ -60,7 +61,7 @@ public class ShelterListActivity extends AppCompatActivity {
             shelterName = getIntent().getStringExtra("shelterName");
         }
 
-        /** filter button function */
+        // filter button function
         filter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //noinspection ChainedMethodCall,ChainedMethodCall
@@ -70,7 +71,7 @@ public class ShelterListActivity extends AppCompatActivity {
             }
         });
 
-        /** back button function */
+        // back button function
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(dashboardPage);
@@ -78,7 +79,7 @@ public class ShelterListActivity extends AppCompatActivity {
             }
         });
 
-        /** clear button function */
+        // clear button function
         clear.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 currentPage.putExtra("filter", "0");
@@ -87,7 +88,7 @@ public class ShelterListActivity extends AppCompatActivity {
             }
         });
 
-        /** map button function */
+        // map button function
         map.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(mapPage);
@@ -95,15 +96,16 @@ public class ShelterListActivity extends AppCompatActivity {
             }
         });
 
-        /** set view: user info */
+        // set view: user info
         TextView user = findViewById(R.id.user);
         //noinspection ChainedMethodCall,ChainedMethodCall
         user.setText(Model.getInstance().getUser().toString());
 
-        /** set view: shelter list */
+        // set view: shelter list
         LinearLayout parentLayout = findViewById(R.id.parentLayout);
         parentLayout.setGravity(Gravity.CENTER);
-        /** iterate over shelters and put each into view as button */
+
+        // iterate over shelters and put each into view as button
         //noinspection ChainedMethodCall,ChainedMethodCall
         for (Object key : Model.getInstance().getShelters().keySet()) {
             if (checkFilter((String)key, gender, ageRange, shelterName)) {
@@ -112,8 +114,10 @@ public class ShelterListActivity extends AppCompatActivity {
                 final String id = (String) key;
                 final Button shelter = new Button(this);
                 LinearLayout.LayoutParams shelterListParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
                 //noinspection MagicNumber
                 shelterListParams.setMargins(0, 20, 0, 0);
+
                 shelter.setLayoutParams(shelterListParams);
                 //noinspection ChainedMethodCall,ChainedMethodCall
                 shelter.setText(((Shelter) Model.getInstance().getShelters().get(key)).getName());
@@ -132,33 +136,34 @@ public class ShelterListActivity extends AppCompatActivity {
         }
     }
 
-    /** to see if this shelter is filtered out */
+    // to see if this shelter is filtered out
     private boolean checkFilter(String key, String gender, String ageRange, String sheltername) {
 
         @SuppressWarnings("ChainedMethodCall") String constraint = ((Shelter)Model.getInstance().getShelters().get(key)).getRestriction();
 
-        /** if no fiilter chosen, return true */
+        // if no fiilter chosen, return true
         //noinspection ChainedMethodCall,ChainedMethodCall
         if ("0".equals(getIntent().getStringExtra("filter"))) {
             return true;
         }
 
-        /** filter is chosen */
-        /** gender filter */
+        // filter is chosen
+        // gender filter
 
         Log.d("debug", "filter");
         boolean genderCheck = Model.getInstance().filterByGender(gender, constraint);
 
-        /** age range filter */
+        // age range filter
         boolean ageRangeCheck = Model.getInstance().filterByAge(ageRange, constraint);
 
-        /** if shelter has no constraint, pass gender check and age range check */
+
+        // if shelter has no constraint, pass gender check and age range check
         if (constraint.indexOf("Anyone") != -1) {
             genderCheck = true;
             ageRangeCheck = true;
         }
 
-        /** shelter name check */
+        // shelter name check
         boolean shelterNameCheck = Model.getInstance().filterByName(sheltername, key);
 
         return genderCheck && ageRangeCheck && shelterNameCheck;

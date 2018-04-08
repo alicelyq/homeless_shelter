@@ -44,6 +44,7 @@ public final class Model {
     }
 
     public Iterable<Shelter> getCurrentShelterList() {
+
         if (currentShelterList == null) {
             currentShelterList = new ArrayList<>();
         }
