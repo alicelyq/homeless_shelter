@@ -19,21 +19,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by wangjingbo on 2/11/18.
  */
 
 public class LoginActivity extends AppCompatActivity {
+    @SuppressWarnings("FeatureEnvy")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         /** all users dictionary */
         /** a little confusing because it's not actually database */
-        final HashMap<String, User> database = Model.getInstance().getDatabase();
+        @SuppressWarnings("ChainedMethodCall") final Map<String, User> database = Model.getInstance().getDatabase();
 
         /** check if this page was loaded from a login error */
+        //noinspection ChainedMethodCall
         if (getIntent().getStringExtra("error") != null) {
             TextView error = findViewById(R.id.error);
             error.setVisibility(View.VISIBLE);
@@ -59,19 +62,18 @@ public class LoginActivity extends AppCompatActivity {
                     /** fetch login data from user input */
                     EditText usernameinput = findViewById(R.id.usernameinput);
                     EditText passwordinput = findViewById(R.id.passwordinput);
-                    String userId = usernameinput.getText().toString();
-                    String password = passwordinput.getText().toString();
+                    @SuppressWarnings("ChainedMethodCall") String userId = usernameinput.getText().toString();
+                    @SuppressWarnings("ChainedMethodCall") String password = passwordinput.getText().toString();
 
                     /** login info validation
                      *  1. userId exists
                      *  2. password matches this userId
                      * */
-                    if (database.get(userId) != null && database.get(userId).getPassword().equals(password)) {
-                        Log.d("process", "login successful");
-                        Model.getInstance().setUser(database.get(userId));
+
+                    boolean successful = Model.getInstance().loginUser(database, userId, password);
+                    if (successful) {
                         startActivity(dashboardPage);
                     } else {
-                        Log.d("process", "login failed");
                         loginErrorPage.putExtra("error", "true");
                         startActivity(loginErrorPage);
                     }
@@ -79,3 +81,4 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 }
+

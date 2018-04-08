@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -29,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:text="RERISTRATION"
                 android:textAlignment="center"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/userIDError"
@@ -38,39 +40,45 @@
                 android:text="This email is taken"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_red_dark"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textView23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name:" />
+                android:text="Name:"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gov ID:" />
+                android:text="Gov ID:"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/govid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gender:" />
+                android:text="Gender:"
+                tools:ignore="HardcodedText" />
 
             <Spinner
                 android:id="@+id/gender"
@@ -81,33 +89,38 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Age" />
+                android:text="Age"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Family member number: (1 if no family)" />
+                android:text="Family member number: (1 if no family)"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/familynum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Are you a veteran?" />
+                android:text="Are you a veteran?"
+                tools:ignore="HardcodedText" />
 
             <Spinner
                 android:id="@+id/veteran"
@@ -117,14 +130,16 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="User ID: (email)" />
+                android:text="User ID: (email)"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/userid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/passwordError"
@@ -133,45 +148,52 @@
                 android:text="password and confirm password don't match"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_red_dark"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textView25"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Password:" />
+                android:text="Password:"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="LabelFor,TextFields" />
 
             <TextView
                 android:id="@+id/textView26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Confirm Password:" />
+                android:text="Confirm Password:"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/confirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="LabelFor" />
 
             <Button
                 android:id="@+id/register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Register" />
+                android:text="Register"
+                tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/cancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cancel" />
+                android:text="Cancel"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
     </ScrollView>

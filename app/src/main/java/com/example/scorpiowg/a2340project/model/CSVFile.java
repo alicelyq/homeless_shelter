@@ -28,11 +28,12 @@ public class CSVFile {
         try {
             String oneLine;
             reader.readLine();
+            //noinspection NestedAssignment
             while ((oneLine = reader.readLine()) != null) {
                 String[] row = oneLine.split(",");
                 String address = row[6] + "," + row[7] + "," + row[8];
                 String specialNotes = "";
-                for (int i = 9; i < row.length - 2; i++) {
+                for (int i = 9; i < (row.length - 2); i++) {
                     specialNotes += row[i] + ",";
                 }
                 specialNotes += row[row.length - 2];

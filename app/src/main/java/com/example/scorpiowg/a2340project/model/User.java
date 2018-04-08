@@ -9,20 +9,22 @@ import android.os.Parcelable;
 
 public class User {
 
-    private String name;
-    private String userId;
-    private String password;
-    private boolean accountState;
+    private final String name;
+    private final String userId;
+    private final String password;
+    private final boolean accountState;
     private String type;
     private Shelter claim;
     private int beds;
 
+    @SuppressWarnings("AssignmentToNull")
     public User(String name, String userId, String password, boolean accountState, String type) {
         this.name = name;
         this.userId = userId;
         this.password = password;
         this.accountState = accountState;
         this.type = type;
+        //noinspection AssignmentToNull
         this.claim = null;
         this.beds = 0;
     }
