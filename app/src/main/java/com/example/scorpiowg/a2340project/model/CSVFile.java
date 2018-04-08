@@ -11,6 +11,13 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This is the CVS File for the shelter information.
+ * @author Ruinan Wang
+ * @version 1.8
+ * created on 02/25/2018
+ */
+@SuppressWarnings("ALL")
 public class CSVFile {
     InputStream inputStream;
 

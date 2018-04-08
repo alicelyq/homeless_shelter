@@ -12,6 +12,7 @@ import com.example.scorpiowg.a2340project.R;
  * Created by nancy on 2/17/18.
  */
 
+@SuppressWarnings("ALL")
 public class RegUserTypeActivity extends AppCompatActivity {
 
     @Override
