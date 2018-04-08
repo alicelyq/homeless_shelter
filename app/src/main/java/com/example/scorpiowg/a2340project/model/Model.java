@@ -99,6 +99,7 @@ public final class Model {
             if (constraint.indexOf(gender) != -1) {
                 return true;
             }
+            return false;
         }
     }
 
@@ -109,7 +110,6 @@ public final class Model {
             return true;
         } else {
             Log.d("process", "login failed");
-
             return false;
         }
     }
@@ -142,6 +142,7 @@ public final class Model {
             User curUser = new ShelterEmployee(username, userId, password, true, "1");
             database.put(userId, curUser);
         }
+        return false;
     }
 
             
