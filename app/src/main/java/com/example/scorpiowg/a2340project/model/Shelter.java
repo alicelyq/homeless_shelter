@@ -1,7 +1,5 @@
 package com.example.scorpiowg.a2340project.model;
 
-import android.util.Log;
-
 /**
  * This is Homeless Shelter object.
  * @author Jingbo Wang

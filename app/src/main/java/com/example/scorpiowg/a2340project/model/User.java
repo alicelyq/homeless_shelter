@@ -1,8 +1,5 @@
 package com.example.scorpiowg.a2340project.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by wangjingbo on 2/17/18.
  */

@@ -1,6 +1,5 @@
 package com.example.scorpiowg.a2340project.model;
 
-import android.support.compat.BuildConfig;
 import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
