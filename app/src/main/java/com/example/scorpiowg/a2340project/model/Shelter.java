@@ -81,34 +81,65 @@ public class Shelter {
         return restriction;
     }
 
+    /**
+     * Getter of the shelter's longitude
+     * @return a String which is the longitude of this shelter
+     */
     public String getLongitude() {
         return longitude;
     }
 
+    /**
+     * Getter of the shelter's latitude
+     * @return a String which is the latitude of this shelter
+     */
     public String getLatitude() {
         return latitude;
     }
 
+    /**
+     * Getter of the shelter's address
+     * @return a String which is the address of this shelter
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Getter of the shelter's contact number
+     * @return a String which is the contact number of this shelter
+     */
     public String getPhoneNum() {
         return phoneNum;
     }
 
+    /**
+     * Getter of the shelter's special notes
+     * @return a String which is the special notes of this shelter
+     */
     public String getSpecialNotes() {
         return specialNotes;
     }
 
+    /**
+     * Getter of the shelter's occupied bedspace
+     * @return a int which is the number of occupied bedspace in this shelter
+     */
     public int getOccupied() {
         return occupied;
     }
-
+    /**
+     * Setter of the shelter's restriction
+     * @param newOccupied which is the updated number of occupied bedspace
+     */
     public void setOccupied(int newOccupied) {
         this.occupied = newOccupied;
     }
 
+    /**
+     * Return all information of the shelter
+     * @return a String which contains all details of the shelter
+     */
     public String toString() {
 //        Log.d("nancytestparseint","test: " + getCapacity());
         return "SHELTER\nname: " + getName() + "\nID: " + getShelterId() + "\nCapacity: " + getCapacity() +

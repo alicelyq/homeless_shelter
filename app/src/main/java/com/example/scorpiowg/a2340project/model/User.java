@@ -17,6 +17,15 @@ public class User {
     private int beds;
 
     @SuppressWarnings("AssignmentToNull")
+    /**
+     * Construct a General user type
+     * which is the super class of all other type of users
+     * @param name the name of user
+     * @param userId the user id
+     * @param password the password of the user account
+     * @param accountState whether this account is blocked
+     * @param type the specific user type
+     */
     public User(String name, String userId, String password, boolean accountState, String type) {
         this.name = name;
         this.userId = userId;
@@ -28,26 +37,50 @@ public class User {
         this.beds = 0;
     }
 
+    /**
+     * Getter of the user's name
+     * @return a String which is the name of this user
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Getter of the user's id
+     * @return a String which is the id of this user
+     */
     public String getUserId() {
         return userId;
     }
 
+    /**
+     * Getter of the user's password
+     * @return a String which is the password of this user
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Getter of the user's account state
+     * @return a boolean which is true when it is not blocked and vice versa
+     */
     public boolean getAccountState() {
         return accountState;
     }
 
+    /**
+     * Getter of the current living shelter of this user
+     * @return a Shelter object which holds this user
+     */
     public Shelter getClaim() {
         return claim;
     }
 
+    /**
+     * Change the 
+     * @return a String which is the name of this user
+     */
     public void setClaim(Shelter shelter) {
         claim = shelter;
     }
