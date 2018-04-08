@@ -24,7 +24,7 @@ public final class Model {
     private HashMap<String, Shelter> shelters;
 
     /** holds the list of shelters after filtering */
-    private ArrayList<Shelter> currentShelterList;
+    private List<Shelter> currentShelterList;
 
 
 
@@ -44,6 +44,7 @@ public final class Model {
     }
 
     public Iterable<Shelter> getCurrentShelterList() {
+
         if (currentShelterList == null) {
             currentShelterList = new ArrayList<>();
         }

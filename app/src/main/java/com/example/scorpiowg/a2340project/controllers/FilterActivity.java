@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.example.scorpiowg.a2340project.R;
 
@@ -27,12 +28,12 @@ public class FilterActivity extends AppCompatActivity {
 
         final Spinner genderSpinner = findViewById(R.id.gender);
         String[] genderchoice = new String[]{"Any", "Men", "Women"};
-        ArrayAdapter<String> genderadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, genderchoice);
+        SpinnerAdapter genderadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, genderchoice);
         genderSpinner.setAdapter(genderadapter);
 
         final Spinner ageRangeSpinner = findViewById(R.id.ageRange);
         String[] ageRangechoice = new String[]{"Anyone", "Families with newborns", "Children", "Young Adults"};
-        ArrayAdapter<String> ageRangeadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ageRangechoice);
+        SpinnerAdapter ageRangeadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ageRangechoice);
         ageRangeSpinner.setAdapter(ageRangeadapter);
 
 

@@ -13,6 +13,7 @@ import static org.junit.Assert.assertTrue;
  * Created by wangjingbo on 4/8/18.
  */
 
+@SuppressWarnings("ALL")
 public class JUnitTest {
     @Test
     public void testFilterByGender() {

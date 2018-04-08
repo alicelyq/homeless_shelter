@@ -25,6 +25,7 @@ import java.util.Map;
 
 public class ShelterEmpRegActivity extends AppCompatActivity {
 
+    @SuppressWarnings("FeatureEnvy")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
