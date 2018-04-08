@@ -25,6 +25,7 @@ import java.util.Map;
  * Created by wangjingbo on 2/11/18.
  */
 
+@SuppressWarnings("ALL")
 public class LoginActivity extends AppCompatActivity {
     @SuppressWarnings("FeatureEnvy")
     @Override
