@@ -128,8 +128,7 @@ public final class Model {
         }
     }
 
-    public boolean filterByName(String sheltername, String key) {
-        Shelter currentShelter = shelters.get(key);
+    public boolean filterByName(String sheltername, Shelter currentShelter) {
         if (currentShelter.getName().toLowerCase().indexOf(sheltername.toLowerCase()) != -1) {
           return true;
         }
@@ -146,11 +145,6 @@ public final class Model {
     }
 
             
-
-
-
-
-
 
     /** database work */
     public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, int occupied) {
