@@ -1,6 +1,5 @@
 package com.example.scorpiowg.a2340project.model;
 
-import android.support.compat.BuildConfig;
 import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
@@ -8,7 +7,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -66,7 +64,7 @@ public final class Model {
         currentShelterList.clear();
     }
 
-    public HashMap getDatabase() {
+    public Map getDatabase() {
         return database;
     }
 
@@ -107,11 +105,11 @@ public final class Model {
 
     public boolean loginUser(Map<String, User> database, String userId, String password) {
         if (database.get(userId) != null && database.get(userId).getPassword().equals(password)) {
-            Log.d("process", "login successful");
+//            Log.d("process", "login successful");
             Model.getInstance().setUser(database.get(userId));
             return true;
         } else {
-            Log.d("process", "login failed");
+//            Log.d("process", "login failed");
             return false;
         }
     }
@@ -142,6 +140,7 @@ public final class Model {
         if (password.equals(confirm) && !database.containsKey(userId)) {
             User curUser = new ShelterEmployee(username, userId, password, true, "1");
             database.put(userId, curUser);
+            return true;
         }
         return false;
     }

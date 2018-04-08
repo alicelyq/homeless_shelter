@@ -4,6 +4,7 @@ package com.example.scorpiowg.a2340project.model;
  * Created by wangjingbo on 2/17/18.
  */
 
+@SuppressWarnings("ALL")
 public class ShelterEmployee extends User {
     private final String shelterId;
 

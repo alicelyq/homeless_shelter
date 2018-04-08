@@ -26,6 +26,7 @@ import java.util.Map;
  * Created by nancy on 4/2/18.
  */
 
+@SuppressWarnings("ALL")
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final String TAG = "MapActivity";

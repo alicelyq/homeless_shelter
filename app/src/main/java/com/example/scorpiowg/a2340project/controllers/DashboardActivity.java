@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.scorpiowg.a2340project.R;
@@ -20,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by wangjingbo on 3/3/18.
  */
 
+@SuppressWarnings("ALL")
 public class DashboardActivity extends AppCompatActivity {
     @Override
     @SuppressWarnings("FeatureEnvy")
