@@ -17,7 +17,6 @@ import java.util.Map;
  * @version 1.8
  * created on 02/25/2018
  */
-@SuppressWarnings("ALL")
 public class CSVFile {
     InputStream inputStream;
 
@@ -48,10 +47,6 @@ public class CSVFile {
                 modifiedRow[6] = specialNotes;
                 modifiedRow[7] = row[row.length - 1];
                 String uniqueid = row[0];
-
-//                for (int i = 0; i < modifiedRow.length; i++) {
-//                    Log.d("CVSread", modifiedRow[i] + " ");
-//                }
                 shelterMap.put(uniqueid,modifiedRow);
             }
         }
@@ -66,9 +61,6 @@ public class CSVFile {
                 throw new RuntimeException("Error while closing input stream: "+ e);
             }
         }
-//        for (int i = 0; i < resultList.size(); i++) {
-//            Log.d("CVSread", resultList.get(i) + " ");
-//        }
         return shelterMap;
     }
 }

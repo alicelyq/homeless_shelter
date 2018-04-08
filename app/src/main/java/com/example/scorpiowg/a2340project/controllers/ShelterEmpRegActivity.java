@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by nancy on 2/17/18.
  */
 
-@SuppressWarnings("ALL")
+
 public class ShelterEmpRegActivity extends AppCompatActivity {
 
     @SuppressWarnings("FeatureEnvy")
@@ -31,11 +31,11 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
         setContentView(R.layout.shelter_emp_reg);
 
         //database hashmap
-        @SuppressWarnings("ChainedMethodCall") final Map<String, User> database = Model.getInstance().getDatabase();
-        @SuppressWarnings("ChainedMethodCall") final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
+        final Map<String, User> database = Model.getInstance().getDatabase();
+        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
-        @SuppressWarnings("ChainedMethodCall") String error = getIntent().getStringExtra("error");
+        String error = getIntent().getStringExtra("error");
         if (error != null) {
             TextView passwordError = findViewById(R.id.passwordError);
             TextView useridError = findViewById(R.id.userIDError);
@@ -72,10 +72,10 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                 EditText passinput = findViewById(R.id.password);
                 EditText confinput = findViewById(R.id.confirm);
                 EditText nameinput = findViewById(R.id.input_name);
-                @SuppressWarnings("ChainedMethodCall") String userId = userinput.getText().toString();
-                @SuppressWarnings("ChainedMethodCall") String password = passinput.getText().toString();
-                @SuppressWarnings("ChainedMethodCall") String confirm = confinput.getText().toString();
-                @SuppressWarnings("ChainedMethodCall") String username = nameinput.getText().toString();
+                String userId = userinput.getText().toString();
+                String password = passinput.getText().toString();
+                String confirm = confinput.getText().toString();
+                String username = nameinput.getText().toString();
 
                 // next action
 
@@ -87,11 +87,11 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                     DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
 
                     realDB.child("users").child(userId).setValue(curUser);
-                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
+                    
                     realDB.child("users").child(userId).child("claim").setValue(curUser.getClaim());
-                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
+                    
                     realDB.child("users").child(userId).child("beds").setValue(curUser.getBeds());
-                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
+                    
                     realDB.child("users").child(userId).child("type").setValue("ShelterEmployee");
                   
                     startActivity(loginPage);
