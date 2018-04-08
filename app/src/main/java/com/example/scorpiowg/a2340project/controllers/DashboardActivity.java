@@ -25,53 +25,51 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
 
-        /** display user info */
+        // display user info {@link R.id.userinfo}
         TextView user = findViewById(R.id.userinfo);
         user.setText(Model.getInstance().getUser().toString());
-        /** button */
+        // button
         Button releaseButton = findViewById(R.id.release);
         Button shelter = findViewById(R.id.search);
 
-        /** intents */
+        // intents
         final Intent dashboardPage = new Intent(this, DashboardActivity.class);
         final Intent shelterPage = new Intent(this, ShelterListActivity.class);
         final Intent mapPage = new Intent(this, MapActivity.class);
 
-        /** real database */
+        // real database
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
-        /** current state */
+        // current state
         final User myuser = Model.getInstance().getUser();
         final Shelter myshelter = myuser.getClaim();
 
-        /** check if current user has shelter booked */
+        // check if current user has shelter booked
         if (myshelter != null) {
-            /** add a release button to release his booking */
+            // add a release button to release his booking
             releaseButton.setVisibility(View.VISIBLE);
             releaseButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     int newOcc = myshelter.getOccupied() - myuser.getBeds();
-                    /** update shelter side info
-                     *  1. change occupied number on database
-                     *  2. change occupied number locally
-                     * */
+                    // update shelter side info
+                    //  1. change occupied number on database
+                    //  2. change occupied number locally
                     database.child("shelters").child(myshelter.getShelterId()).child("occupied").setValue(newOcc);
                     myshelter.setOccupied(newOcc);
 
-                    /** update user side info
-                     *  1. change booking status on database
-                     *  2. change booking status locally
-                     * */
+                    // update user side info
+                    //  1. change booking status on database
+                    //  2. change booking status locally
                     database.child("users").child(myuser.getUserId()).child("claim").setValue(null);
                     myuser.setClaim(null);
 
-                    /** reload dashboard */
+                    // reload dashboard
                     startActivity(dashboardPage);
                 }
             });
         }
 
-        /** go to shelter search page */
+        // go to shelter search page
         shelter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shelterPage.putExtra("filter", "0");

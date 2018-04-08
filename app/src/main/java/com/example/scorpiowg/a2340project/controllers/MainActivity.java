@@ -32,16 +32,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /** buttons */
+        // buttons
         Button login = findViewById(R.id.login);
         Button registration = findViewById(R.id.registration);
 
 
-        /** intents */
+        // intents
         final Intent loginPage = new Intent(this, LoginActivity.class);
         final Intent registerPage = new Intent(this, RegUserTypeActivity.class);
 
-        /** read csv file, put initial shelters in local device */
+        // read csv file, put initial shelters in local device
         InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_db);
         CSVFile shelterFile = new CSVFile(inputStream);
         Map<String, String[]> shelterinfo = shelterFile.read();
@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
         Model.getInstance().setShelters(newPair);
 
 
-        /** uncomment when refreshing database */
-//        refreshDatabase(shelterinfo);
+        // uncomment when refreshing database
+        // refreshDatabase(shelterinfo);
 
-        /** shelters from database to local device */
+        // shelters from database to local device
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference DBsheltersRef = database.child("shelters");
         DBsheltersRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) { }
         });
 
-        /** users from database to local device */
+        // users from database to local device
         final DatabaseReference DBusersRef = database.child("users");
         DBusersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) { }
         });
 
-        /** button functions */
+        // button functions
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("process", "click login button");
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /** refresh database */
+    // refresh database
     private void refreshDatabase(Map<String, String[]> shelterinfo) {
         for (String s: shelterinfo.keySet()) {
             String[] shelterVal = shelterinfo.get(s);

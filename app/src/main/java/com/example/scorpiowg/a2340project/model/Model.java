@@ -42,6 +42,7 @@ public class Model {
         shelters = new HashMap<>();
     }
 
+
     public ArrayList<Shelter> getCurrentShelterList() {
         if (currentShelterList == null) {
             currentShelterList = new ArrayList<>();
