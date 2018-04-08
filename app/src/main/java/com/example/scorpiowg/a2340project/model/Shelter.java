@@ -1,7 +1,5 @@
 package com.example.scorpiowg.a2340project.model;
 
-import android.util.Log;
-
 /**
  * Created by wangjingbo on 2/25/18.
  */
