@@ -1,6 +1,7 @@
 package com.example.scorpiowg.a2340project.model;
 
 import android.support.compat.BuildConfig;
+import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -88,6 +89,29 @@ public class Model {
         this.shelter = shelter;
     }
 
+
+    public boolean loginUser(HashMap<String, User> database, String userId, String password) {
+        if (database.get(userId) != null && database.get(userId).getPassword().equals(password)) {
+            Log.d("process", "login successful");
+            Model.getInstance().setUser(database.get(userId));
+            return true;
+        } else {
+            Log.d("process", "login failed");
+            return false;
+        }
+    }
+
+    public boolean registerUser(HashMap<String, User> database, String userId, String password, String confirm,
+                                String username, boolean accountState, String shelterId) {
+        if (password.equals(confirm) && !database.containsKey(userId)) {
+            User curUser = new ShelterEmployee(username, userId, password, true, "1");
+            database.put(userId, curUser);
+            return true;
+        }
+        return false;
+    }
+
+
     public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, int occupied) {
 //            Shelter shelter = new Shelter();
         db.child("shelters").child(shelterId).child("name").setValue(name);
@@ -155,7 +179,6 @@ public class Model {
             firebaseUsers.child(userId).child("claim").setValue("null");
         }
         firebaseUsers.child(userId).child("beds").setValue(beds);
-
 
     }
 

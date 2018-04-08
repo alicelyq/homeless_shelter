@@ -51,7 +51,7 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
 
         // two buttons
         Button cancelRegister = findViewById(R.id.cancel);
-        Button register = findViewById(R.id.register);
+        final Button register = findViewById(R.id.register);
 
 
         // init next actions
@@ -78,11 +78,13 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                 String username = nameinput.getText().toString();
 
                 // next action
-                if (password.equals(confirm) && !database.containsKey(userId)) {
-                    //success
 
+                boolean registerSuccess = Model.getInstance().registerUser(database, userId, password, confirm, username, true, "1");
+
+                if (registerSuccess) {
+                    //success
                     User curUser = new ShelterEmployee(username, userId, password, true, "1");
-                    database.put(userId, curUser);
+
                     DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
                     realDB.child("users").child(userId).setValue(curUser);
                     realDB.child("users").child(userId).child("claim").setValue(curUser.getClaim());
