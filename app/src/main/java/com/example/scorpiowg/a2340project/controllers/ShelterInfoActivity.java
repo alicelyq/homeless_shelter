@@ -19,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by wangjingbo on 2/25/18.
  */
 
-@SuppressWarnings("ALL")
 public class ShelterInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,60 +26,46 @@ public class ShelterInfoActivity extends AppCompatActivity {
         setContentView(R.layout.shelter_info);
 
         // database
-        @SuppressWarnings("ChainedMethodCall") final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         // check for bed claiming
-        //noinspection ChainedMethodCall
         if (getIntent().getStringExtra("claim") != null) {
             Log.d("process", "claim clicked");
-            //noinspection ChainedMethodCall,ChainedMethodCall
             if (Model.getInstance().getUser().getClaim() != null) {
                 TextView error = findViewById(R.id.error);
                 error.setVisibility(View.VISIBLE);
-            } else //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
-                if (Integer.parseInt(getIntent().getStringExtra("claim").toString()) > (Integer.parseInt(Model.getInstance().getShelter().getCapacity()) - Model.getInstance().getShelter().getOccupied())) {
+            } else if (Integer.parseInt(getIntent().getStringExtra("claim").toString()) > (Integer.parseInt(Model.getInstance().getShelter().getCapacity()) - Model.getInstance().getShelter().getOccupied())) {
                 TextView limit = findViewById(R.id.limit);
                 limit.setVisibility(View.VISIBLE);
             } else {
                 Log.d("process", "successful claim");
-                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                 Model.getInstance().getUser().setClaim(Model.getInstance().getShelter());
-                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                 Model.getInstance().getUser().setBeds(Integer.parseInt(getIntent().getStringExtra("claim").toString()));
-                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                 Log.d("process", "this user claimed shelter " + Model.getInstance().getUser().getClaim().toString());
-                    //noinspection ChainedMethodCall,ChainedMethodCall
-                    Log.d("process", "this user claimed " + Integer.toString(Model.getInstance().getUser().getBeds()) + "bedspaces");
+                Log.d("process", "this user claimed " + Integer.toString(Model.getInstance().getUser().getBeds()) + "bedspaces");
                 TextView success = findViewById(R.id.success);
                 success.setVisibility(View.VISIBLE);
 
                 //update firebase
-                @SuppressWarnings("ChainedMethodCall") final Shelter myshelter = Model.getInstance().getShelter();
-                @SuppressWarnings("ChainedMethodCall") int claimed = Integer.parseInt(getIntent().getStringExtra("claim"));
-                @SuppressWarnings("ChainedMethodCall") int newOcc = Model.getInstance().getShelter().getOccupied() + claimed;
+                final Shelter myshelter = Model.getInstance().getShelter();
+                int claimed = Integer.parseInt(getIntent().getStringExtra("claim"));
+                int newOcc = Model.getInstance().getShelter().getOccupied() + claimed;
                 myshelter.setOccupied(newOcc);
                 Log.d("process", "updating database");
-                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                 database.child("shelters").child(myshelter.getShelterId()).child("occupied").setValue(newOcc);
-                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                 database.child("users").child(Model.getInstance().getUser().getUserId()).child("claim").setValue(myshelter);
-                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                 database.child("users").child(Model.getInstance().getUser().getUserId()).child("beds").setValue(newOcc);
             }
         }
 
         // handle refresh from claim button
-        //noinspection ChainedMethodCall
         if (getIntent().getStringExtra("shelterId") != null) {
-            @SuppressWarnings("ChainedMethodCall") String id = getIntent().getStringExtra("shelterId");
+            String id = getIntent().getStringExtra("shelterId");
             TextView info = findViewById(R.id.info);
-            //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
             Model.getInstance().setCurrentShelter((Shelter)Model.getInstance().getShelters().get(id));
-            //noinspection ChainedMethodCall,ChainedMethodCall
             info.setText(Model.getInstance().getShelter().toString());
         } else {
             TextView info = findViewById(R.id.info);
-            //noinspection ChainedMethodCall,ChainedMethodCall
             info.setText(Model.getInstance().getShelter().toString());
         }
 
@@ -90,7 +75,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         final TextView beds = findViewById(R.id.beds);
         claim.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                @SuppressWarnings("ChainedMethodCall") String bedNum = beds.getText().toString();
+                String bedNum = beds.getText().toString();
                 Log.d("debug", "claim");
                 claimBedspace.putExtra("claim", bedNum);
                 Log.d("debug", "claim " + bedNum + " bed spaces");
@@ -103,7 +88,6 @@ public class ShelterInfoActivity extends AppCompatActivity {
         final Intent dashboardPage = new Intent(this, DashboardActivity.class);
         toDashboardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //noinspection ChainedMethodCall,ChainedMethodCall
                 dashboardPage.putExtra("userId", Model.getInstance().getUser().getUserId());
                 startActivity(dashboardPage);
             }

@@ -7,7 +7,6 @@ package com.example.scorpiowg.a2340project.model;
  * created on 02/25/2018
  */
 
-@SuppressWarnings("ALL")
 public class Shelter {
     private String shelterId;
     private String name;
@@ -141,7 +140,6 @@ public class Shelter {
      * @return a String which contains all details of the shelter
      */
     public String toString() {
-//        Log.d("nancytestparseint","test: " + getCapacity());
         return "SHELTER\nname: " + getName() + "\nID: " + getShelterId() + "\nCapacity: " + getCapacity() +
                 "\nOccupied: " + getOccupied() + "\nAvailable: " + (Integer.parseInt(getCapacity()) - getOccupied()) +
                 "\nRestriction: " + getRestriction() + "\nLongitude: " + getLongitude() + "\nLatitude: " + getLatitude() +
