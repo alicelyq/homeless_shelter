@@ -14,8 +14,6 @@ import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.Shelter;
 
-import java.util.ArrayList;
-
 
 /**
  * Created by wangjingbo on 2/25/18.

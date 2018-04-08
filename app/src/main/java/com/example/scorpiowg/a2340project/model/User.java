@@ -1,12 +1,10 @@
 package com.example.scorpiowg.a2340project.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by wangjingbo on 2/17/18.
  */
 
+@SuppressWarnings("ALL")
 public class User {
 
     private final String name;
@@ -14,7 +12,7 @@ public class User {
     private final String password;
     private final boolean accountState;
     @SuppressWarnings("FieldCanBeLocal")
-    private String type;
+    private final String type;
     private Shelter claim;
     private int beds;
 
