@@ -33,7 +33,7 @@ public final class Model {
     private Shelter shelter;
 
     // add in db
-    DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+//    DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
     /**
      * make a new model
@@ -90,6 +90,18 @@ public final class Model {
     }
 
 
+
+    /** logic */
+    public boolean filterByGender(String gender, String constraint) {
+        if (gender.equals("Any")) {
+            return true;
+        } else {
+            if (constraint.indexOf(gender) != -1) {
+                return true;
+            }
+        }
+    }
+
     public boolean loginUser(Map<String, User> database, String userId, String password) {
         if (database.get(userId) != null && database.get(userId).getPassword().equals(password)) {
             Log.d("process", "login successful");
@@ -97,8 +109,31 @@ public final class Model {
             return true;
         } else {
             Log.d("process", "login failed");
+
             return false;
         }
+    }
+
+
+    public boolean filterByAge(String ageRange, String constraint) {
+        if (ageRange.equals("Anyone")) {
+            return true;
+        } else {
+            if (constraint.toLowerCase().indexOf(ageRange.toLowerCase()) != -1) {
+                return true;
+            } else if (ageRange.equals("Families with newborns") && constraint.indexOf("Families w") != -1) {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    public boolean filterByName(String sheltername, String key) {
+        Shelter currentShelter = shelters.get(key);
+        if (currentShelter.getName().toLowerCase().indexOf(sheltername.toLowerCase()) != -1) {
+          return true;
+        }
+        return false;
     }
 
     public boolean registerUser(Map<String, User> database, String userId, String password, String confirm,
@@ -106,15 +141,21 @@ public final class Model {
         if (password.equals(confirm) && !database.containsKey(userId)) {
             User curUser = new ShelterEmployee(username, userId, password, true, "1");
             database.put(userId, curUser);
-            return true;
         }
-        return false;
     }
 
+            
 
+
+
+
+
+
+    /** database work */
     public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, int occupied) {
 //            Shelter shelter = new Shelter();
-        //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+
         db.child("shelters").child(shelterId).child("name").setValue(name);
         //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
         db.child("shelters").child(shelterId).child("capacity").setValue(capacity);
@@ -135,11 +176,13 @@ public final class Model {
 
     }
 
-    DatabaseReference firebaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
+//    DatabaseReference firebaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
 
     public void addNewShelterEmployee(String name, String userId, String password, boolean accountState, String shelterId,
                                       Shelter claim, int beds) {
-        //noinspection ChainedMethodCall,ChainedMethodCall
+
+        DatabaseReference firebaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
+
         firebaseUsers.child(userId).child("name").setValue(name);
         //noinspection ChainedMethodCall,ChainedMethodCall
         firebaseUsers.child(userId).child("userId").setValue(userId);
@@ -164,7 +207,8 @@ public final class Model {
 
     public void addNewAdmin(String name, String userId, String password, boolean accountState,
                             Shelter claim, int beds) {
-        //noinspection ChainedMethodCall,ChainedMethodCall
+        DatabaseReference firebaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
+
         firebaseUsers.child(userId).child("name").setValue(name);
         //noinspection ChainedMethodCall,ChainedMethodCall
         firebaseUsers.child(userId).child("userId").setValue(userId);
@@ -188,7 +232,8 @@ public final class Model {
     public void addNewHomeles(String name, String userId, String password, boolean accountState, String govId,
                               String gender, boolean isVeteran, boolean isFamily, int familyNum, int age,
                               Shelter claim, int beds) {
-        //noinspection ChainedMethodCall,ChainedMethodCall
+        DatabaseReference firebaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
+
         firebaseUsers.child(userId).child("name").setValue(name);
         //noinspection ChainedMethodCall,ChainedMethodCall
         firebaseUsers.child(userId).child("userId").setValue(userId);

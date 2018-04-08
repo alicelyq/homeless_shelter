@@ -134,9 +134,6 @@ public class ShelterListActivity extends AppCompatActivity {
 
     /** to see if this shelter is filtered out */
     private boolean checkFilter(String key, String gender, String ageRange, String sheltername) {
-        boolean genderCheck = false;
-        boolean ageRangeCheck = false;
-        boolean shelterNameCheck = false;
 
         @SuppressWarnings("ChainedMethodCall") String constraint = ((Shelter)Model.getInstance().getShelters().get(key)).getRestriction();
 
@@ -148,25 +145,12 @@ public class ShelterListActivity extends AppCompatActivity {
 
         /** filter is chosen */
         /** gender filter */
-        if ("Any".equals(gender)) {
-            genderCheck = true;
-        } else {
-            if (constraint.indexOf(gender) != -1) {
-                genderCheck = true;
-            }
-        }
+
+        Log.d("debug", "filter");
+        boolean genderCheck = Model.getInstance().filterByGender(gender, constraint);
 
         /** age range filter */
-        if ("Anyone".equals(ageRange)) {
-            ageRangeCheck = true;
-        } else {
-            //noinspection ChainedMethodCall
-            if (constraint.toLowerCase().indexOf(ageRange.toLowerCase()) != -1) {
-                ageRangeCheck = true;
-            } else if ("Families with newborns".equals(ageRange) && (constraint.indexOf("Families w") != -1)) {
-                ageRangeCheck = true;
-            }
-        }
+        boolean ageRangeCheck = Model.getInstance().filterByAge(ageRange, constraint);
 
         /** if shelter has no constraint, pass gender check and age range check */
         if (constraint.indexOf("Anyone") != -1) {
@@ -174,12 +158,8 @@ public class ShelterListActivity extends AppCompatActivity {
             ageRangeCheck = true;
         }
 
-        Log.d("debug", "shelterNameCheck always set to true1");
         /** shelter name check */
-        //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
-        if (((Shelter)Model.getInstance().getShelters().get(key)).getName().toLowerCase().indexOf(sheltername.toLowerCase()) != -1) {
-            shelterNameCheck = true;
-        }
+        boolean shelterNameCheck = Model.getInstance().filterByName(sheltername, key);
 
         return genderCheck && ageRangeCheck && shelterNameCheck;
     }
