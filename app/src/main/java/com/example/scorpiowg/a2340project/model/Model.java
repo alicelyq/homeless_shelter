@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 
+@SuppressWarnings("ALL")
 public final class Model {
     /** Singleton instance */
     private static final Model _instance = new Model();
@@ -65,7 +66,7 @@ public final class Model {
         currentShelterList.clear();
     }
 
-    public HashMap getDatabase() {
+    public Map getDatabase() {
         return database;
     }
 

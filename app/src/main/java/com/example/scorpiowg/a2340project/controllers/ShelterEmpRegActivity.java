@@ -23,6 +23,7 @@ import java.util.Map;
  * Created by nancy on 2/17/18.
  */
 
+@SuppressWarnings("ALL")
 public class ShelterEmpRegActivity extends AppCompatActivity {
 
     @SuppressWarnings("FeatureEnvy")
