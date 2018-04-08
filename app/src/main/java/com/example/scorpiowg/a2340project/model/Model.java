@@ -106,11 +106,11 @@ public final class Model {
 
     public boolean loginUser(Map<String, User> database, String userId, String password) {
         if (database.get(userId) != null && database.get(userId).getPassword().equals(password)) {
-            Log.d("process", "login successful");
+//            Log.d("process", "login successful");
             Model.getInstance().setUser(database.get(userId));
             return true;
         } else {
-            Log.d("process", "login failed");
+//            Log.d("process", "login failed");
             return false;
         }
     }
@@ -129,8 +129,7 @@ public final class Model {
         }
     }
 
-    public boolean filterByName(String sheltername, String key) {
-        Shelter currentShelter = shelters.get(key);
+    public boolean filterByName(String sheltername, Shelter currentShelter) {
         if (currentShelter.getName().toLowerCase().indexOf(sheltername.toLowerCase()) != -1) {
           return true;
         }
@@ -142,16 +141,12 @@ public final class Model {
         if (password.equals(confirm) && !database.containsKey(userId)) {
             User curUser = new ShelterEmployee(username, userId, password, true, "1");
             database.put(userId, curUser);
+            return true;
         }
         return false;
     }
 
             
-
-
-
-
-
 
     /** database work */
     public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, int occupied) {

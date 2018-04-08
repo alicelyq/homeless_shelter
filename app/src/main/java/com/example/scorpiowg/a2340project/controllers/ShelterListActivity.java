@@ -162,7 +162,8 @@ public class ShelterListActivity extends AppCompatActivity {
         }
 
         // shelter name check
-        boolean shelterNameCheck = Model.getInstance().filterByName(sheltername, key);
+        Shelter shelter = (Shelter) Model.getInstance().getShelters().get(key);
+        boolean shelterNameCheck = Model.getInstance().filterByName(sheltername, shelter);
 
         return genderCheck && ageRangeCheck && shelterNameCheck;
     }
