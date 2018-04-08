@@ -1,5 +1,9 @@
 package com.example.scorpiowg.a2340project.model;
 
+/**
+ * Created by nancy on 2/25/18.
+ */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
