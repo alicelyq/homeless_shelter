@@ -164,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                tools:ignore="LabelFor" />
+                tools:ignore="LabelFor,TextFields" />
 
             <TextView
                 android:id="@+id/textView26"

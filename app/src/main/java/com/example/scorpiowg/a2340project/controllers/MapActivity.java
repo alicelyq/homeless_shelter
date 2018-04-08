@@ -29,7 +29,7 @@ import java.util.Map;
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final String TAG = "MapActivity";
-    private Map<Marker, Shelter> linker = new HashMap<>();
+    private final Map<Marker, Shelter> linker = new HashMap<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        @SuppressWarnings("ChainedMethodCall") SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
 
@@ -66,9 +66,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         googleMap.setOnMarkerClickListener(this);
 
+        //noinspection ChainedMethodCall
         for (Shelter s: Model.getInstance().getCurrentShelterList()) {
             LatLng c = new LatLng(Double.parseDouble(s.getLatitude()), Double.parseDouble(s.getLongitude()));
-            MarkerOptions m = new MarkerOptions().position(c)
+            @SuppressWarnings("ChainedMethodCall") MarkerOptions m = new MarkerOptions().position(c)
                     .title(s.getName());
             Marker marker = googleMap.addMarker(m);
             linker.put(marker, s);
@@ -80,6 +81,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public boolean onMarkerClick(final Marker marker) {
         Log.d("debug", "marker clicked");
         Shelter clicked = linker.get(marker);
+        //noinspection ChainedMethodCall
         Model.getInstance().setCurrentShelter(clicked);
         final Intent shelterInfo = new Intent(this, ShelterInfoActivity.class);
         shelterInfo.putExtra("shelterId", clicked.getShelterId());

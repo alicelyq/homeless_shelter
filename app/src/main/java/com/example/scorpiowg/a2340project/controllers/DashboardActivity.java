@@ -28,6 +28,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         /** display user info */
         TextView user = findViewById(R.id.userinfo);
+        //noinspection ChainedMethodCall,ChainedMethodCall
         user.setText(Model.getInstance().getUser().toString());
         /** button */
         Button releaseButton = findViewById(R.id.release);
@@ -39,10 +40,10 @@ public class DashboardActivity extends AppCompatActivity {
         final Intent mapPage = new Intent(this, MapActivity.class);
 
         /** real database */
-        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        @SuppressWarnings("ChainedMethodCall") final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         /** current state */
-        final User myuser = Model.getInstance().getUser();
+        @SuppressWarnings("ChainedMethodCall") final User myuser = Model.getInstance().getUser();
         final Shelter myshelter = myuser.getClaim();
 
         /** check if current user has shelter booked */
@@ -57,6 +58,7 @@ public class DashboardActivity extends AppCompatActivity {
                      *  1. change occupied number on database
                      *  2. change occupied number locally
                      * */
+                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                     database.child("shelters").child(myshelter.getShelterId()).child("occupied").setValue(newOcc);
                     myshelter.setOccupied(newOcc);
 
@@ -64,6 +66,7 @@ public class DashboardActivity extends AppCompatActivity {
                      *  1. change booking status on database
                      *  2. change booking status locally
                      * */
+                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                     database.child("users").child(myuser.getUserId()).child("claim").setValue(null);
                     myuser.setClaim(null);
 

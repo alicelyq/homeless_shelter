@@ -33,9 +33,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
         /** all users dictionary */
         /** a little confusing because it's not actually database */
-        final Map<String, User> database = Model.getInstance().getDatabase();
+        @SuppressWarnings("ChainedMethodCall") final Map<String, User> database = Model.getInstance().getDatabase();
 
         /** check if this page was loaded from a login error */
+        //noinspection ChainedMethodCall
         if (getIntent().getStringExtra("error") != null) {
             TextView error = findViewById(R.id.error);
             error.setVisibility(View.VISIBLE);
@@ -61,15 +62,17 @@ public class LoginActivity extends AppCompatActivity {
                     /** fetch login data from user input */
                     EditText usernameinput = findViewById(R.id.usernameinput);
                     EditText passwordinput = findViewById(R.id.passwordinput);
-                    String userId = usernameinput.getText().toString();
-                    String password = passwordinput.getText().toString();
+                    @SuppressWarnings("ChainedMethodCall") String userId = usernameinput.getText().toString();
+                    @SuppressWarnings("ChainedMethodCall") String password = passwordinput.getText().toString();
 
                     /** login info validation
                      *  1. userId exists
                      *  2. password matches this userId
                      * */
-                    if (database.get(userId) != null && database.get(userId).getPassword().equals(password)) {
+                    //noinspection ChainedMethodCall,ChainedMethodCall
+                    if ((database.get(userId) != null) && database.get(userId).getPassword().equals(password)) {
                         Log.d("process", "login successful");
+                        //noinspection ChainedMethodCall
                         Model.getInstance().setUser(database.get(userId));
                         startActivity(dashboardPage);
                     } else {

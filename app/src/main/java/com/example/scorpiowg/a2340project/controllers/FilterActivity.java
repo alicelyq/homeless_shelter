@@ -41,11 +41,14 @@ public class FilterActivity extends AppCompatActivity {
         final Intent shelterPage = new Intent(this, ShelterListActivity.class);
         search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //noinspection ChainedMethodCall,ChainedMethodCall
                 shelterPage.putExtra("userId", getIntent().getStringExtra("userId").toString());
+                //noinspection ChainedMethodCall
                 shelterPage.putExtra("gender", genderSpinner.getSelectedItem().toString());
+                //noinspection ChainedMethodCall
                 shelterPage.putExtra("ageRange", ageRangeSpinner.getSelectedItem().toString());
                 EditText nameInput = findViewById(R.id.name);
-                String name = nameInput.getText().toString();
+                @SuppressWarnings("ChainedMethodCall") String name = nameInput.getText().toString();
                 shelterPage.putExtra("shelterName", name);
                 shelterPage.putExtra("filter", "1");
                 startActivity(shelterPage);

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         final Intent registerPage = new Intent(this, RegUserTypeActivity.class);
 
         /** read csv file, put initial shelters in local device */
-        InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_db);
+        @SuppressWarnings("ChainedMethodCall") InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_db);
         CSVFile shelterFile = new CSVFile(inputStream);
         Map<String, String[]> shelterinfo = shelterFile.read();
 
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             Shelter newShelter = new Shelter(s,shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7]);
             newPair.put(s, newShelter);
         }
+        //noinspection ChainedMethodCall
         Model.getInstance().setShelters(newPair);
 
 
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 //        refreshDatabase(shelterinfo);
 
         /** shelters from database to local device */
-        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        @SuppressWarnings("ChainedMethodCall") final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference DBsheltersRef = database.child("shelters");
         //noinspection FeatureEnvy
         DBsheltersRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -68,10 +69,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("process" ,"Gets Database Shelter Data");
-                Map<String, Shelter> shelters = Model.getInstance().getShelters();
+                @SuppressWarnings("ChainedMethodCall") Map<String, Shelter> shelters = Model.getInstance().getShelters();
                 for (String s: shelters.keySet()) {
-                    int occupied = dataSnapshot.child(shelters.get(s).getShelterId()).child("occupied").getValue(Integer.class);
+                    @SuppressWarnings("ChainedMethodCall") int occupied = dataSnapshot.child(shelters.get(s).getShelterId()).child("occupied").getValue(Integer.class);
+                    //noinspection ChainedMethodCall
                     shelters.get(s).setOccupied(occupied);
+                    //noinspection ChainedMethodCall
                     Log.d("process", "Shelter ID: " + s + ": " + "Occupied: " + shelters.get(s).getOccupied());
                 }
             }
@@ -88,21 +91,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("process" ,"Gets Database User Data");
-                Map localUsers = Model.getInstance().getDatabase();
+                @SuppressWarnings("ChainedMethodCall") Map localUsers = Model.getInstance().getDatabase();
                 for (DataSnapshot user: dataSnapshot.getChildren()) {
                     User curUser = null;
-                    if (user.child("type").getValue(String.class).equals("ShelterEmployee")) {
+                    //noinspection ChainedMethodCall,ChainedMethodCall
+                    if ("ShelterEmployee".equals(user.child("type").getValue(String.class))) {
+                        //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                         curUser = new ShelterEmployee(user.child("name").getValue(String.class)
                                 , user.child("userId").getValue(String.class)
                                 , user.child("password").getValue(String.class)
                                 , user.child("accountState").getValue(boolean.class)
                                 , user.child("shelterId").getValue(String.class));
-                    } else if (user.child("type").getValue(String.class).equals("Admin")) {
-                        curUser = new Admin(user.child("name").getValue(String.class)
+                    } else //noinspection ChainedMethodCall,ChainedMethodCall
+                        if ("Admin".equals(user.child("type").getValue(String.class))) {
+                            //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
+                            curUser = new Admin(user.child("name").getValue(String.class)
                                 , user.child("userId").getValue(String.class)
                                 , user.child("password").getValue(String.class)
                                 , user.child("accountState").getValue(boolean.class));
                     } else {
+                            //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                         curUser = new Homeless(user.child("name").getValue(String.class)
                                 , user.child("userId").getValue(String.class)
                                 , user.child("password").getValue(String.class)
@@ -117,7 +125,9 @@ public class MainActivity extends AppCompatActivity {
                     if (curUser == null) {
                         Log.d("debug", "type name might be wrong");
                     } else {
+                        //noinspection ChainedMethodCall
                         curUser.setBeds(user.child("beds").getValue(int.class));
+                        //noinspection ChainedMethodCall
                         curUser.setClaim(user.child("claim").getValue(Shelter.class));
                         localUsers.put(curUser.getUserId(), curUser);
                     }
@@ -149,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
     private void refreshDatabase(Map<String, String[]> shelterinfo) {
         for (String s: shelterinfo.keySet()) {
             String[] shelterVal = shelterinfo.get(s);
+            //noinspection ChainedMethodCall
             Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], 0);
         }
     }

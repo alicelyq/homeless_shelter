@@ -31,20 +31,20 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
         setContentView(R.layout.shelter_emp_reg);
 
         //database hashmap
-        final Map<String, User> database = Model.getInstance().getDatabase();
-        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
+        @SuppressWarnings("ChainedMethodCall") final Map<String, User> database = Model.getInstance().getDatabase();
+        @SuppressWarnings("ChainedMethodCall") final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
-        String error = getIntent().getStringExtra("error");
+        @SuppressWarnings("ChainedMethodCall") String error = getIntent().getStringExtra("error");
         if (error != null) {
             TextView passwordError = findViewById(R.id.passwordError);
             TextView useridError = findViewById(R.id.userIDError);
-            if (error.equals("all")) {
+            if ("all".equals(error)) {
                 passwordError.setVisibility(View.VISIBLE);
                 useridError.setVisibility(View.VISIBLE);
-            } else if (error.equals("password")) {
+            } else if ("password".equals(error)) {
                 passwordError.setVisibility(View.VISIBLE);
-            } else if (error.equals("name")) {
+            } else if ("name".equals(error)) {
                 useridError.setVisibility(View.VISIBLE);
             }
         }
@@ -72,10 +72,10 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                 EditText passinput = findViewById(R.id.password);
                 EditText confinput = findViewById(R.id.confirm);
                 EditText nameinput = findViewById(R.id.input_name);
-                String userId = userinput.getText().toString();
-                String password = passinput.getText().toString();
-                String confirm = confinput.getText().toString();
-                String username = nameinput.getText().toString();
+                @SuppressWarnings("ChainedMethodCall") String userId = userinput.getText().toString();
+                @SuppressWarnings("ChainedMethodCall") String password = passinput.getText().toString();
+                @SuppressWarnings("ChainedMethodCall") String confirm = confinput.getText().toString();
+                @SuppressWarnings("ChainedMethodCall") String username = nameinput.getText().toString();
 
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
@@ -83,10 +83,14 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
 
                     User curUser = new ShelterEmployee(username, userId, password, true, "1");
                     database.put(userId, curUser);
-                    DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
+                    @SuppressWarnings("ChainedMethodCall") DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
+                    //noinspection ChainedMethodCall,ChainedMethodCall
                     realDB.child("users").child(userId).setValue(curUser);
+                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                     realDB.child("users").child(userId).child("claim").setValue(curUser.getClaim());
+                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                     realDB.child("users").child(userId).child("beds").setValue(curUser.getBeds());
+                    //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                     realDB.child("users").child(userId).child("type").setValue("ShelterEmployee");
                   
                     startActivity(loginPage);

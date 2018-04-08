@@ -46,18 +46,24 @@ public class ShelterListActivity extends AppCompatActivity {
         String gender = "";
         String ageRange = "";
         String shelterName = "";
+        //noinspection ChainedMethodCall
         Model.getInstance().clearCurrentShelterList();
 
         /** if filter is used */
-        if (getIntent().getStringExtra("filter").equals("1")) {
+        //noinspection ChainedMethodCall,ChainedMethodCall
+        if ("1".equals(getIntent().getStringExtra("filter"))) {
+            //noinspection ChainedMethodCall
             gender = getIntent().getStringExtra("gender");
+            //noinspection ChainedMethodCall
             ageRange = getIntent().getStringExtra("ageRange");
+            //noinspection ChainedMethodCall
             shelterName = getIntent().getStringExtra("shelterName");
         }
 
         /** filter button function */
         filter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //noinspection ChainedMethodCall,ChainedMethodCall
                 filterPage.putExtra("userId", Model.getInstance().getUser().getUserId());
                 startActivity(filterPage);
 
@@ -91,14 +97,17 @@ public class ShelterListActivity extends AppCompatActivity {
 
         /** set view: user info */
         TextView user = findViewById(R.id.user);
+        //noinspection ChainedMethodCall,ChainedMethodCall
         user.setText(Model.getInstance().getUser().toString());
 
         /** set view: shelter list */
         LinearLayout parentLayout = findViewById(R.id.parentLayout);
         parentLayout.setGravity(Gravity.CENTER);
         /** iterate over shelters and put each into view as button */
+        //noinspection ChainedMethodCall,ChainedMethodCall
         for (Object key : Model.getInstance().getShelters().keySet()) {
             if (checkFilter((String)key, gender, ageRange, shelterName)) {
+                //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                 Model.getInstance().addCurrentShelter((Shelter) Model.getInstance().getShelters().get(key));
                 final String id = (String) key;
                 final Button shelter = new Button(this);
@@ -106,6 +115,7 @@ public class ShelterListActivity extends AppCompatActivity {
                 //noinspection MagicNumber
                 shelterListParams.setMargins(0, 20, 0, 0);
                 shelter.setLayoutParams(shelterListParams);
+                //noinspection ChainedMethodCall,ChainedMethodCall
                 shelter.setText(((Shelter) Model.getInstance().getShelters().get(key)).getName());
                 int idSetter = Integer.parseInt((String) key);
                 shelter.setId(idSetter);
@@ -128,16 +138,17 @@ public class ShelterListActivity extends AppCompatActivity {
         boolean ageRangeCheck = false;
         boolean shelterNameCheck = false;
 
-        String constraint = ((Shelter)Model.getInstance().getShelters().get(key)).getRestriction();
+        @SuppressWarnings("ChainedMethodCall") String constraint = ((Shelter)Model.getInstance().getShelters().get(key)).getRestriction();
 
         /** if no fiilter chosen, return true */
-        if (getIntent().getStringExtra("filter").equals("0")) {
+        //noinspection ChainedMethodCall,ChainedMethodCall
+        if ("0".equals(getIntent().getStringExtra("filter"))) {
             return true;
         }
 
         /** filter is chosen */
         /** gender filter */
-        if (gender.equals("Any")) {
+        if ("Any".equals(gender)) {
             genderCheck = true;
         } else {
             if (constraint.indexOf(gender) != -1) {
@@ -146,12 +157,13 @@ public class ShelterListActivity extends AppCompatActivity {
         }
 
         /** age range filter */
-        if (ageRange.equals("Anyone")) {
+        if ("Anyone".equals(ageRange)) {
             ageRangeCheck = true;
         } else {
+            //noinspection ChainedMethodCall
             if (constraint.toLowerCase().indexOf(ageRange.toLowerCase()) != -1) {
                 ageRangeCheck = true;
-            } else if (ageRange.equals("Families with newborns") && constraint.indexOf("Families w") != -1) {
+            } else if ("Families with newborns".equals(ageRange) && (constraint.indexOf("Families w") != -1)) {
                 ageRangeCheck = true;
             }
         }
@@ -164,6 +176,7 @@ public class ShelterListActivity extends AppCompatActivity {
 
         Log.d("debug", "shelterNameCheck always set to true1");
         /** shelter name check */
+        //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
         if (((Shelter)Model.getInstance().getShelters().get(key)).getName().toLowerCase().indexOf(sheltername.toLowerCase()) != -1) {
             shelterNameCheck = true;
         }

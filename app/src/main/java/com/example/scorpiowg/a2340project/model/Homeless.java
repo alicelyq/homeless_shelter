@@ -7,12 +7,12 @@ package com.example.scorpiowg.a2340project.model;
 
 public class Homeless extends User {
 
-    private String govId;
-    private String gender;
-    private boolean isVeteran;
-    private boolean isFamily;
-    private int familyNum;
-    private int age;
+    private final String govId;
+    private final String gender;
+    private final boolean isVeteran;
+    private final boolean isFamily;
+    private final int familyNum;
+    private final int age;
 
     public Homeless(String name, String userId, String password, boolean accountState, String govId,
                     String gender, boolean isVeteran, boolean isFamily, int familyNum, int age) {
