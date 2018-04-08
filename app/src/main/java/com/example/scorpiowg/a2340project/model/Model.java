@@ -101,7 +101,7 @@ public class Model {
         }
     }
 
-    public boolean registerUser(HashMap<String, User> database, String userId, String password, String confirm,
+    public boolean registerUser(Map<String, User> database, String userId, String password, String confirm,
                                 String username, boolean accountState, String shelterId) {
         if (password.equals(confirm) && !database.containsKey(userId)) {
             User curUser = new ShelterEmployee(username, userId, password, true, "1");
