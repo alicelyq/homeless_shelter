@@ -69,14 +69,19 @@ public class LoginActivity extends AppCompatActivity {
                      *  1. userId exists
                      *  2. password matches this userId
                      * */
+<<<<<<< HEAD
                     //noinspection ChainedMethodCall,ChainedMethodCall
                     if ((database.get(userId) != null) && database.get(userId).getPassword().equals(password)) {
                         Log.d("process", "login successful");
                         //noinspection ChainedMethodCall
                         Model.getInstance().setUser(database.get(userId));
+=======
+
+                    boolean successful = Model.getInstance().loginUser(database, userId, password);
+                    if (successful) {
+>>>>>>> master
                         startActivity(dashboardPage);
                     } else {
-                        Log.d("process", "login failed");
                         loginErrorPage.putExtra("error", "true");
                         startActivity(loginErrorPage);
                     }
@@ -84,3 +89,4 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 }
+

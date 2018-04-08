@@ -51,7 +51,7 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
 
         // two buttons
         Button cancelRegister = findViewById(R.id.cancel);
-        Button register = findViewById(R.id.register);
+        final Button register = findViewById(R.id.register);
 
 
         // init next actions
@@ -78,13 +78,20 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                 @SuppressWarnings("ChainedMethodCall") String username = nameinput.getText().toString();
 
                 // next action
-                if (password.equals(confirm) && !database.containsKey(userId)) {
-                    //success
 
+                boolean registerSuccess = Model.getInstance().registerUser(database, userId, password, confirm, username, true, "1");
+
+                if (registerSuccess) {
+                    //success
                     User curUser = new ShelterEmployee(username, userId, password, true, "1");
+<<<<<<< HEAD
                     database.put(userId, curUser);
                     @SuppressWarnings("ChainedMethodCall") DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
                     //noinspection ChainedMethodCall,ChainedMethodCall
+=======
+
+                    DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
+>>>>>>> master
                     realDB.child("users").child(userId).setValue(curUser);
                     //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                     realDB.child("users").child(userId).child("claim").setValue(curUser.getClaim());
