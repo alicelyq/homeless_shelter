@@ -84,14 +84,8 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                 if (registerSuccess) {
                     //success
                     User curUser = new ShelterEmployee(username, userId, password, true, "1");
-<<<<<<< HEAD
-                    database.put(userId, curUser);
-                    @SuppressWarnings("ChainedMethodCall") DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
-                    //noinspection ChainedMethodCall,ChainedMethodCall
-=======
-
                     DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
->>>>>>> master
+
                     realDB.child("users").child(userId).setValue(curUser);
                     //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                     realDB.child("users").child(userId).child("claim").setValue(curUser.getClaim());

@@ -90,7 +90,7 @@ public final class Model {
     }
 
 
-    public boolean loginUser(HashMap<String, User> database, String userId, String password) {
+    public boolean loginUser(Map<String, User> database, String userId, String password) {
         if (database.get(userId) != null && database.get(userId).getPassword().equals(password)) {
             Log.d("process", "login successful");
             Model.getInstance().setUser(database.get(userId));
