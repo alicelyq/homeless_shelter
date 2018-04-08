@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Spinner;
 
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by nancy on 2/17/18.
@@ -39,14 +41,14 @@ public class HomelessUserRegActivity extends AppCompatActivity {
         String[] genderchoice = new String[]{"Male", "Female", "Other"};
         String[] veteranchoice = new String[]{"Yes", "No"};
 
-        ArrayAdapter<String> genderadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, genderchoice);
+        SpinnerAdapter genderadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, genderchoice);
         genderSpinner.setAdapter(genderadapter);
 
-        ArrayAdapter<String> veteranadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, veteranchoice);
+        SpinnerAdapter veteranadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, veteranchoice);
         veteranSpinner.setAdapter(veteranadapter);
 
         //database hashmap
-        final HashMap<String, User> database = Model.getInstance().getDatabase();
+        final Map<String, User> database = Model.getInstance().getDatabase();
         final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
