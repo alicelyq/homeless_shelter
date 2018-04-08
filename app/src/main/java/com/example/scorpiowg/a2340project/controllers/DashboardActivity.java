@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 
 public class DashboardActivity extends AppCompatActivity {
+    @Override
     @SuppressWarnings("FeatureEnvy")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
             releaseButton.setVisibility(View.VISIBLE);
             //noinspection FeatureEnvy,FeatureEnvy
             releaseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     int newOcc = myshelter.getOccupied() - myuser.getBeds();
                   
@@ -79,6 +81,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         // go to shelter search page
         shelter.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 shelterPage.putExtra("filter", "0");
                 startActivity(shelterPage);

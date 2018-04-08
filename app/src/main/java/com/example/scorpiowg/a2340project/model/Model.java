@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 
+@SuppressWarnings("ALL")
 public final class Model {
     /** Singleton instance */
     private static final Model _instance = new Model();
@@ -97,7 +98,7 @@ public final class Model {
         if (gender.equals("Any")) {
             return true;
         } else {
-            if (constraint.indexOf(gender) != -1) {
+            if (constraint.contains(gender)) {
                 return true;
             }
             return false;
@@ -120,9 +121,9 @@ public final class Model {
         if (ageRange.equals("Anyone")) {
             return true;
         } else {
-            if (constraint.toLowerCase().indexOf(ageRange.toLowerCase()) != -1) {
+            if (constraint.toLowerCase().contains(ageRange.toLowerCase())) {
                 return true;
-            } else if (ageRange.equals("Families with newborns") && constraint.indexOf("Families w") != -1) {
+            } else if (ageRange.equals("Families with newborns") && constraint.contains("Families w")) {
                 return true;
             }
             return false;
@@ -130,7 +131,7 @@ public final class Model {
     }
 
     public boolean filterByName(String sheltername, Shelter currentShelter) {
-        if (currentShelter.getName().toLowerCase().indexOf(sheltername.toLowerCase()) != -1) {
+        if (currentShelter.getName().toLowerCase().contains(sheltername.toLowerCase())) {
           return true;
         }
         return false;

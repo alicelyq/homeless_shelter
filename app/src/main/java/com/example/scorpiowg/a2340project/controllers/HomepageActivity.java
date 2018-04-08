@@ -30,6 +30,7 @@ public class HomepageActivity extends AppCompatActivity {
         final Intent back = new Intent(this, MainActivity.class);
 
         logout.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 startActivity(back);
             }

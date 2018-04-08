@@ -13,6 +13,7 @@ import java.util.Map;
  * @version 1.8
  * created on 02/25/2018
  */
+@SuppressWarnings("ALL")
 public class CSVFile {
     InputStream inputStream;
 

@@ -9,6 +9,7 @@ import android.util.Log;
  * created on 02/25/2018
  */
 
+@SuppressWarnings("ALL")
 public class Shelter {
     private String shelterId;
     private String name;

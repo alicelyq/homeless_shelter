@@ -46,6 +46,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Button b = findViewById(R.id.back);
         final Intent listPage = new Intent(this, ShelterListActivity.class);
         b.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 listPage.putExtra("filter", "0");
                 startActivity(listPage);

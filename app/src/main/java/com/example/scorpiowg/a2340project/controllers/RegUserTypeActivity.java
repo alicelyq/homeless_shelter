@@ -37,6 +37,7 @@ public class RegUserTypeActivity extends AppCompatActivity {
         final Intent admin_user_page = new Intent(this, AdminUserRegActivity.class);
 
         cancel_reg_user_type.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 startActivity(mainpage);
@@ -44,6 +45,7 @@ public class RegUserTypeActivity extends AppCompatActivity {
         });
 
         shelter_emp_user.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 startActivity(shelter_emp_page);
@@ -51,6 +53,7 @@ public class RegUserTypeActivity extends AppCompatActivity {
         });
 
         admin_user.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 startActivity(admin_user_page);
@@ -58,6 +61,7 @@ public class RegUserTypeActivity extends AppCompatActivity {
         });
 
         homeless_user.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 startActivity(homeless_user_page);

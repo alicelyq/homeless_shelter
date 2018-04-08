@@ -24,6 +24,7 @@ import java.util.Map;
  * Created by nancy on 2/17/18.
  */
 
+@SuppressWarnings("ALL")
 public class AdminUserRegActivity extends AppCompatActivity {
 
     @Override

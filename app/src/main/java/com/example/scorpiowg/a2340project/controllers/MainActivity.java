@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("ALL")
 public class MainActivity extends AppCompatActivity {
 
     @SuppressWarnings("FeatureEnvy")
@@ -73,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("process" ,"Gets Database Shelter Data");
                 @SuppressWarnings("ChainedMethodCall") Map<String, Shelter> shelters = Model.getInstance().getShelters();
                 for (String s: shelters.keySet()) {
-                    @SuppressWarnings("ChainedMethodCall") int occupied = dataSnapshot.child(shelters.get(s).getShelterId()).child("occupied").getValue(Integer.class);
+                    //noinspection ConstantConditions
+                    @SuppressWarnings({"ChainedMethodCall", "ConstantConditions"}) int occupied = dataSnapshot.child(shelters.get(s).getShelterId()).child("occupied").getValue(Integer.class);
                     //noinspection ChainedMethodCall
                     shelters.get(s).setOccupied(occupied);
                     //noinspection ChainedMethodCall
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("process" ,"Gets Database User Data");
                 @SuppressWarnings("ChainedMethodCall") Map localUsers = Model.getInstance().getDatabase();
                 for (DataSnapshot user: dataSnapshot.getChildren()) {
-                    User curUser = null;
+                    User curUser;
                     //noinspection ChainedMethodCall,ChainedMethodCall
                     if ("ShelterEmployee".equals(user.child("type").getValue(String.class))) {
                         //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall,ChainedMethodCall

@@ -18,6 +18,7 @@ import com.example.scorpiowg.a2340project.R;
  */
 
 public class FilterActivity extends AppCompatActivity {
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter);
@@ -41,9 +42,10 @@ public class FilterActivity extends AppCompatActivity {
         Button search = findViewById(R.id.search);
         final Intent shelterPage = new Intent(this, ShelterListActivity.class);
         search.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 //noinspection ChainedMethodCall,ChainedMethodCall
-                shelterPage.putExtra("userId", getIntent().getStringExtra("userId").toString());
+                shelterPage.putExtra("userId", getIntent().getStringExtra("userId"));
                 //noinspection ChainedMethodCall
                 shelterPage.putExtra("gender", genderSpinner.getSelectedItem().toString());
                 //noinspection ChainedMethodCall
