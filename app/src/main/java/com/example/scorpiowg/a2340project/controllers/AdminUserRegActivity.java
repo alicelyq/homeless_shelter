@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by nancy on 2/17/18.
@@ -31,7 +32,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
         setContentView(R.layout.admin_user_reg);
 
         //database hashmap
-        @SuppressWarnings("ChainedMethodCall") final HashMap<String, User> database = Model.getInstance().getDatabase();
+        @SuppressWarnings("ChainedMethodCall") final Map<String, User> database = Model.getInstance().getDatabase();
         @SuppressWarnings("ChainedMethodCall") final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error

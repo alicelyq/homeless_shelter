@@ -24,7 +24,7 @@ public final class Model {
     private HashMap<String, Shelter> shelters;
 
     /** holds the list of shelters after filtering */
-    private ArrayList<Shelter> currentShelterList;
+    private List<Shelter> currentShelterList;
 
 
 
