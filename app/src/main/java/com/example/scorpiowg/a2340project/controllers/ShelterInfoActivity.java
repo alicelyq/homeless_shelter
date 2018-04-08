@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
  * Created by wangjingbo on 2/25/18.
  */
 
+@SuppressWarnings("ALL")
 public class ShelterInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

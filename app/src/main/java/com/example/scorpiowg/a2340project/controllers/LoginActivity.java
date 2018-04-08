@@ -19,19 +19,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by wangjingbo on 2/11/18.
  */
 
 public class LoginActivity extends AppCompatActivity {
+    @SuppressWarnings("FeatureEnvy")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         /** all users dictionary */
         /** a little confusing because it's not actually database */
-        final HashMap<String, User> database = Model.getInstance().getDatabase();
+        final Map<String, User> database = Model.getInstance().getDatabase();
 
         /** check if this page was loaded from a login error */
         if (getIntent().getStringExtra("error") != null) {

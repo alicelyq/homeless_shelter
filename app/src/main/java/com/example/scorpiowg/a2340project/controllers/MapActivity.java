@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by nancy on 4/2/18.
@@ -28,7 +29,7 @@ import java.util.HashMap;
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final String TAG = "MapActivity";
-    private HashMap<Marker, Shelter> linker = new HashMap<>();
+    private Map<Marker, Shelter> linker = new HashMap<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
+    @SuppressWarnings("FeatureEnvy")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         // Add a marker in Sydney, Australia,

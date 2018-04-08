@@ -16,7 +16,8 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/claim"
@@ -28,7 +29,8 @@
         android:text="claim bedspace:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info" />
+        app:layout_constraintTop_toBottomOf="@+id/info"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/beds"
@@ -41,7 +43,8 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/claim" />
+        app:layout_constraintTop_toBottomOf="@+id/claim"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/error"
@@ -55,7 +58,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/success" />
+        app:layout_constraintTop_toBottomOf="@+id/success"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/success"
@@ -70,7 +74,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beds" />
+        app:layout_constraintTop_toBottomOf="@+id/beds"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/toDashboard"
@@ -86,7 +91,8 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/limit"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/limit"
@@ -100,7 +106,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/error" />
+        app:layout_constraintTop_toBottomOf="@+id/error"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/backToList"
@@ -113,5 +120,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/limit"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintVertical_bias="0.057"
+        tools:ignore="HardcodedText" />
 </android.support.constraint.ConstraintLayout>

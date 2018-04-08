@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 
 public class DashboardActivity extends AppCompatActivity {
+    @SuppressWarnings("FeatureEnvy")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
@@ -48,6 +49,7 @@ public class DashboardActivity extends AppCompatActivity {
         if (myshelter != null) {
             /** add a release button to release his booking */
             releaseButton.setVisibility(View.VISIBLE);
+            //noinspection FeatureEnvy,FeatureEnvy
             releaseButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     int newOcc = myshelter.getOccupied() - myuser.getBeds();

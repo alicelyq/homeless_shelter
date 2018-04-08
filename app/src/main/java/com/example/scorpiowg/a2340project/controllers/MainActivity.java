@@ -27,6 +27,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    @SuppressWarnings("FeatureEnvy")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,11 +62,13 @@ public class MainActivity extends AppCompatActivity {
         /** shelters from database to local device */
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference DBsheltersRef = database.child("shelters");
+        //noinspection FeatureEnvy
         DBsheltersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressWarnings("FeatureEnvy")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("process" ,"Gets Database Shelter Data");
-                HashMap<String, Shelter> shelters = Model.getInstance().getShelters();
+                Map<String, Shelter> shelters = Model.getInstance().getShelters();
                 for (String s: shelters.keySet()) {
                     int occupied = dataSnapshot.child(shelters.get(s).getShelterId()).child("occupied").getValue(Integer.class);
                     shelters.get(s).setOccupied(occupied);
@@ -79,11 +82,13 @@ public class MainActivity extends AppCompatActivity {
 
         /** users from database to local device */
         final DatabaseReference DBusersRef = database.child("users");
+        //noinspection FeatureEnvy
         DBusersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressWarnings("FeatureEnvy")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("process" ,"Gets Database User Data");
-                HashMap localUsers = Model.getInstance().getDatabase();
+                Map localUsers = Model.getInstance().getDatabase();
                 for (DataSnapshot user: dataSnapshot.getChildren()) {
                     User curUser = null;
                     if (user.child("type").getValue(String.class).equals("ShelterEmployee")) {

@@ -31,7 +31,7 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
         setContentView(R.layout.shelter_emp_reg);
 
         //database hashmap
-        final HashMap<String, User> database = Model.getInstance().getDatabase();
+        final Map<String, User> database = Model.getInstance().getDatabase();
         final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error

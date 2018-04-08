@@ -21,7 +21,9 @@ import java.util.ArrayList;
  * Created by wangjingbo on 2/25/18.
  */
 
+@SuppressWarnings("ALL")
 public class ShelterListActivity extends AppCompatActivity {
+    @SuppressWarnings("MagicNumber")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +103,7 @@ public class ShelterListActivity extends AppCompatActivity {
                 final String id = (String) key;
                 final Button shelter = new Button(this);
                 LinearLayout.LayoutParams shelterListParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                //noinspection MagicNumber
                 shelterListParams.setMargins(0, 20, 0, 0);
                 shelter.setLayoutParams(shelterListParams);
                 shelter.setText(((Shelter) Model.getInstance().getShelters().get(key)).getName());
