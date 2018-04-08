@@ -14,7 +14,7 @@ public class User {
     private final String password;
     private final boolean accountState;
     @SuppressWarnings("FieldCanBeLocal")
-    private String type;
+    private final String type;
     private Shelter claim;
     private int beds;
 

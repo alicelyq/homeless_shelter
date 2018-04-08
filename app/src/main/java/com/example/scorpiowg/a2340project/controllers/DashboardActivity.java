@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by wangjingbo on 3/3/18.
  */
 
+@SuppressWarnings("ALL")
 public class DashboardActivity extends AppCompatActivity {
     @SuppressWarnings("FeatureEnvy")
     protected void onCreate(Bundle savedInstanceState) {
