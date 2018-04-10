@@ -46,11 +46,11 @@ public class HomelessUserRegActivity extends AppCompatActivity {
         veteranSpinner.setAdapter(veteranadapter);
 
         //database hashmap
-        @SuppressWarnings("ChainedMethodCall") final Map<String, User> database = Model.getInstance().getDatabase();
-        @SuppressWarnings("ChainedMethodCall") final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
+        final Map<String, User> database = Model.getInstance().getDatabase();
+        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
-        @SuppressWarnings("ChainedMethodCall") String error = getIntent().getStringExtra("error");
+        String error = getIntent().getStringExtra("error");
         if (error != null) {
             TextView passwordError = findViewById(R.id.passwordError);
             TextView useridError = findViewById(R.id.userIDError);
@@ -87,26 +87,26 @@ public class HomelessUserRegActivity extends AppCompatActivity {
                 EditText userinput = findViewById(R.id.userid);
                 EditText passinput = findViewById(R.id.password);
                 EditText confinput = findViewById(R.id.confirm);
-                @SuppressWarnings("ChainedMethodCall") String userId = userinput.getText().toString();
-                @SuppressWarnings("ChainedMethodCall") String password = passinput.getText().toString();
-                @SuppressWarnings("ChainedMethodCall") String confirm = confinput.getText().toString();
-                @SuppressWarnings("ChainedMethodCall") String username = ((EditText)findViewById(R.id.input_name)).getText().toString();
-                @SuppressWarnings("ChainedMethodCall") String govId = ((EditText)findViewById(R.id.govid)).getText().toString();
-                @SuppressWarnings("ChainedMethodCall") String gender = genderSpinner.getSelectedItem().toString();
-                @SuppressWarnings("ChainedMethodCall") int age = Integer.parseInt(((EditText)findViewById(R.id.age)).getText().toString());
-                @SuppressWarnings("ChainedMethodCall") int familyNum = Integer.parseInt(((EditText)findViewById(R.id.familynum)).getText().toString());
+                String userId = userinput.getText().toString();
+                String password = passinput.getText().toString();
+                String confirm = confinput.getText().toString();
+                String username = ((EditText)findViewById(R.id.input_name)).getText().toString();
+                String govId = ((EditText)findViewById(R.id.govid)).getText().toString();
+                String gender = genderSpinner.getSelectedItem().toString();
+                int age = Integer.parseInt(((EditText)findViewById(R.id.age)).getText().toString());
+                int familyNum = Integer.parseInt(((EditText)findViewById(R.id.familynum)).getText().toString());
                 boolean isFamily = true;
                 if (familyNum <= 1) {
                     isFamily = false;
                 }
-                @SuppressWarnings("ChainedMethodCall") boolean isVeteran = Boolean.valueOf(veteranSpinner.getSelectedItem().toString());
+                boolean isVeteran = Boolean.valueOf(veteranSpinner.getSelectedItem().toString());
 
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
                     // success
                     User curUser = new Homeless(username, userId, password, true, govId, gender, isVeteran, isFamily, familyNum, age);
                     database.put(userId, curUser);
-                    @SuppressWarnings("ChainedMethodCall") DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
+                    DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
                     //noinspection ChainedMethodCall,ChainedMethodCall
                     realDB.child("users").child(userId).setValue(curUser);
                     //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall

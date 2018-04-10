@@ -19,10 +19,9 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by wangjingbo on 3/3/18.
  */
 
-@SuppressWarnings("ALL")
+
 public class DashboardActivity extends AppCompatActivity {
     @Override
-    @SuppressWarnings("FeatureEnvy")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
@@ -41,10 +40,10 @@ public class DashboardActivity extends AppCompatActivity {
         final Intent mapPage = new Intent(this, MapActivity.class);
 
         // real database
-        @SuppressWarnings("ChainedMethodCall") final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         // current state
-        @SuppressWarnings("ChainedMethodCall") final User myuser = Model.getInstance().getUser();
+        final User myuser = Model.getInstance().getUser();
 
         final Shelter myshelter = myuser.getClaim();
 

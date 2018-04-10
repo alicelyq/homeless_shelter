@@ -14,7 +14,7 @@ import com.example.scorpiowg.a2340project.model.Model;
  * Created by nancy on 2/11/18.
  */
 
-@SuppressWarnings("ALL")
+
 public class HomepageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
