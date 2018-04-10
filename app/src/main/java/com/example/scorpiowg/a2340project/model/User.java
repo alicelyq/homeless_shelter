@@ -1,5 +1,7 @@
 package com.example.scorpiowg.a2340project.model;
 
+import android.support.annotation.Nullable;
+
 /**
  * Created by wangjingbo on 2/17/18.
  */
@@ -10,7 +12,8 @@ public class User {
     private final String userId;
     private final String password;
     private final boolean accountState;
-    private final String type;
+//    private final String type;
+    @Nullable
     private Shelter claim;
     private int beds;
 
@@ -21,15 +24,14 @@ public class User {
      * @param userId the user id
      * @param password the password of the user account
      * @param accountState whether this account is blocked
-     * @param type the specific user type
+     * @param type2 the specific user type
      */
-    public User(String name, String userId, String password, boolean accountState, String type) {
+    public User(String name, String userId, String password, boolean accountState, String type2) {
         this.name = name;
         this.userId = userId;
         this.password = password;
         this.accountState = accountState;
-        this.type = type;
-        //noinspection AssignmentToNull
+        String type = type2;
         this.claim = null;
         this.beds = 0;
     }

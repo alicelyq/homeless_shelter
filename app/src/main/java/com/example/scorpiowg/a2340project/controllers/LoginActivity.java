@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         final Map<String, User> database = Model.getInstance().getDatabase();
 
         // check if this page was loaded from a login error
-        //noinspection ChainedMethodCall
 
         if (getIntent().getStringExtra("error") != null) {
             TextView error = findViewById(R.id.error);
