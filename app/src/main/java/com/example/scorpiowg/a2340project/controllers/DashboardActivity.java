@@ -26,9 +26,7 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
 
-        // display user info {@link R.id.userinfo}
         TextView user = findViewById(R.id.userinfo);
-        //noinspection ChainedMethodCall,ChainedMethodCall
         user.setText(Model.getInstance().getUser().toString());
         // button
         Button releaseButton = findViewById(R.id.release);
@@ -51,7 +49,6 @@ public class DashboardActivity extends AppCompatActivity {
         if (myshelter != null) {
             // add a release button to release his booking
             releaseButton.setVisibility(View.VISIBLE);
-            //noinspection FeatureEnvy,FeatureEnvy
             releaseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

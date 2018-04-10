@@ -223,6 +223,9 @@ public final class Model {
     }
 
     public void setShelters(Map<String, Shelter> shelterInfo) {
-        shelters = shelterInfo;
+        shelters = new HashMap<>();
+        for (String key: shelterInfo.keySet()) {
+            shelters.put(key, shelterInfo.get(key));
+        }
     }
 }
