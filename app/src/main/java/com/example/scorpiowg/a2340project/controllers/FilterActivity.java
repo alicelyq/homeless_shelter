@@ -16,7 +16,7 @@ import com.example.scorpiowg.a2340project.R;
  * Created by wangjingbo on 3/3/18.
  */
 
-@SuppressWarnings("ALL")
+
 public class FilterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class FilterActivity extends AppCompatActivity {
                 //noinspection ChainedMethodCall
                 shelterPage.putExtra("ageRange", ageRangeSpinner.getSelectedItem().toString());
                 EditText nameInput = findViewById(R.id.name);
-                @SuppressWarnings("ChainedMethodCall") String name = nameInput.getText().toString();
+                String name = nameInput.getText().toString();
                 shelterPage.putExtra("shelterName", name);
                 shelterPage.putExtra("filter", "1");
                 startActivity(shelterPage);
