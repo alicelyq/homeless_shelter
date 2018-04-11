@@ -61,11 +61,13 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
 
         // click actions
         cancelRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 startActivity(reg_user_typePage);
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 // inputs
                 EditText userinput = findViewById(R.id.userid);
@@ -79,7 +81,8 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
 
                 // next action
 
-                boolean registerSuccess = Model.getInstance().registerUser(database, userId, password, confirm, username, true, "1");
+                boolean registerSuccess = Model.getInstance().registerUser(database, userId
+                        , password, confirm, username, true, "1");
 
                 if (registerSuccess) {
                     //success

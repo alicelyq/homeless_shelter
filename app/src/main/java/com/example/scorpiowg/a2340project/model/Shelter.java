@@ -36,7 +36,9 @@ public class Shelter {
      * @param specialNotes special notes from the shelter owner
      * @param phoneNum contact number of this shelter
      */
-    public Shelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum) {
+    public Shelter(String shelterId, String name, String capacity, String restriction
+            , String longitude, String latitude, String address
+            , String specialNotes, String phoneNum) {
         this.shelterId = shelterId;
         this.name = name;
         this.capacity = capacity;
@@ -140,9 +142,13 @@ public class Shelter {
      * @return a String which contains all details of the shelter
      */
     public String toString() {
-        return "SHELTER\nname: " + getName() + "\nID: " + getShelterId() + "\nCapacity: " + getCapacity() +
-                "\nOccupied: " + getOccupied() + "\nAvailable: " + (Integer.parseInt(getCapacity()) - getOccupied()) +
-                "\nRestriction: " + getRestriction() + "\nLongitude: " + getLongitude() + "\nLatitude: " + getLatitude() +
-                "\nAddress: " + getAddress() + "\nPhone Number: " + getPhoneNum() + "\nSpecial Notes: " + getSpecialNotes();
+        return "SHELTER\nname: " + getName() + "\nID: " + getShelterId()
+                + "\nCapacity: " + getCapacity() +
+                "\nOccupied: " + getOccupied() + "\nAvailable: "
+                + (Integer.parseInt(getCapacity()) - getOccupied()) +
+                "\nRestriction: " + getRestriction() + "\nLongitude: " + getLongitude()
+                + "\nLatitude: " + getLatitude() +
+                "\nAddress: " + getAddress() + "\nPhone Number: " + getPhoneNum()
+                + "\nSpecial Notes: " + getSpecialNotes();
     }
 }

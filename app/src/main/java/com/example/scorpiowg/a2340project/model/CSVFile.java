@@ -36,7 +36,7 @@ public class CSVFile {
                 String address = row[6] + "," + row[7] + "," + row[8];
                 String specialNotes = "";
                 for (int i = 9; i < (row.length - 2); i++) {
-                    specialNotes += row[i] + ",";
+                    specialNotes =  specialNotes + row[i] + ",";
                 }
                 specialNotes += row[row.length - 2];
                 String[] modifiedRow = new String[8];

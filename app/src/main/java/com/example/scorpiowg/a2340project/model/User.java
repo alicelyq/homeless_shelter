@@ -1,5 +1,7 @@
 package com.example.scorpiowg.a2340project.model;
 
+import android.support.annotation.Nullable;
+
 /**
  * Created by wangjingbo on 2/17/18.
  */
@@ -70,6 +72,7 @@ public class User {
      * Getter of the current living shelter of this user
      * @return a Shelter object which holds this user
      */
+    @Nullable
     public Shelter getClaim() {
         return claim;
     }
@@ -78,7 +81,7 @@ public class User {
      * Change the 
      * @return a String which is the name of this user
      */
-    public void setClaim(Shelter shelter) {
+    public void setClaim(@Nullable Shelter shelter) {
         claim = shelter;
     }
 

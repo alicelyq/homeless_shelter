@@ -27,7 +27,8 @@ import java.util.Map;
  */
 
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener {
 
     private static final String TAG = "MapActivity";
     private final Map<Marker, Shelter> linker = new HashMap<>();
@@ -39,7 +40,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
 
@@ -62,7 +64,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.setOnMarkerClickListener(this);
 
         for (Shelter s: Model.getInstance().getCurrentShelterList()) {
-            LatLng c = new LatLng(Double.parseDouble(s.getLatitude()), Double.parseDouble(s.getLongitude()));
+            LatLng c = new LatLng(Double.parseDouble(s.getLatitude()),
+                    Double.parseDouble(s.getLongitude()));
              MarkerOptions m = new MarkerOptions().position(c)
                     .title(s.getName());
             Marker marker = googleMap.addMarker(m);

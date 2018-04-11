@@ -114,7 +114,8 @@ public final class Model {
         } else {
             if (constraint.toLowerCase().contains(ageRange.toLowerCase())) {
                 return true;
-            } else if (ageRange.equals("Families with newborns") && constraint.contains("Families w")) {
+            } else if (ageRange.equals("Families with newborns")
+                    && constraint.contains("Families w")) {
                 return true;
             }
             return false;
@@ -128,7 +129,8 @@ public final class Model {
         return false;
     }
 
-    public boolean registerUser(Map<String, User> database, String userId, String password, String confirm,
+    public boolean registerUser(Map<String, User> database, String userId,
+                                String password, String confirm,
                                 String username, boolean accountState, String shelterId) {
         if (password.equals(confirm) && !database.containsKey(userId)) {
             User curUser = new ShelterEmployee(username, userId, password, true, "1");
@@ -141,7 +143,9 @@ public final class Model {
             
 
     /** database work */
-    public void addNewShelter(String shelterId, String name, String capacity, String restriction, String longitude, String latitude, String address, String specialNotes, String phoneNum, int occupied) {
+    public void addNewShelter(String shelterId, String name, String capacity, String restriction,
+                              String longitude, String latitude, String address,
+                              String specialNotes, String phoneNum, int occupied) {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
         db.child("shelters").child(shelterId).child("name").setValue(name);
@@ -157,10 +161,12 @@ public final class Model {
     }
 
 
-    public void addNewShelterEmployee(String name, String userId, String password, boolean accountState, String shelterId,
+    public void addNewShelterEmployee(String name, String userId, String password,
+                                      boolean accountState, String shelterId,
                                       Shelter claim, int beds) {
 
-        DatabaseReference firebaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
+        DatabaseReference firebaseUsers
+                = FirebaseDatabase.getInstance().getReference().child("users");
 
         firebaseUsers.child(userId).child("name").setValue(name);
         firebaseUsers.child(userId).child("userId").setValue(userId);
@@ -178,7 +184,8 @@ public final class Model {
 
     public void addNewAdmin(String name, String userId, String password, boolean accountState,
                             Shelter claim, int beds) {
-        DatabaseReference firebaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
+        DatabaseReference firebaseUsers
+                = FirebaseDatabase.getInstance().getReference().child("users");
 
         firebaseUsers.child(userId).child("name").setValue(name);
         firebaseUsers.child(userId).child("userId").setValue(userId);
@@ -193,10 +200,13 @@ public final class Model {
         firebaseUsers.child(userId).child("beds").setValue(beds);
     }
 
-    public void addNewHomeles(String name, String userId, String password, boolean accountState, String govId,
-                              String gender, boolean isVeteran, boolean isFamily, int familyNum, int age,
+    public void addNewHomeles(String name, String userId, String password,
+                              boolean accountState, String govId,
+                              String gender, boolean isVeteran, boolean isFamily,
+                              int familyNum, int age,
                               Shelter claim, int beds) {
-        DatabaseReference firebaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
+        DatabaseReference firebaseUsers
+                = FirebaseDatabase.getInstance().getReference().child("users");
 
         firebaseUsers.child(userId).child("name").setValue(name);
         firebaseUsers.child(userId).child("userId").setValue(userId);
