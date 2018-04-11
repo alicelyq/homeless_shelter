@@ -30,6 +30,7 @@ public class HomelessUserRegActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homeless_user_reg);
+        Model modelInstance = Model.getInstance();
 
         //get the spinner from the xml
         final Spinner genderSpinner = findViewById(R.id.gender);
@@ -47,7 +48,7 @@ public class HomelessUserRegActivity extends AppCompatActivity {
         veteranSpinner.setAdapter(veteranadapter);
 
         //database hashmap
-        final Map<String, User> database = Model.getInstance().getDatabase();
+        final Map<String, User> database = modelInstance.getDatabase();
 //        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error

@@ -32,6 +32,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 //    private static final String TAG = "MapActivity";
     private final Map<Marker, Shelter> linker = new HashMap<>();
+    Model modelInstance = Model.getInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         googleMap.setOnMarkerClickListener(this);
 
-        for (Shelter s: Model.getInstance().getCurrentShelterList()) {
+        for (Shelter s: modelInstance.getCurrentShelterList()) {
             LatLng c = new LatLng(Double.parseDouble(s.getLatitude()),
                     Double.parseDouble(s.getLongitude()));
              MarkerOptions m = new MarkerOptions().position(c)
@@ -78,7 +79,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public boolean onMarkerClick(final Marker marker) {
         Log.d("debug", "marker clicked");
         Shelter clicked = linker.get(marker);
-        Model.getInstance().setCurrentShelter(clicked);
+        modelInstance.setCurrentShelter(clicked);
         final Intent shelterInfo = new Intent(this, ShelterInfoActivity.class);
         shelterInfo.putExtra("shelterId", clicked.getShelterId());
         startActivity(shelterInfo);

@@ -24,6 +24,7 @@ public class ShelterListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shelter_list);
+        final Model modelInstance = Model.getInstance();
 
         // buttons
         Button filter = findViewById(R.id.filter);
@@ -42,7 +43,7 @@ public class ShelterListActivity extends AppCompatActivity {
         String gender = "";
         String ageRange = "";
         String shelterName = "";
-        Model.getInstance().clearCurrentShelterList();
+        modelInstance.clearCurrentShelterList();
 
 
         // if filter is used
@@ -56,7 +57,7 @@ public class ShelterListActivity extends AppCompatActivity {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterPage.putExtra("userId", Model.getInstance().getUser().getUserId());
+                filterPage.putExtra("userId", modelInstance.getUser().getUserId());
                 startActivity(filterPage);
 
             }
@@ -92,17 +93,17 @@ public class ShelterListActivity extends AppCompatActivity {
 
         // set view: user info
         TextView user = findViewById(R.id.user);
-        user.setText(Model.getInstance().getUser().toString());
+        user.setText(modelInstance.getUser().toString());
 
         // set view: shelter list
         LinearLayout parentLayout = findViewById(R.id.parentLayout);
         parentLayout.setGravity(Gravity.CENTER);
 
         // iterate over shelters and put each into view as button
-        for (Object key : Model.getInstance().getShelters().keySet()) {
+        for (Object key : modelInstance.getShelters().keySet()) {
             if (checkFilter((String)key, gender, ageRange, shelterName)) {
-                Model.getInstance().addCurrentShelter(
-                        (Shelter) Model.getInstance().getShelters().get(key));
+                modelInstance.addCurrentShelter(
+                        (Shelter) modelInstance.getShelters().get(key));
                 final String id = (String) key;
                 final Button shelter = new Button(this);
                 LinearLayout.LayoutParams shelterListParams =
@@ -112,7 +113,7 @@ public class ShelterListActivity extends AppCompatActivity {
                 shelterListParams.setMargins(0, 20, 0, 0);
 
                 shelter.setLayoutParams(shelterListParams);
-                shelter.setText(((Shelter) Model.getInstance().getShelters().get(key)).getName());
+                shelter.setText(((Shelter) modelInstance.getShelters().get(key)).getName());
                 int idSetter = Integer.parseInt((String) key);
                 shelter.setId(idSetter);
                 parentLayout.addView(shelter);
@@ -132,7 +133,9 @@ public class ShelterListActivity extends AppCompatActivity {
     // to see if this shelter is filtered out
     private boolean checkFilter(String key, CharSequence gender, String ageRange, String sheltername) {
 
-        String constraint = ((Shelter)Model.getInstance().getShelters().get(key)).getRestriction();
+        Model modelInstance = Model.getInstance();
+
+        String constraint = ((Shelter)modelInstance.getShelters().get(key)).getRestriction();
 
         // if no fiilter chosen, return true
         if ("0".equals(getIntent().getStringExtra("filter"))) {
@@ -143,10 +146,10 @@ public class ShelterListActivity extends AppCompatActivity {
         // gender filter
 
         Log.d("debug", "filter");
-        boolean genderCheck = Model.getInstance().filterByGender(gender, constraint);
+        boolean genderCheck = modelInstance.filterByGender(gender, constraint);
 
         // age range filter
-        boolean ageRangeCheck = Model.getInstance().filterByAge(ageRange, constraint);
+        boolean ageRangeCheck = modelInstance.filterByAge(ageRange, constraint);
 
 
         // if shelter has no constraint, pass gender check and age range check
@@ -156,8 +159,8 @@ public class ShelterListActivity extends AppCompatActivity {
         }
 
         // shelter name check
-        Shelter shelter = (Shelter) Model.getInstance().getShelters().get(key);
-        boolean shelterNameCheck = Model.getInstance().filterByName(sheltername, shelter);
+        Shelter shelter = (Shelter) modelInstance.getShelters().get(key);
+        boolean shelterNameCheck = modelInstance.filterByName(sheltername, shelter);
 
         return genderCheck && ageRangeCheck && shelterNameCheck;
     }

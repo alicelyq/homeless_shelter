@@ -20,9 +20,11 @@ public class HomepageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
+        Model modelInstance = Model.getInstance();
+
         // user home page
         TextView type = findViewById(R.id.homepage);
-        type.setText(Model.getInstance().getDatabase().get(getIntent()
+        type.setText(modelInstance.getDatabase().get(getIntent()
                 .getStringExtra("userId")).toString());
 
         Button logout = findViewById(R.id.logout);

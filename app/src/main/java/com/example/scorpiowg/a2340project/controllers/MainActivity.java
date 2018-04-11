@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final Model modelInstance = Model.getInstance();
 
         // buttons
         Button login = findViewById(R.id.login);
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     shelterVal[6], shelterVal[7]);
             newPair.put(s, newShelter);
         }
-        Model.getInstance().setShelters(newPair);
+        modelInstance.setShelters(newPair);
 
 
         // uncomment when refreshing database
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("process" ,"Gets Database Shelter Data");
-                 Map<String, Shelter> shelters = Model.getInstance().getShelters();
+                 Map<String, Shelter> shelters = modelInstance.getShelters();
                 for (String s: shelters.keySet()) {
                     DataSnapshot occupiedCell =
                             dataSnapshot.child(shelters.get(s).getShelterId()).child("occupied");
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("process" ,"Gets Database User Data");
-                 Map localUsers = Model.getInstance().getDatabase();
+                 Map localUsers = modelInstance.getDatabase();
                 for (DataSnapshot user: dataSnapshot.getChildren()) {
                     User curUser;
                     
@@ -151,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 //    private void refreshDatabase(Map<String, String[]> shelterinfo) {
 //        for (String s: shelterinfo.keySet()) {
 //            String[] shelterVal = shelterinfo.get(s);
-//            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2],
+//            modelInstance.addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2],
 //                    shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6],
 //                    shelterVal[7], 0);
 //        }

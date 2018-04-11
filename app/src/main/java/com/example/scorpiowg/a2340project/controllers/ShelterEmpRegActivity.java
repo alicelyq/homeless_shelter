@@ -29,9 +29,10 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shelter_emp_reg);
+        final Model modelInstance = Model.getInstance();
 
         //database hashmap
-        final Map<String, User> database = Model.getInstance().getDatabase();
+        final Map<String, User> database = modelInstance.getDatabase();
 //        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
@@ -81,7 +82,7 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
 
                 // next action
 
-                boolean registerSuccess = Model.getInstance().registerUser(database, userId
+                boolean registerSuccess = modelInstance.registerUser(database, userId
                         , password, confirm, username);
 
                 if (registerSuccess) {

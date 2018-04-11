@@ -28,9 +28,10 @@ public class AdminUserRegActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_user_reg);
+        Model modelInstance = Model.getInstance();
 
         //database hashmap
-        final Map<String, User> database = Model.getInstance().getDatabase();
+        final Map<String, User> database = modelInstance.getDatabase();
 //        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
