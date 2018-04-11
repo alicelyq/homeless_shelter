@@ -35,7 +35,7 @@ public class DashboardActivity extends AppCompatActivity {
         // intents
         final Intent dashboardPage = new Intent(this, DashboardActivity.class);
         final Intent shelterPage = new Intent(this, ShelterListActivity.class);
-        final Intent mapPage = new Intent(this, MapActivity.class);
+//        final Intent mapPage = new Intent(this, MapActivity.class);
 
         // real database
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -58,7 +58,8 @@ public class DashboardActivity extends AppCompatActivity {
                     //  1. change occupied number on database
                     //  2. change occupied number locally
                     //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
-                    database.child("shelters").child(myshelter.getShelterId()).child("occupied").setValue(newOcc);
+                    database.child("shelters")
+                            .child(myshelter.getShelterId()).child("occupied").setValue(newOcc);
                     myshelter.setOccupied(newOcc);
 
                     // update user side info
