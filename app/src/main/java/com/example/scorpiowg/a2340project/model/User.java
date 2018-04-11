@@ -24,14 +24,14 @@ public class User {
      * @param userId the user id
      * @param password the password of the user account
      * @param accountState whether this account is blocked
-     * @param type2 the specific user type
+     * @param type the specific user type
      */
-    public User(String name, String userId, String password, boolean accountState, String type2) {
+    User(String name, String userId, String password, boolean accountState, String type) {
         this.name = name;
         this.userId = userId;
         this.password = password;
         this.accountState = accountState;
-        String type = type2;
+//        this.type = type;
         this.claim = null;
         this.beds = 0;
     }
@@ -40,7 +40,7 @@ public class User {
      * Getter of the user's name
      * @return a String which is the name of this user
      */
-    public String getName() {
+    String getName() {
         return name;
     }
 
@@ -64,9 +64,9 @@ public class User {
      * Getter of the user's account state
      * @return a boolean which is true when it is not blocked and vice versa
      */
-    public boolean getAccountState() {
-        return accountState;
-    }
+//    public boolean getAccountState() {
+//        return accountState;
+//    }
 
     /**
      * Getter of the current living shelter of this user

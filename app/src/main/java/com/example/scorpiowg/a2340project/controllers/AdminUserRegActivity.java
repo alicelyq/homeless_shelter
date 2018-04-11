@@ -31,7 +31,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
 
         //database hashmap
         final Map<String, User> database = Model.getInstance().getDatabase();
-        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
+//        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
         String error = getIntent().getStringExtra("error");
@@ -64,11 +64,13 @@ public class AdminUserRegActivity extends AppCompatActivity {
 
         // click actions
         cancelRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 startActivity(reg_user_typePage);
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 // inputs
                 EditText userinput = findViewById(R.id.userid);
@@ -98,9 +100,11 @@ public class AdminUserRegActivity extends AppCompatActivity {
                         //noinspection ChainedMethodCall,ChainedMethodCall
                         realDB.child("users").child(userId).setValue(curUser);
                         //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
-                        realDB.child("users").child(userId).child("claim").setValue(curUser.getClaim());
+                        realDB.child("users").child(userId)
+                                .child("claim").setValue(curUser.getClaim());
                         //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
-                        realDB.child("users").child(userId).child("beds").setValue(curUser.getBeds());
+                        realDB.child("users").child(userId)
+                                .child("beds").setValue(curUser.getBeds());
                         //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                         realDB.child("users").child(userId).child("type").setValue("Admin");
                      

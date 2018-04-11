@@ -32,7 +32,7 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
 
         //database hashmap
         final Map<String, User> database = Model.getInstance().getDatabase();
-        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
+//        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
         String error = getIntent().getStringExtra("error");
@@ -82,7 +82,7 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                 // next action
 
                 boolean registerSuccess = Model.getInstance().registerUser(database, userId
-                        , password, confirm, username, true, "1");
+                        , password, confirm, username);
 
                 if (registerSuccess) {
                     //success

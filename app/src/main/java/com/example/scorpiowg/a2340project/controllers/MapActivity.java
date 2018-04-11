@@ -30,7 +30,7 @@ import java.util.Map;
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener {
 
-    private static final String TAG = "MapActivity";
+//    private static final String TAG = "MapActivity";
     private final Map<Marker, Shelter> linker = new HashMap<>();
 
     @Override

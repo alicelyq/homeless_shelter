@@ -129,7 +129,7 @@ public final class Model {
 
     public boolean registerUser(Map<String, User> database, String userId,
                                 String password, String confirm,
-                                String username, boolean accountState, String shelterId) {
+                                String username) {
         if (password.equals(confirm) && !database.containsKey(userId)) {
             User curUser = new ShelterEmployee(username, userId, password, true, "1");
             database.put(userId, curUser);
@@ -141,90 +141,90 @@ public final class Model {
             
 
     /** database work */
-    public void addNewShelter(String shelterId, String name, String capacity, String restriction,
-                              String longitude, String latitude, String address,
-                              String specialNotes, String phoneNum, int occupied) {
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+//    public void addNewShelter(String shelterId, String name, String capacity, String restriction,
+//                              String longitude, String latitude, String address,
+//                              String specialNotes, String phoneNum, int occupied) {
+//        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+//
+//        db.child("shelters").child(shelterId).child("name").setValue(name);
+//        db.child("shelters").child(shelterId).child("capacity").setValue(capacity);
+//        db.child("shelters").child(shelterId).child("restriction").setValue(restriction);
+//        db.child("shelters").child(shelterId).child("longitude").setValue(longitude);
+//        db.child("shelters").child(shelterId).child("latitude").setValue(latitude);
+//        db.child("shelters").child(shelterId).child("address").setValue(address);
+//        db.child("shelters").child(shelterId).child("specialNotes").setValue(specialNotes);
+//        db.child("shelters").child(shelterId).child("phoneNum").setValue(phoneNum);
+//        db.child("shelters").child(shelterId).child("occupied").setValue(occupied);
+//
+//    }
 
-        db.child("shelters").child(shelterId).child("name").setValue(name);
-        db.child("shelters").child(shelterId).child("capacity").setValue(capacity);
-        db.child("shelters").child(shelterId).child("restriction").setValue(restriction);
-        db.child("shelters").child(shelterId).child("longitude").setValue(longitude);
-        db.child("shelters").child(shelterId).child("latitude").setValue(latitude);
-        db.child("shelters").child(shelterId).child("address").setValue(address);
-        db.child("shelters").child(shelterId).child("specialNotes").setValue(specialNotes);
-        db.child("shelters").child(shelterId).child("phoneNum").setValue(phoneNum);
-        db.child("shelters").child(shelterId).child("occupied").setValue(occupied);
 
-    }
+//    public void addNewShelterEmployee(String name, String userId, String password,
+//                                      boolean accountState, String shelterId,
+//                                      Shelter claim, int beds) {
+//
+//        DatabaseReference firebaseUsers
+//                = FirebaseDatabase.getInstance().getReference().child("users");
+//
+//        firebaseUsers.child(userId).child("name").setValue(name);
+//        firebaseUsers.child(userId).child("userId").setValue(userId);
+//        firebaseUsers.child(userId).child("password").setValue(password);
+//        firebaseUsers.child(userId).child("accountState").setValue(accountState);
+//        firebaseUsers.child(userId).child("shelterId").setValue(shelterId);
+//        firebaseUsers.child(userId).child("type").setValue("shelterEmployee");
+//        if (claim != null) {
+//            firebaseUsers.child(userId).child("claim").setValue(claim.getShelterId());
+//        } else {
+//            firebaseUsers.child(userId).child("claim").setValue("null");
+//        }
+//        firebaseUsers.child(userId).child("beds").setValue(beds);
+//    }
 
+//    public void addNewAdmin(String name, String userId, String password, boolean accountState,
+//                            Shelter claim, int beds) {
+//        DatabaseReference firebaseUsers
+//                = FirebaseDatabase.getInstance().getReference().child("users");
+//
+//        firebaseUsers.child(userId).child("name").setValue(name);
+//        firebaseUsers.child(userId).child("userId").setValue(userId);
+//        firebaseUsers.child(userId).child("password").setValue(password);
+//        firebaseUsers.child(userId).child("accountState").setValue(accountState);
+//        firebaseUsers.child(userId).child("type").setValue("admin");
+//        if (claim != null) {
+//            firebaseUsers.child(userId).child("claim").setValue(claim.getShelterId());
+//        } else {
+//            firebaseUsers.child(userId).child("claim").setValue("null");
+//        }
+//        firebaseUsers.child(userId).child("beds").setValue(beds);
+//    }
 
-    public void addNewShelterEmployee(String name, String userId, String password,
-                                      boolean accountState, String shelterId,
-                                      Shelter claim, int beds) {
-
-        DatabaseReference firebaseUsers
-                = FirebaseDatabase.getInstance().getReference().child("users");
-
-        firebaseUsers.child(userId).child("name").setValue(name);
-        firebaseUsers.child(userId).child("userId").setValue(userId);
-        firebaseUsers.child(userId).child("password").setValue(password);
-        firebaseUsers.child(userId).child("accountState").setValue(accountState);
-        firebaseUsers.child(userId).child("shelterId").setValue(shelterId);
-        firebaseUsers.child(userId).child("type").setValue("shelterEmployee");
-        if (claim != null) {
-            firebaseUsers.child(userId).child("claim").setValue(claim.getShelterId());
-        } else {
-            firebaseUsers.child(userId).child("claim").setValue("null");
-        }
-        firebaseUsers.child(userId).child("beds").setValue(beds);
-    }
-
-    public void addNewAdmin(String name, String userId, String password, boolean accountState,
-                            Shelter claim, int beds) {
-        DatabaseReference firebaseUsers
-                = FirebaseDatabase.getInstance().getReference().child("users");
-
-        firebaseUsers.child(userId).child("name").setValue(name);
-        firebaseUsers.child(userId).child("userId").setValue(userId);
-        firebaseUsers.child(userId).child("password").setValue(password);
-        firebaseUsers.child(userId).child("accountState").setValue(accountState);
-        firebaseUsers.child(userId).child("type").setValue("admin");
-        if (claim != null) {
-            firebaseUsers.child(userId).child("claim").setValue(claim.getShelterId());
-        } else {
-            firebaseUsers.child(userId).child("claim").setValue("null");
-        }
-        firebaseUsers.child(userId).child("beds").setValue(beds);
-    }
-
-    public void addNewHomeles(String name, String userId, String password,
-                              boolean accountState, String govId,
-                              String gender, boolean isVeteran, boolean isFamily,
-                              int familyNum, int age,
-                              Shelter claim, int beds) {
-        DatabaseReference firebaseUsers
-                = FirebaseDatabase.getInstance().getReference().child("users");
-
-        firebaseUsers.child(userId).child("name").setValue(name);
-        firebaseUsers.child(userId).child("userId").setValue(userId);
-        firebaseUsers.child(userId).child("password").setValue(password);
-        firebaseUsers.child(userId).child("accountState").setValue(accountState);
-        firebaseUsers.child(userId).child("govId").setValue(govId);
-        firebaseUsers.child(userId).child("gender").setValue(gender);
-        firebaseUsers.child(userId).child("isVeteran").setValue(isVeteran);
-        firebaseUsers.child(userId).child("isFamily").setValue(isFamily);
-        firebaseUsers.child(userId).child("familyNum").setValue(familyNum);
-        firebaseUsers.child(userId).child("age").setValue(age);
-        firebaseUsers.child(userId).child("type").setValue("homeless");
-        if (claim != null) {
-            firebaseUsers.child(userId).child("claim").setValue(claim.getShelterId());
-        } else {
-            firebaseUsers.child(userId).child("claim").setValue("null");
-        }
-        firebaseUsers.child(userId).child("beds").setValue(beds);
-
-    }
+//    public void addNewHomeles(String name, String userId, String password,
+//                              boolean accountState, String govId,
+//                              String gender, boolean isVeteran, boolean isFamily,
+//                              int familyNum, int age,
+//                              Shelter claim, int beds) {
+//        DatabaseReference firebaseUsers
+//                = FirebaseDatabase.getInstance().getReference().child("users");
+//
+//        firebaseUsers.child(userId).child("name").setValue(name);
+//        firebaseUsers.child(userId).child("userId").setValue(userId);
+//        firebaseUsers.child(userId).child("password").setValue(password);
+//        firebaseUsers.child(userId).child("accountState").setValue(accountState);
+//        firebaseUsers.child(userId).child("govId").setValue(govId);
+//        firebaseUsers.child(userId).child("gender").setValue(gender);
+//        firebaseUsers.child(userId).child("isVeteran").setValue(isVeteran);
+//        firebaseUsers.child(userId).child("isFamily").setValue(isFamily);
+//        firebaseUsers.child(userId).child("familyNum").setValue(familyNum);
+//        firebaseUsers.child(userId).child("age").setValue(age);
+//        firebaseUsers.child(userId).child("type").setValue("homeless");
+//        if (claim != null) {
+//            firebaseUsers.child(userId).child("claim").setValue(claim.getShelterId());
+//        } else {
+//            firebaseUsers.child(userId).child("claim").setValue("null");
+//        }
+//        firebaseUsers.child(userId).child("beds").setValue(beds);
+//
+//    }
 
 
     @Override
