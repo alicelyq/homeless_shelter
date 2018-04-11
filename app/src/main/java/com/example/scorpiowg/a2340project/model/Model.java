@@ -160,10 +160,8 @@ public final class Model {
         if ("Anyone".equals(ageRange)) {
             return true;
         } else {
-            if (constraint.toLowerCase().contains(ageRange.toLowerCase())) {
-                return true;
-
-            } else return "Families with newborns".equals(ageRange)
+            return constraint.toLowerCase().contains(ageRange.toLowerCase())
+                    || "Families with newborns".equals(ageRange)
                     && constraint.contains("Families w");
         }
     }
