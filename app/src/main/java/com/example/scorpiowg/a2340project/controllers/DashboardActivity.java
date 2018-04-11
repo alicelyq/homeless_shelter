@@ -19,17 +19,14 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by wangjingbo on 3/3/18.
  */
 
-@SuppressWarnings("ALL")
+
 public class DashboardActivity extends AppCompatActivity {
     @Override
-    @SuppressWarnings("FeatureEnvy")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
 
-        // display user info {@link R.id.userinfo}
         TextView user = findViewById(R.id.userinfo);
-        //noinspection ChainedMethodCall,ChainedMethodCall
         user.setText(Model.getInstance().getUser().toString());
         // button
         Button releaseButton = findViewById(R.id.release);
@@ -41,10 +38,10 @@ public class DashboardActivity extends AppCompatActivity {
         final Intent mapPage = new Intent(this, MapActivity.class);
 
         // real database
-        @SuppressWarnings("ChainedMethodCall") final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         // current state
-        @SuppressWarnings("ChainedMethodCall") final User myuser = Model.getInstance().getUser();
+        final User myuser = Model.getInstance().getUser();
 
         final Shelter myshelter = myuser.getClaim();
 
@@ -52,7 +49,6 @@ public class DashboardActivity extends AppCompatActivity {
         if (myshelter != null) {
             // add a release button to release his booking
             releaseButton.setVisibility(View.VISIBLE);
-            //noinspection FeatureEnvy,FeatureEnvy
             releaseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

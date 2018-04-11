@@ -18,9 +18,8 @@ import java.util.Map;
  * Created by wangjingbo on 2/11/18.
  */
 
-@SuppressWarnings("ALL")
+
 public class LoginActivity extends AppCompatActivity {
-    @SuppressWarnings("FeatureEnvy")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +27,9 @@ public class LoginActivity extends AppCompatActivity {
 
         // all users dictionary
         // a little confusing because it's not actually database
-        @SuppressWarnings("ChainedMethodCall") final Map<String, User> database = Model.getInstance().getDatabase();
+        final Map<String, User> database = Model.getInstance().getDatabase();
 
         // check if this page was loaded from a login error
-        //noinspection ChainedMethodCall
 
         if (getIntent().getStringExtra("error") != null) {
             TextView error = findViewById(R.id.error);
@@ -58,8 +56,8 @@ public class LoginActivity extends AppCompatActivity {
                     // fetch login data from user input
                     EditText usernameinput = findViewById(R.id.usernameinput);
                     EditText passwordinput = findViewById(R.id.passwordinput);
-                    @SuppressWarnings("ChainedMethodCall") String userId = usernameinput.getText().toString();
-                    @SuppressWarnings("ChainedMethodCall") String password = passwordinput.getText().toString();
+                    String userId = usernameinput.getText().toString();
+                    String password = passwordinput.getText().toString();
 
                     // login info validation
                     //  1. userId exists

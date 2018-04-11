@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by nancy on 2/17/18.
  */
 
-@SuppressWarnings("ALL")
+
 public class AdminUserRegActivity extends AppCompatActivity {
 
     @Override
@@ -30,11 +30,11 @@ public class AdminUserRegActivity extends AppCompatActivity {
         setContentView(R.layout.admin_user_reg);
 
         //database hashmap
-        @SuppressWarnings("ChainedMethodCall") final Map<String, User> database = Model.getInstance().getDatabase();
-        @SuppressWarnings("ChainedMethodCall") final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
+        final Map<String, User> database = Model.getInstance().getDatabase();
+        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
-        @SuppressWarnings("ChainedMethodCall") String error = getIntent().getStringExtra("error");
+        String error = getIntent().getStringExtra("error");
         if (error != null) {
             TextView passwordError = findViewById(R.id.passwordError);
             TextView useridError = findViewById(R.id.userIDError);
@@ -75,15 +75,15 @@ public class AdminUserRegActivity extends AppCompatActivity {
                 EditText passinput = findViewById(R.id.password);
                 EditText confinput = findViewById(R.id.confirm);
                 EditText admincodeinput = findViewById(R.id.admincode);
-                @SuppressWarnings("ChainedMethodCall") String userId = userinput.getText().toString();
-                @SuppressWarnings("ChainedMethodCall") String password = passinput.getText().toString();
-                @SuppressWarnings("ChainedMethodCall") String confirm = confinput.getText().toString();
-                @SuppressWarnings("ChainedMethodCall") String admincode = admincodeinput.getText().toString();
+                String userId = userinput.getText().toString();
+                String password = passinput.getText().toString();
+                String confirm = confinput.getText().toString();
+                String admincode = admincodeinput.getText().toString();
 
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
                     EditText nameinput = findViewById(R.id.input_name);
-                    @SuppressWarnings("ChainedMethodCall") String username = nameinput.getText().toString();
+                    String username = nameinput.getText().toString();
                     //code check only if all other conditions passed
                     if (!"code".equals(admincode)) {
                         Bundle b = new Bundle();
@@ -94,7 +94,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
                         //success
                         User curUser = new Admin(username, userId, password, true);
                         database.put(userId, curUser);
-                        @SuppressWarnings("ChainedMethodCall") DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
+                        DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
                         //noinspection ChainedMethodCall,ChainedMethodCall
                         realDB.child("users").child(userId).setValue(curUser);
                         //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall

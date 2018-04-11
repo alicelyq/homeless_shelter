@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         CSVFile shelterFile = new CSVFile(inputStream);
         Map<String, String[]> shelterinfo = shelterFile.read();
 
-        HashMap<String, Shelter> newPair = new HashMap<>();
+        Map<String, Shelter> newPair = new HashMap<>();
         for (String s: shelterinfo.keySet()) {
             String[] shelterVal = shelterinfo.get(s);
             Shelter newShelter = new Shelter(s,shelterVal[0], shelterVal[1],

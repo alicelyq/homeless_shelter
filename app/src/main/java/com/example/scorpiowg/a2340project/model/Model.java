@@ -15,15 +15,13 @@ public final class Model {
     public static Model getInstance() { return _instance; }
 
     /** holds the list of all users */
-    private final HashMap<String, User> database;
+    private final Map<String, User> database;
 
     /** holds the list of all shelters */
-    private HashMap<String, Shelter> shelters;
+    private Map<String, Shelter> shelters;
 
     /** holds the list of shelters after filtering */
     private List<Shelter> currentShelterList;
-
-
 
     private User user;
 
@@ -64,7 +62,7 @@ public final class Model {
     }
 
 
-    public HashMap getShelters() {
+    public Map getShelters() {
         return shelters;
     }
 
@@ -234,7 +232,10 @@ public final class Model {
         return "hello";
     }
 
-    public void setShelters(HashMap<String, Shelter> shelterInfo) {
-        shelters = shelterInfo;
+    public void setShelters(Map<String, Shelter> shelterInfo) {
+        shelters = new HashMap<>();
+        for (String key: shelterInfo.keySet()) {
+            shelters.put(key, shelterInfo.get(key));
+        }
     }
 }
