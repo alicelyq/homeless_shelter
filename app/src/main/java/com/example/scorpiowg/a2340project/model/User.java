@@ -11,8 +11,7 @@ public class User {
     private final String name;
     private final String userId;
     private final String password;
-    private final boolean accountState;
-//    private final String type;
+    //    private final String type;
     @Nullable
     private Shelter claim;
     private int beds;
@@ -30,7 +29,7 @@ public class User {
         this.name = name;
         this.userId = userId;
         this.password = password;
-        this.accountState = accountState;
+        boolean accountState1 = accountState;
 //        this.type = type;
         this.claim = null;
         this.beds = 0;

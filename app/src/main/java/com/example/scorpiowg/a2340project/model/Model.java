@@ -1,8 +1,5 @@
 package com.example.scorpiowg.a2340project.model;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,7 +82,7 @@ public final class Model {
 
 
     /** logic */
-    public boolean filterByGender(String gender, String constraint) {
+    public boolean filterByGender(CharSequence gender, String constraint) {
         if ("Any".equals(gender)) {
             return true;
         } else if (constraint.contains(gender)) {
@@ -111,7 +108,7 @@ public final class Model {
             if (constraint.toLowerCase().contains(ageRange.toLowerCase())) {
                 return true;
 
-            } else if (ageRange.equals("Families with newborns")
+            } else if ("Families with newborns".equals(ageRange)
                     && constraint.contains("Families w")) {
 
                 return true;
