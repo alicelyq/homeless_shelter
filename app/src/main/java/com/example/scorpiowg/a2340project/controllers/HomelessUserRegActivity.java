@@ -24,7 +24,6 @@ import java.util.Map;
  * Created by nancy on 2/17/18.
  */
 
-@SuppressWarnings("ALL")
 public class HomelessUserRegActivity extends AppCompatActivity {
 
     @Override
