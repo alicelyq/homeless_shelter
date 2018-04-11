@@ -24,10 +24,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        final Model modelInstance = Model.getInstance();
 
         // all users dictionary
         // a little confusing because it's not actually database
-        final Map<String, User> database = Model.getInstance().getDatabase();
+        final Map<String, User> database = modelInstance.getDatabase();
 
         // check if this page was loaded from a login error
 
@@ -65,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                     //  1. userId exists
                     //  2. password matches this userId
 
-                    boolean successful = Model.getInstance().loginUser(database, userId, password);
+                    boolean successful = modelInstance.loginUser(database, userId, password);
                     if (successful) {
 
                         startActivity(dashboardPage);

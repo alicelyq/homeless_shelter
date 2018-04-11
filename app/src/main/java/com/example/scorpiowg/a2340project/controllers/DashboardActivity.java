@@ -25,9 +25,10 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
+        Model modelInstance = Model.getInstance();
 
         TextView user = findViewById(R.id.userinfo);
-        user.setText(Model.getInstance().getUser().toString());
+        user.setText(modelInstance.getUser().toString());
         // button
         Button releaseButton = findViewById(R.id.release);
         Button shelter = findViewById(R.id.search);
@@ -41,7 +42,7 @@ public class DashboardActivity extends AppCompatActivity {
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         // current state
-        final User myuser = Model.getInstance().getUser();
+        final User myuser = modelInstance.getUser();
 
         final Shelter myshelter = myuser.getClaim();
 

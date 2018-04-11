@@ -24,6 +24,8 @@ public class ShelterInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shelter_info);
+        final Model modelInstance = Model.getInstance();
+        
 
         // database
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -31,40 +33,40 @@ public class ShelterInfoActivity extends AppCompatActivity {
         // check for bed claiming
         if (getIntent().getStringExtra("claim") != null) {
             Log.d("process", "claim clicked");
-            if (Model.getInstance().getUser().getClaim() != null) {
+            if (modelInstance.getUser().getClaim() != null) {
                 TextView error = findViewById(R.id.error);
                 error.setVisibility(View.VISIBLE);
             } else if (Integer.parseInt(getIntent().getStringExtra("claim"))
-                    > (Integer.parseInt(Model.getInstance().getShelter().getCapacity())
-                    - Model.getInstance().getShelter().getOccupied())) {
+                    > (Integer.parseInt(modelInstance.getShelter().getCapacity())
+                    - modelInstance.getShelter().getOccupied())) {
                 TextView limit = findViewById(R.id.limit);
                 limit.setVisibility(View.VISIBLE);
             } else {
                 Log.d("process", "successful claim");
-                Model.getInstance().getUser().setClaim(Model.getInstance().getShelter());
-                Model.getInstance().getUser().setBeds(
+                modelInstance.getUser().setClaim(modelInstance.getShelter());
+                modelInstance.getUser().setBeds(
                         Integer.parseInt(getIntent().getStringExtra("claim")));
                 Log.d("process", "this user claimed shelter "
-                        + Model.getInstance().getUser().getClaim().toString());
+                        + modelInstance.getUser().getClaim().toString());
                 Log.d("process", "this user claimed "
-                        + Integer.toString(Model.getInstance().getUser().getBeds()) + "bedspaces");
+                        + Integer.toString(modelInstance.getUser().getBeds()) + "bedspaces");
                 TextView success = findViewById(R.id.success);
                 success.setVisibility(View.VISIBLE);
 
                 //update firebase
-                final Shelter myshelter = Model.getInstance().getShelter();
+                final Shelter myshelter = modelInstance.getShelter();
                 int claimed = Integer.parseInt(getIntent().getStringExtra("claim"));
-                int newOcc = Model.getInstance().getShelter().getOccupied() + claimed;
+                int newOcc = modelInstance.getShelter().getOccupied() + claimed;
                 myshelter.setOccupied(newOcc);
                 Log.d("process", "updating database");
                 database.child("shelters")
                         .child(myshelter.getShelterId())
                         .child("occupied").setValue(newOcc);
                 database.child("users")
-                        .child(Model.getInstance().getUser().getUserId())
+                        .child(modelInstance.getUser().getUserId())
                         .child("claim").setValue(myshelter);
                 database.child("users")
-                        .child(Model.getInstance().getUser().getUserId())
+                        .child(modelInstance.getUser().getUserId())
                         .child("beds").setValue(newOcc);
             }
         }
@@ -73,12 +75,12 @@ public class ShelterInfoActivity extends AppCompatActivity {
         if (getIntent().getStringExtra("shelterId") != null) {
             String id = getIntent().getStringExtra("shelterId");
             TextView info = findViewById(R.id.info);
-            Model.getInstance().setCurrentShelter(
-                    (Shelter)Model.getInstance().getShelters().get(id));
-            info.setText(Model.getInstance().getShelter().toString());
+            modelInstance.setCurrentShelter(
+                    (Shelter)modelInstance.getShelters().get(id));
+            info.setText(modelInstance.getShelter().toString());
         } else {
             TextView info = findViewById(R.id.info);
-            info.setText(Model.getInstance().getShelter().toString());
+            info.setText(modelInstance.getShelter().toString());
         }
 
         // claim button functionaloty
@@ -102,7 +104,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         toDashboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dashboardPage.putExtra("userId", Model.getInstance().getUser().getUserId());
+                dashboardPage.putExtra("userId", modelInstance.getUser().getUserId());
                 startActivity(dashboardPage);
             }
         });
