@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         curUser = new ShelterEmployee(user.child("name").getValue(String.class)
                                 , user.child("userId").getValue(String.class)
                                 , user.child("password").getValue(String.class)
-                                , user.child("accountState").getValue(boolean.class)
+                                , true
                                 , user.child("shelterId").getValue(String.class));
                     } else 
                         if ("Admin".equals(user.child("type").getValue(String.class))) {
