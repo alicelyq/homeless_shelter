@@ -47,11 +47,13 @@ public class LoginActivity extends AppCompatActivity {
 
         // button function
         cancellogin.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 startActivity(mainPage);
             }
         });
         submitlogin.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     // fetch login data from user input
                     EditText usernameinput = findViewById(R.id.usernameinput);

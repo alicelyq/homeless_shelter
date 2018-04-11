@@ -23,18 +23,21 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter);
 
-        final String genderFilter = "";
-        final String ageRangeFilter = "";
-        final String shelterNameFilter = "";
+//        final String genderFilter = "";
+//        final String ageRangeFilter = "";
+//        final String shelterNameFilter = "";
 
         final Spinner genderSpinner = findViewById(R.id.gender);
         String[] genderchoice = new String[]{"Any", "Men", "Women"};
-        SpinnerAdapter genderadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, genderchoice);
+        SpinnerAdapter genderadapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, genderchoice);
         genderSpinner.setAdapter(genderadapter);
 
         final Spinner ageRangeSpinner = findViewById(R.id.ageRange);
-        String[] ageRangechoice = new String[]{"Anyone", "Families with newborns", "Children", "Young Adults"};
-        SpinnerAdapter ageRangeadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ageRangechoice);
+        String[] ageRangechoice =
+                new String[]{"Anyone", "Families with newborns", "Children", "Young Adults"};
+        SpinnerAdapter ageRangeadapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, ageRangechoice);
         ageRangeSpinner.setAdapter(ageRangeadapter);
 
 

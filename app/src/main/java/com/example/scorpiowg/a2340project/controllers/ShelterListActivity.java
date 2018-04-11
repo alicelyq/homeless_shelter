@@ -54,6 +54,7 @@ public class ShelterListActivity extends AppCompatActivity {
 
         // filter button function
         filter.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 filterPage.putExtra("userId", Model.getInstance().getUser().getUserId());
                 startActivity(filterPage);
@@ -63,6 +64,7 @@ public class ShelterListActivity extends AppCompatActivity {
 
         // back button function
         back.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 startActivity(dashboardPage);
 
@@ -71,6 +73,7 @@ public class ShelterListActivity extends AppCompatActivity {
 
         // clear button function
         clear.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 currentPage.putExtra("filter", "0");
                 startActivity(currentPage);
@@ -80,6 +83,7 @@ public class ShelterListActivity extends AppCompatActivity {
 
         // map button function
         map.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 startActivity(mapPage);
                 Log.d("process", "click map");
@@ -97,10 +101,13 @@ public class ShelterListActivity extends AppCompatActivity {
         // iterate over shelters and put each into view as button
         for (Object key : Model.getInstance().getShelters().keySet()) {
             if (checkFilter((String)key, gender, ageRange, shelterName)) {
-                Model.getInstance().addCurrentShelter((Shelter) Model.getInstance().getShelters().get(key));
+                Model.getInstance().addCurrentShelter(
+                        (Shelter) Model.getInstance().getShelters().get(key));
                 final String id = (String) key;
                 final Button shelter = new Button(this);
-                LinearLayout.LayoutParams shelterListParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams shelterListParams =
+                        new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT
+                                , LinearLayout.LayoutParams.WRAP_CONTENT);
 
                 shelterListParams.setMargins(0, 20, 0, 0);
 
@@ -111,6 +118,7 @@ public class ShelterListActivity extends AppCompatActivity {
                 parentLayout.addView(shelter);
 
                 shelter.setOnClickListener(new View.OnClickListener() {
+                    @Override
                     public void onClick(View v) {
                         shelterInfo.putExtra("shelterId", id);
                         startActivity(shelterInfo);

@@ -24,7 +24,6 @@ import java.util.Map;
  * Created by nancy on 2/17/18.
  */
 
-@SuppressWarnings("ALL")
 public class HomelessUserRegActivity extends AppCompatActivity {
 
     @Override
@@ -39,15 +38,17 @@ public class HomelessUserRegActivity extends AppCompatActivity {
         String[] genderchoice = new String[]{"Male", "Female", "Other"};
         String[] veteranchoice = new String[]{"Yes", "No"};
 
-        SpinnerAdapter genderadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, genderchoice);
+        SpinnerAdapter genderadapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, genderchoice);
         genderSpinner.setAdapter(genderadapter);
 
-        SpinnerAdapter veteranadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, veteranchoice);
+        SpinnerAdapter veteranadapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, veteranchoice);
         veteranSpinner.setAdapter(veteranadapter);
 
         //database hashmap
         final Map<String, User> database = Model.getInstance().getDatabase();
-        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
+//        final DatabaseReference firebaseref = FirebaseDatabase.getInstance().getReference();
 
         // check if this page was loaded from a registration error
         String error = getIntent().getStringExtra("error");
@@ -76,12 +77,14 @@ public class HomelessUserRegActivity extends AppCompatActivity {
 
         // click actions
         cancelRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 startActivity(reg_user_typePage);
             }
         });
 
         register.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 // inputs
                 EditText userinput = findViewById(R.id.userid);
@@ -94,7 +97,8 @@ public class HomelessUserRegActivity extends AppCompatActivity {
                 String govId = ((EditText)findViewById(R.id.govid)).getText().toString();
                 String gender = genderSpinner.getSelectedItem().toString();
                 int age = Integer.parseInt(((EditText)findViewById(R.id.age)).getText().toString());
-                int familyNum = Integer.parseInt(((EditText)findViewById(R.id.familynum)).getText().toString());
+                int familyNum = Integer.parseInt(
+                        ((EditText)findViewById(R.id.familynum)).getText().toString());
                 boolean isFamily = true;
                 if (familyNum <= 1) {
                     isFamily = false;
@@ -104,7 +108,8 @@ public class HomelessUserRegActivity extends AppCompatActivity {
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
                     // success
-                    User curUser = new Homeless(username, userId, password, true, govId, gender, isVeteran, isFamily, familyNum, age);
+                    User curUser = new Homeless(username, userId, password,
+                            true, govId, gender, isVeteran, isFamily, familyNum, age);
                     database.put(userId, curUser);
                     DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
                     //noinspection ChainedMethodCall,ChainedMethodCall

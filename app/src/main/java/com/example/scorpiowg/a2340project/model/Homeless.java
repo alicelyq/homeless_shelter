@@ -50,7 +50,9 @@ public class Homeless extends User {
     }
 
     public String toString() {
-        return "HOMELESS\nname: " + getName() + "\nID: " + getUserId() + "\nGOV ID: " + getGovId() + "\ngender: " + getGender()
-                + "\nveteran: " + getIsVeteran() + "\nisFamily: " + getIsFamily() + "\nfamily number: " + getFamilyNum() + "\nage: " + getAge();
+        return "HOMELESS\nname: " + getName() + "\nID: " + getUserId()
+                + "\nGOV ID: " + getGovId() + "\ngender: " + getGender()
+                + "\nveteran: " + getIsVeteran() + "\nisFamily: " + getIsFamily()
+                + "\nfamily number: " + getFamilyNum() + "\nage: " + getAge();
     }
 }

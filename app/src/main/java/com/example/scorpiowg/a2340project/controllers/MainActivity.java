@@ -50,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Shelter> newPair = new HashMap<>();
         for (String s: shelterinfo.keySet()) {
             String[] shelterVal = shelterinfo.get(s);
-            Shelter newShelter = new Shelter(s,shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7]);
+            Shelter newShelter = new Shelter(s,shelterVal[0], shelterVal[1],
+                    shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5],
+                    shelterVal[6], shelterVal[7]);
             newPair.put(s, newShelter);
         }
         Model.getInstance().setShelters(newPair);
@@ -69,9 +71,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("process" ,"Gets Database Shelter Data");
                  Map<String, Shelter> shelters = Model.getInstance().getShelters();
                 for (String s: shelters.keySet()) {
-                    int occupied = dataSnapshot.child(shelters.get(s).getShelterId()).child("occupied").getValue(Integer.class);
+                    DataSnapshot occupiedCell =
+                            dataSnapshot.child(shelters.get(s).getShelterId()).child("occupied");
+                    int occupied = occupiedCell.getValue(Integer.class);
                     shelters.get(s).setOccupied(occupied);
-                    Log.d("process", "Shelter ID: " + s + ": " + "Occupied: " + shelters.get(s).getOccupied());
+                    Log.d("process", "Shelter ID: " + s + ": " + "Occupied: " +
+                            shelters.get(s).getOccupied());
                 }
             }
 
@@ -93,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                         curUser = new ShelterEmployee(user.child("name").getValue(String.class)
                                 , user.child("userId").getValue(String.class)
                                 , user.child("password").getValue(String.class)
-                                , user.child("accountState").getValue(boolean.class)
+                                , true
                                 , user.child("shelterId").getValue(String.class));
                     } else 
                         if ("Admin".equals(user.child("type").getValue(String.class))) {
@@ -113,13 +118,9 @@ public class MainActivity extends AppCompatActivity {
                                 , user.child("familyNum").getValue(int.class)
                                 , user.child("age").getValue(int.class));
                     }
-                    if (curUser == null) {
-                        Log.d("debug", "type name might be wrong");
-                    } else {
-                        curUser.setBeds(user.child("beds").getValue(int.class));
-                        curUser.setClaim(user.child("claim").getValue(Shelter.class));
-                        localUsers.put(curUser.getUserId(), curUser);
-                    }
+                    curUser.setBeds(user.child("beds").getValue(int.class));
+                    curUser.setClaim(user.child("claim").getValue(Shelter.class));
+                    localUsers.put(curUser.getUserId(), curUser);
                     Log.d("process", "User ID: " + curUser.getUserId());
                 }
             }
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         // button functions
         login.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Log.d("process", "click login button");
                 startActivity(loginPage);
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         registration.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Log.d("process", "click register button");
                 startActivity(registerPage);
@@ -145,11 +148,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // refresh database
-    private void refreshDatabase(Map<String, String[]> shelterinfo) {
-        for (String s: shelterinfo.keySet()) {
-            String[] shelterVal = shelterinfo.get(s);
-            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2], shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6], shelterVal[7], 0);
-        }
-    }
+//    private void refreshDatabase(Map<String, String[]> shelterinfo) {
+//        for (String s: shelterinfo.keySet()) {
+//            String[] shelterVal = shelterinfo.get(s);
+//            Model.getInstance().addNewShelter(s, shelterVal[0], shelterVal[1], shelterVal[2],
+//                    shelterVal[3], shelterVal[4], shelterVal[5], shelterVal[6],
+//                    shelterVal[7], 0);
+//        }
+//    }
 
 }
