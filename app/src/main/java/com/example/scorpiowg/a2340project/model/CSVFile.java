@@ -1,9 +1,5 @@
 package com.example.scorpiowg.a2340project.model;
 
-/**
- * Created by nancy on 2/25/18.
- */
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,10 +16,18 @@ import java.util.Map;
 public class CSVFile {
     InputStream inputStream;
 
+    /**
+     * Provide the input
+     * @param inputStream the current input stream
+     */
     public CSVFile(InputStream inputStream){
         this.inputStream = inputStream;
     }
 
+    /**
+     * Generate and return a map of filtered shelters
+     * @return a Map of filtered shelters
+     */
     public Map<String, String[]> read(){
         Map shelterMap = new HashMap();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

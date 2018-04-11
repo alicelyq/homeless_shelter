@@ -3,7 +3,10 @@ package com.example.scorpiowg.a2340project.model;
 import android.support.annotation.Nullable;
 
 /**
- * Created by wangjingbo on 2/17/18.
+ * This is the parent class for all type of users.
+ * @author Jinbo Wang
+ * @version 1.8
+ * created on 02/17/2018
  */
 
 public class User {
@@ -59,13 +62,6 @@ public class User {
         return password;
     }
 
-    /**
-     * Getter of the user's account state
-     * @return a boolean which is true when it is not blocked and vice versa
-     */
-//    public boolean getAccountState() {
-//        return accountState;
-//    }
 
     /**
      * Getter of the current living shelter of this user
@@ -77,17 +73,25 @@ public class User {
     }
 
     /**
-     * Change the 
-     * @return a String which is the name of this user
+     * Change the shelter claimed by the user
+     * @param shelter the new shelter which claimed by this user
      */
     public void setClaim(@Nullable Shelter shelter) {
         claim = shelter;
     }
 
+    /**
+     * Getter of the number of beds required by this user
+     * @return a int which is the number of requested beds
+     */
     public int getBeds() {
         return beds;
     }
 
+    /**
+     * Change the number of beds claimed by the user
+     * @param beds the number of beds claimed by this user
+     */
     public void setBeds(int beds) {
         this.beds = beds;
     }

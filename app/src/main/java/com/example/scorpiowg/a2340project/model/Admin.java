@@ -5,10 +5,19 @@ package com.example.scorpiowg.a2340project.model;
  */
 
 public class Admin extends User {
+
+    /**
+     * Construct a Shelter Employee user type object
+     * @param name the name of user
+     * @param userId the user id
+     * @param password the password of the user account
+     * @param accountState whether this account is blocked
+     */
     public Admin(String name, String userId, String password, boolean accountState) {
         super(name, userId, password, accountState, "admin");
     }
 
+    @Override
     public String toString() {
         return "ADMIN\nname: " + getName() + "\nID: " + getUserId();
     }

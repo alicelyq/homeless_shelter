@@ -5,33 +5,44 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is the Singleton class for the project.
+ * @version 1.8
+ */
 
 public final class Model {
-    /** Singleton instance */
+    // Singleton instance
     private static final Model _instance = new Model();
+
+    /**
+     * Retrieve the Singleton instance
+     * @return a Model object which is the singleton instance
+     */
     public static Model getInstance() { return _instance; }
 
-    /** holds the list of all users */
+    // holds the list of all users
     private final Map<String, User> database;
 
-    /** holds the list of all shelters */
+    // holds the list of all shelters
     private Map<String, Shelter> shelters;
 
-    /** holds the list of shelters after filtering */
+    // holds the list of shelters after filtering
     private List<Shelter> currentShelterList;
 
     private User user;
 
     private Shelter shelter;
 
-    /**
-     * make a new model
-     */
+    //make a new model
     private Model() {
         database = new HashMap<>();
         shelters = new HashMap<>();
     }
 
+    /**
+     * Return the current shelter list
+     * @return an Iterable object containing all current shelters
+     */
     public Iterable<Shelter> getCurrentShelterList() {
 
         if (currentShelterList == null) {
@@ -40,6 +51,10 @@ public final class Model {
         return currentShelterList;
     }
 
+    /**
+     * Add a shelter to the current shelter list
+     * @param s a Shelter type of object which is the added shelter
+     */
     public void addCurrentShelter(Shelter s) {
         if (currentShelterList == null) {
             currentShelterList = new ArrayList<>();
@@ -47,6 +62,9 @@ public final class Model {
         currentShelterList.add(s);
     }
 
+    /**
+     * Clean the current shelter list
+     */
     public void clearCurrentShelterList() {
         if (currentShelterList == null) {
             currentShelterList = new ArrayList<>();
@@ -54,43 +72,75 @@ public final class Model {
         currentShelterList.clear();
     }
 
+    /**
+     * Retrieve the database
+     * @return a Map object which is the database
+     */
     public Map getDatabase() {
         return database;
     }
 
-
+    /**
+     * Retrieve wanted shelters
+     * @return a Map object containing all wanted shelters
+     */
     public Map getShelters() {
         return shelters;
     }
 
+    /**
+     * Access a current running user
+     * @return a User object which is the current running user
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * Set the current running user
+     * @param user a User object which would be the user currently using this app
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * Access a shelter on display
+     * @return a Shelter object which is currently focused on
+     */
     public Shelter getShelter() {
         return shelter;
     }
 
+    /**
+     * Set the current focused shelter
+     * @param shelter the current focused on shelter
+     */
     public void setCurrentShelter(Shelter shelter) {
         this.shelter = shelter;
     }
 
 
 
-    /** logic */
+    /**
+     * The filter logic about gender requirement
+     * @param gender the given gender requirement
+     * @param constraint the constraint which may include the gender requirement
+     * @return a boolean value which would be true if the requirement is matched
+     */
     public boolean filterByGender(CharSequence gender, String constraint) {
         if ("Any".equals(gender)) {
             return true;
-        } else if (constraint.contains(gender)) {
-                return true;
-        }
-        return false;
+        } else return constraint.contains(gender);
     }
 
+    /**
+     * Check if the input user information exists in the database
+     * @param database the database containing all user information
+     * @param userId the input user id
+     * @param password the input user password
+     * @return a boolean value which would be true if the input information exists in database
+     */
     public boolean loginUser(Map<String, User> database, String userId, String password) {
         if ((database.get(userId) != null) && database.get(userId).getPassword().equals(password)) {
             Model.getInstance().setUser(database.get(userId));
@@ -100,7 +150,12 @@ public final class Model {
         }
     }
 
-
+    /**
+     * The filter logic about age requirement
+     * @param ageRange the given age requirement
+     * @param constraint the constraint which may include the age requirement
+     * @return a boolean value which would be true if the requirement is matched
+     */
     public boolean filterByAge(String ageRange, String constraint) {
         if ("Anyone".equals(ageRange)) {
             return true;
@@ -108,19 +163,30 @@ public final class Model {
             if (constraint.toLowerCase().contains(ageRange.toLowerCase())) {
                 return true;
 
-            } else if ("Families with newborns".equals(ageRange)
-                    && constraint.contains("Families w")) {
-
-                return true;
-            }
-            return false;
+            } else return "Families with newborns".equals(ageRange)
+                    && constraint.contains("Families w");
         }
     }
 
+    /**
+     * The filter logic of searching by shelter name
+     * @param sheltername the input shelter name
+     * @param currentShelter the current shelter existing in database
+     * @return a boolean value which would be true if the given shelter is found
+     */
     public boolean filterByName(String sheltername, Shelter currentShelter) {
         return currentShelter.getName().toLowerCase().contains(sheltername.toLowerCase());
     }
 
+    /**
+     * Add a new registered user to database
+     * @param database the database which contains all user information
+     * @param userId the input user id
+     * @param password the input user password
+     * @param confirm the input confirmed password
+     * @param username the input email address
+     * @return a boolean value which would be true if the mew user is successfully added/
+     */
     public boolean registerUser(Map<String, User> database, String userId,
                                 String password, String confirm,
                                 String username) {
@@ -134,7 +200,7 @@ public final class Model {
 
             
 
-    /** database work */
+    // database work
 //    public void addNewShelter(String shelterId, String name, String capacity, String restriction,
 //                              String longitude, String latitude, String address,
 //                              String specialNotes, String phoneNum, int occupied) {
@@ -226,6 +292,10 @@ public final class Model {
         return "hello";
     }
 
+    /**
+     * Add shelters
+     * @param shelterInfo the information of the added shelter
+     */
     public void setShelters(Map<String, Shelter> shelterInfo) {
         shelters = new HashMap<>();
         for (String key: shelterInfo.keySet()) {

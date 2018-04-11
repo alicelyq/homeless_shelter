@@ -25,6 +25,10 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The major activity of the app.
+ */
+
 public class MainActivity extends AppCompatActivity {
     
     @Override
