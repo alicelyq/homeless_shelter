@@ -86,18 +86,16 @@ public final class Model {
 
     /** logic */
     public boolean filterByGender(String gender, String constraint) {
-        if (gender.equals("Any")) {
+        if ("Any".equals(gender)) {
             return true;
-        } else {
-            if (constraint.contains(gender)) {
+        } else if (constraint.contains(gender)) {
                 return true;
-            }
-            return false;
         }
+        return false;
     }
 
     public boolean loginUser(Map<String, User> database, String userId, String password) {
-        if (database.get(userId) != null && database.get(userId).getPassword().equals(password)) {
+        if ((database.get(userId) != null) && database.get(userId).getPassword().equals(password)) {
             Model.getInstance().setUser(database.get(userId));
             return true;
         } else {
@@ -107,13 +105,15 @@ public final class Model {
 
 
     public boolean filterByAge(String ageRange, String constraint) {
-        if (ageRange.equals("Anyone")) {
+        if ("Anyone".equals(ageRange)) {
             return true;
         } else {
             if (constraint.toLowerCase().contains(ageRange.toLowerCase())) {
                 return true;
+
             } else if (ageRange.equals("Families with newborns")
                     && constraint.contains("Families w")) {
+
                 return true;
             }
             return false;
@@ -121,10 +121,7 @@ public final class Model {
     }
 
     public boolean filterByName(String sheltername, Shelter currentShelter) {
-        if (currentShelter.getName().toLowerCase().contains(sheltername.toLowerCase())) {
-          return true;
-        }
-        return false;
+        return currentShelter.getName().toLowerCase().contains(sheltername.toLowerCase());
     }
 
     public boolean registerUser(Map<String, User> database, String userId,
