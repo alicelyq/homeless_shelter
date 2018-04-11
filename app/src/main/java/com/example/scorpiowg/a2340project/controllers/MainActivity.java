@@ -106,12 +106,12 @@ public class MainActivity extends AppCompatActivity {
                             curUser = new Admin(user.child("name").getValue(String.class)
                                 , user.child("userId").getValue(String.class)
                                 , user.child("password").getValue(String.class)
-                                , user.child("accountState").getValue(boolean.class));
+                                , true);
                     } else {
                         curUser = new Homeless(user.child("name").getValue(String.class)
                                 , user.child("userId").getValue(String.class)
                                 , user.child("password").getValue(String.class)
-                                , user.child("accountState").getValue(boolean.class)
+                                , true
                                 , user.child("govId").getValue(String.class)
                                 , user.child("gender").getValue(String.class)
                                 , user.child("isVeteran").getValue(boolean.class)
