@@ -14,7 +14,7 @@ import java.util.Map;
  * created on 02/25/2018
  */
 public class CSVFile {
-    InputStream inputStream;
+    private final InputStream inputStream;
 
     /**
      * Provide the input
@@ -57,14 +57,14 @@ public class CSVFile {
         catch (IOException ex) {
             throw new RuntimeException("Error in reading CSV file: " + ex);
         }
-        finally {
-            try {
-                inputStream.close();
-            }
-            catch (IOException e) {
-                throw new RuntimeException("Error while closing input stream: "+ e);
-            }
-        }
+//        finally {
+//            try {
+//                inputStream.close();
+//            }
+//            catch (IOException e) {
+//                throw new RuntimeException("Error while closing input stream: "+ e);
+//            }
+//        }
         return shelterMap;
     }
 }

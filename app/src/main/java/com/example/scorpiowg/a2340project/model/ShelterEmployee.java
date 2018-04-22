@@ -12,12 +12,11 @@ public class ShelterEmployee extends User {
      * @param name the name of user
      * @param userId the user id
      * @param password the password of the user account
-     * @param accountState whether this account is blocked
      * @param shelterId the id of the shelter to which this employee belongs
      */
     public ShelterEmployee(String name, String userId, String password
-            , boolean accountState, String shelterId) {
-        super(name, userId, password, accountState, "shelterEmployee");
+            , String shelterId) {
+        super(name, userId, password, true, "shelterEmployee");
         this.shelterId = shelterId;
     }
 

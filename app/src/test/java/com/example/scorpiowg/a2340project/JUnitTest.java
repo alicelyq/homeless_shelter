@@ -61,7 +61,7 @@ public class JUnitTest {
     public void testLoginUser() {
         //Ruinan Wang
         Map<String, User> userDatabase = new HashMap<>();
-        User curUser = new ShelterEmployee("test", "testid", "test", true, "1");
+        User curUser = new ShelterEmployee("test", "testid", "test", "1");
         userDatabase.put("testid", curUser);
         assertTrue(Model.getInstance().loginUser(userDatabase, "testid", "test"));
         assertFalse(Model.getInstance().loginUser(userDatabase, "hahaha", "ha"));
@@ -71,16 +71,16 @@ public class JUnitTest {
     public void testRegisterUser() {
         //Yunqi Liu
         Map<String, User> userDatabase = new HashMap<>();
-        User curUser = new ShelterEmployee("test", "testid", "test", true, "1");
+        User curUser = new ShelterEmployee("test", "testid", "test", "1");
         userDatabase.put("testid", curUser);
         //confirmed and exist
-        assertFalse(Model.getInstance().registerUser(userDatabase, "testid", "test", "test", "test", true, "1"));
+        assertFalse(Model.getInstance().registerUser(userDatabase, "testid", "test", "test", "test"));
         //not confirmed and exist
-        assertFalse(Model.getInstance().registerUser(userDatabase, "testid", "test", "wrongconfirm", "test", true, "1"));
+        assertFalse(Model.getInstance().registerUser(userDatabase, "testid", "test", "wrongconfirm", "test"));
         //not confirmed and not exist
-        assertFalse(Model.getInstance().registerUser(userDatabase, "newUser", "test", "wrongconfirm", "newname", true, "1"));
+        assertFalse(Model.getInstance().registerUser(userDatabase, "newUser", "test", "wrongconfirm", "newname"));
         //confirmed and not exist
-        assertTrue(Model.getInstance().registerUser(userDatabase, "newUser", "new", "new", "newname", true, "1"));
+        assertTrue(Model.getInstance().registerUser(userDatabase, "newUser", "new", "new", "newname"));
     }
 
 }

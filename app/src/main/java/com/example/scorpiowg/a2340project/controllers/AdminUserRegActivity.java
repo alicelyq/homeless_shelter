@@ -95,7 +95,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
                         startActivity(registerPage);
                     } else {
                         //success
-                        User curUser = new Admin(username, userId, password, true);
+                        User curUser = new Admin(username, userId, password);
                         database.put(userId, curUser);
                         DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
                         //noinspection ChainedMethodCall,ChainedMethodCall

@@ -131,7 +131,9 @@ public final class Model {
     public boolean filterByGender(CharSequence gender, String constraint) {
         if ("Any".equals(gender)) {
             return true;
-        } else return constraint.contains(gender);
+        } else {
+            return constraint.contains(gender);
+        }
     }
 
     /**
@@ -161,8 +163,8 @@ public final class Model {
             return true;
         } else {
             return constraint.toLowerCase().contains(ageRange.toLowerCase())
-                    || "Families with newborns".equals(ageRange)
-                    && constraint.contains("Families w");
+                    || ("Families with newborns".equals(ageRange)
+                    && constraint.contains("Families w"));
         }
     }
 
@@ -189,7 +191,7 @@ public final class Model {
                                 String password, String confirm,
                                 String username) {
         if (password.equals(confirm) && !database.containsKey(userId)) {
-            User curUser = new ShelterEmployee(username, userId, password, true, "1");
+            User curUser = new ShelterEmployee(username, userId, password, "1");
             database.put(userId, curUser);
             return true;
         }

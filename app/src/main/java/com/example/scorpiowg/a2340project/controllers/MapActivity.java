@@ -32,7 +32,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 //    private static final String TAG = "MapActivity";
     private final Map<Marker, Shelter> linker = new HashMap<>();
-    Model modelInstance = Model.getInstance();
+    final Model modelInstance = Model.getInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

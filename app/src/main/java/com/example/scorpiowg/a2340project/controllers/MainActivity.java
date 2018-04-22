@@ -78,7 +78,10 @@ public class MainActivity extends AppCompatActivity {
                 for (String s: shelters.keySet()) {
                     DataSnapshot occupiedCell =
                             dataSnapshot.child(shelters.get(s).getShelterId()).child("occupied");
-                    int occupied = occupiedCell.getValue(Integer.class);
+                    int occupied = 0;
+                    if (occupiedCell != null) {
+                        occupied = occupiedCell.getValue(Integer.class);
+                    }
                     shelters.get(s).setOccupied(occupied);
                     Log.d("process", "Shelter ID: " + s + ": " + "Occupied: " +
                             shelters.get(s).getOccupied());
@@ -97,33 +100,38 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("process" ,"Gets Database User Data");
                  Map localUsers = modelInstance.getDatabase();
                 for (DataSnapshot user: dataSnapshot.getChildren()) {
-                    User curUser;
+                    User curUser = null;
                     
                     if ("ShelterEmployee".equals(user.child("type").getValue(String.class))) {
                         curUser = new ShelterEmployee(user.child("name").getValue(String.class)
                                 , user.child("userId").getValue(String.class)
                                 , user.child("password").getValue(String.class)
-                                , true
                                 , user.child("shelterId").getValue(String.class));
                     } else 
                         if ("Admin".equals(user.child("type").getValue(String.class))) {
                             curUser = new Admin(user.child("name").getValue(String.class)
                                 , user.child("userId").getValue(String.class)
-                                , user.child("password").getValue(String.class)
-                                , true);
+                                , user.child("password").getValue(String.class));
                     } else {
-                        curUser = new Homeless(user.child("name").getValue(String.class)
-                                , user.child("userId").getValue(String.class)
-                                , user.child("password").getValue(String.class)
-                                , user.child("accountState").getValue(boolean.class)
-                                , user.child("govId").getValue(String.class)
-                                , user.child("gender").getValue(String.class)
-                                , user.child("isVeteran").getValue(boolean.class)
-                                , user.child("isFamily").getValue(boolean.class)
-                                , user.child("familyNum").getValue(int.class)
-                                , user.child("age").getValue(int.class));
+                        if (user.child("accountState") != null && user.child("isVeteran") != null
+                                && user.child("isFamily") != null
+                                && user.child("familyNum") != null
+                                && user.child("age") != null) {
+                            curUser = new Homeless(user.child("name").getValue(String.class)
+                                    , user.child("userId").getValue(String.class)
+                                    , user.child("password").getValue(String.class)
+                                    , user.child("accountState").getValue(boolean.class)
+                                    , user.child("govId").getValue(String.class)
+                                    , user.child("gender").getValue(String.class)
+                                    , user.child("isVeteran").getValue(boolean.class)
+                                    , user.child("isFamily").getValue(boolean.class)
+                                    , user.child("familyNum").getValue(int.class)
+                                    , user.child("age").getValue(int.class));
+                        }
                     }
-                    curUser.setBeds(user.child("beds").getValue(int.class));
+                    if (user.child("beds") != null) {
+                        curUser.setBeds(user.child("beds").getValue(int.class));
+                    }
                     curUser.setClaim(user.child("claim").getValue(Shelter.class));
                     localUsers.put(curUser.getUserId(), curUser);
                     Log.d("process", "User ID: " + curUser.getUserId());

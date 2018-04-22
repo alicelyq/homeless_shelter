@@ -11,10 +11,9 @@ public class Admin extends User {
      * @param name the name of user
      * @param userId the user id
      * @param password the password of the user account
-     * @param accountState whether this account is blocked
      */
-    public Admin(String name, String userId, String password, boolean accountState) {
-        super(name, userId, password, accountState, "admin");
+    public Admin(String name, String userId, String password) {
+        super(name, userId, password, true, "admin");
     }
 
     @Override

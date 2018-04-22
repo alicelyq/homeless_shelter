@@ -131,7 +131,8 @@ public class ShelterListActivity extends AppCompatActivity {
     }
 
     // to see if this shelter is filtered out
-    private boolean checkFilter(String key, CharSequence gender, String ageRange, String sheltername) {
+    private boolean checkFilter(String key, CharSequence gender, String ageRange,
+                                String sheltername) {
 
         Model modelInstance = Model.getInstance();
 

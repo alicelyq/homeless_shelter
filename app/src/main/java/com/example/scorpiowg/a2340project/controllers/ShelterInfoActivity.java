@@ -46,8 +46,8 @@ public class ShelterInfoActivity extends AppCompatActivity {
                 modelInstance.getUser().setClaim(modelInstance.getShelter());
                 modelInstance.getUser().setBeds(
                         Integer.parseInt(getIntent().getStringExtra("claim")));
-                Log.d("process", "this user claimed shelter "
-                        + modelInstance.getUser().getClaim().toString());
+//                Log.d("process", "this user claimed shelter "
+//                        + modelInstance.getUser().getClaim().toString());
                 Log.d("process", "this user claimed "
                         + Integer.toString(modelInstance.getUser().getBeds()) + "bedspaces");
                 TextView success = findViewById(R.id.success);
