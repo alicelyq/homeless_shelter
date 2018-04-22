@@ -29,7 +29,7 @@ public class Homeless extends User {
      * @param familyNum how many family numbers do this user has
      * @param age the age of this user
      */
-    public Homeless(String name, String userId, String password, boolean accountState, String govId,
+    public Homeless(String name, String userId, String password, String govId, boolean accountState,
                     String gender, boolean isVeteran, boolean isFamily, int familyNum, int age) {
         super(name, userId, password, accountState, "homeless");
         this.govId = govId;

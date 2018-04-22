@@ -1,6 +1,10 @@
 package com.example.scorpiowg.a2340project.model;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * This is the parent class for all type of users.
@@ -15,7 +19,7 @@ public class User {
     private final String userId;
     private final String password;
     private final String type;
-    private final boolean accountState;
+    private boolean accountState;
     @Nullable
     private Shelter claim;
     private int beds;
@@ -45,6 +49,10 @@ public class User {
      */
     String getName() {
         return name;
+    }
+
+    public boolean getAccountState() {
+        return accountState;
     }
 
     /**
@@ -95,5 +103,12 @@ public class User {
      */
     public void setBeds(int beds) {
         this.beds = beds;
+    }
+
+    public void setAccountState(boolean accountState) {
+        Log.d("debug", "here");
+        this.accountState = accountState;
+        DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
+        realDB.child("users").child(userId).child("accountState").setValue(accountState);
     }
 }

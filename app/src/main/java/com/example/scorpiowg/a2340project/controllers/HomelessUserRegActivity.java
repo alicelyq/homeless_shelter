@@ -109,8 +109,8 @@ public class HomelessUserRegActivity extends AppCompatActivity {
                 // next action
                 if (password.equals(confirm) && !database.containsKey(userId)) {
                     // success
-                    User curUser = new Homeless(username, userId, password,
-                            true, govId, gender, isVeteran, isFamily, familyNum, age);
+                    User curUser = new Homeless(username, userId, password, govId, true,
+                            gender, isVeteran, isFamily, familyNum, age);
                     database.put(userId, curUser);
                     DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
                     //noinspection ChainedMethodCall,ChainedMethodCall
@@ -121,6 +121,7 @@ public class HomelessUserRegActivity extends AppCompatActivity {
                     realDB.child("users").child(userId).child("beds").setValue(curUser.getBeds());
                     //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                     realDB.child("users").child(userId).child("type").setValue("Homeless");
+                    realDB.child("users").child(userId).child("accountState").setValue(true);
                     startActivity(loginPage);
                 } else {
                     if (!password.equals(confirm) && database.containsKey(userId)) {

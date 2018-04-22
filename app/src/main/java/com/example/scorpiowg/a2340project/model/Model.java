@@ -1,5 +1,7 @@
 package com.example.scorpiowg.a2340project.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +34,9 @@ public final class Model {
     private User user;
 
     private Shelter shelter;
+
+    public int loginAttempt = 1;
+    public String accountAttempt = "";
 
     //make a new model
     private Model() {
@@ -144,7 +149,8 @@ public final class Model {
      * @return a boolean value which would be true if the input information exists in database
      */
     public boolean loginUser(Map<String, User> database, String userId, String password) {
-        if ((database.get(userId) != null) && database.get(userId).getPassword().equals(password)) {
+        Log.d("debug", Boolean.toString(((database.get(userId)).getAccountState())));
+        if ((database.get(userId) != null) && database.get(userId).getPassword().equals(password) && database.get(userId).getAccountState() == true) {
             Model.getInstance().setUser(database.get(userId));
             return true;
         } else {
@@ -191,7 +197,7 @@ public final class Model {
                                 String password, String confirm,
                                 String username) {
         if (password.equals(confirm) && !database.containsKey(userId)) {
-            User curUser = new ShelterEmployee(username, userId, password, "1");
+            User curUser = new ShelterEmployee(username, userId, password, "1", true);
             database.put(userId, curUser);
             return true;
         }

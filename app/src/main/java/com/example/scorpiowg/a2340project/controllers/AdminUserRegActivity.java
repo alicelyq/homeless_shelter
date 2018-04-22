@@ -95,7 +95,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
                         startActivity(registerPage);
                     } else {
                         //success
-                        User curUser = new Admin(username, userId, password);
+                        User curUser = new Admin(username, userId, password, true);
                         database.put(userId, curUser);
                         DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
                         //noinspection ChainedMethodCall,ChainedMethodCall
@@ -108,6 +108,7 @@ public class AdminUserRegActivity extends AppCompatActivity {
                                 .child("beds").setValue(curUser.getBeds());
                         //noinspection ChainedMethodCall,ChainedMethodCall,ChainedMethodCall
                         realDB.child("users").child(userId).child("type").setValue("Admin");
+                        realDB.child("users").child(userId).child("accountState").setValue(true);
                      
                         startActivity(loginPage);
                     }

@@ -14,9 +14,9 @@ public class ShelterEmployee extends User {
      * @param password the password of the user account
      * @param shelterId the id of the shelter to which this employee belongs
      */
-    public ShelterEmployee(String name, String userId, String password
-            , String shelterId) {
-        super(name, userId, password, true, "shelterEmployee");
+    public ShelterEmployee(String name, String userId, String password,
+                           String shelterId, boolean accountState) {
+        super(name, userId, password, accountState, "shelterEmployee");
         this.shelterId = shelterId;
     }
 

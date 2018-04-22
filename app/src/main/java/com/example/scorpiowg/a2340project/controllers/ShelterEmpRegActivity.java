@@ -87,7 +87,7 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
 
                 if (registerSuccess) {
                     //success
-                    User curUser = new ShelterEmployee(username, userId, password, "1");
+                    User curUser = new ShelterEmployee(username, userId, password, "1", true);
                     DatabaseReference realDB = FirebaseDatabase.getInstance().getReference();
 
                     realDB.child("users").child(userId).setValue(curUser);
@@ -97,6 +97,7 @@ public class ShelterEmpRegActivity extends AppCompatActivity {
                     realDB.child("users").child(userId).child("beds").setValue(curUser.getBeds());
                     
                     realDB.child("users").child(userId).child("type").setValue("ShelterEmployee");
+                    realDB.child("users").child(userId).child("accountState").setValue(true);
                   
                     startActivity(loginPage);
                 } else {

@@ -3,6 +3,7 @@ package com.example.scorpiowg.a2340project.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +36,11 @@ public class LoginActivity extends AppCompatActivity {
         if (getIntent().getStringExtra("error") != null) {
             TextView error = findViewById(R.id.error);
             error.setVisibility(View.VISIBLE);
+            if (Model.getInstance().loginAttempt >= 3 ||
+                    !((User)Model.getInstance().getDatabase()
+                            .get(Model.getInstance().accountAttempt)).getAccountState()) {
+                error.setText("account is locked");
+            }
         }
 
         // buttons
@@ -71,6 +77,16 @@ public class LoginActivity extends AppCompatActivity {
 
                         startActivity(dashboardPage);
                     } else {
+                        if (!Model.getInstance().accountAttempt.equals(userId)) {
+                            Model.getInstance().accountAttempt = userId;
+                            Model.getInstance().loginAttempt = 0;
+                        }
+                        Model.getInstance().loginAttempt++;
+
+                        if (Model.getInstance().loginAttempt >= 3) {
+                            ((User)Model.getInstance().getDatabase().get(userId)).setAccountState(false);
+                            Log.d("debug", Boolean.toString(((User)Model.getInstance().getDatabase().get(userId)).getAccountState()));
+                        }
                         loginErrorPage.putExtra("error", "true");
                         startActivity(loginErrorPage);
                     }

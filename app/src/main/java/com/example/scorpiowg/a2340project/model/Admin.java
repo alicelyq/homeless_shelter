@@ -12,8 +12,8 @@ public class Admin extends User {
      * @param userId the user id
      * @param password the password of the user account
      */
-    public Admin(String name, String userId, String password) {
-        super(name, userId, password, true, "admin");
+    public Admin(String name, String userId, String password, boolean accountState) {
+        super(name, userId, password, accountState, "admin");
     }
 
     @Override
