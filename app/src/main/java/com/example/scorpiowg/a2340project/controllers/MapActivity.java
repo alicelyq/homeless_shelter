@@ -3,7 +3,6 @@ package com.example.scorpiowg.a2340project.controllers;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
@@ -28,9 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -72,46 +69,38 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationListener = new LocationListener() {
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 //get the latitude and longitude from the location
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
+                curLatitude = latitude;
+                curLongitude = longitude;
                 //get the location name from latitude and longitude
                 Geocoder geocoder = new Geocoder(getApplicationContext());
-                try {
-                    List<Address> addresses =
-                            geocoder.getFromLocation(latitude, longitude, 1);
-                    String result = addresses.get(0).getSubLocality()+":";
-                    result += addresses.get(0).getLocality()+":";
-                    result += addresses.get(0).getCountryCode();
-                    curLatitude = latitude;
-                    curLongitude = longitude;
-                    LatLng latLng = new LatLng(latitude, longitude);
-                    mMap.addMarker(new MarkerOptions().position(latLng).title(result));
-                    mMap.setMaxZoomPreference(50);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
+                LatLng latLng = new LatLng(latitude, longitude);
+                mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                mMap.setMaxZoomPreference(50);
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
             }
 
             @Override
-            public void onProviderEnabled(String provider) {
+            public void onStatusChanged(String s, int i, Bundle bundle) {
 
             }
 
             @Override
-            public void onProviderDisabled(String provider) {
+            public void onProviderEnabled(String s) {
 
             }
-        };
+
+            @Override
+            public void onProviderDisabled(String s) {
+
+            }
+        });
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
 
@@ -132,7 +121,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         //googleMap.setOnMarkerClickListener(this);
 
-        LatLng currentLocation = new LatLng(curLatitude, curLongitude);
+        LatLng currentLocation = new LatLng(33.7774, -84.3973);
         googleMap.addMarker(new MarkerOptions().position(currentLocation).title("Current location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
 
