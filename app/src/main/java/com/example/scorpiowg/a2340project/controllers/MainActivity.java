@@ -2,6 +2,7 @@ package com.example.scorpiowg.a2340project.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,19 @@ import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.Shelter;
 import com.example.scorpiowg.a2340project.model.ShelterEmployee;
 import com.example.scorpiowg.a2340project.model.User;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +44,20 @@ import java.util.Map;
  */
 
 public class MainActivity extends AppCompatActivity {
-    
+
+    SignInButton signInButton;
+    FirebaseAuth mAuth;
+    private final static int RC_SIGN_IN = 2;
+    GoogleSignInClient mGoogleSignInClient;
+    FirebaseAuth.AuthStateListener mAuthListener;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
         // buttons
         Button login = findViewById(R.id.login);
         Button registration = findViewById(R.id.registration);
+        signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
+        mAuth = FirebaseAuth.getInstance();
 
         // intents
         final Intent loginPage = new Intent(this, LoginActivity.class);
@@ -67,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         // refreshDatabase(shelterinfo);
 
         // shelters from database to local device
-         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         final DatabaseReference DBsheltersRef = database.child("shelters");
         DBsheltersRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -160,6 +189,80 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(registerPage);
             }
         });
+
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("process", "click google sing in button");
+                signIn();
+            }
+        });
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                Log.d("NancyCheck", "onauthstatechanged");
+                if (firebaseAuth.getCurrentUser() != null) {
+                    startActivity(registerPage);
+                }
+
+            }
+        };
+
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Log.w("googleLogin", "Google sign in failed", e);
+                // ...
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d("googleLogin", "firebaseAuthWithGoogle:" + acct.getId());
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("googleLogin", "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("googleLogin", "signInWithCredential:failure", task.getException());
+                        }
+
+                        // ...
+                    }
+                });
     }
 
     // refresh database
