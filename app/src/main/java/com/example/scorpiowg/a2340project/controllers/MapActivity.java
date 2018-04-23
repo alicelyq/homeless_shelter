@@ -23,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -132,7 +133,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         //googleMap.setOnMarkerClickListener(this);
 
         LatLng currentLocation = new LatLng(curLatitude, curLongitude);
-        googleMap.addMarker(new MarkerOptions().position(currentLocation).title("Current location"));
+        googleMap.addMarker(new MarkerOptions().position(currentLocation).title("Current location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
 
 
