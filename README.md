@@ -7,3 +7,4 @@ This is an Android App that allows homeless people to checkin to bedspaces at sh
 ### Note
 
 The newest working version is in the "nancy-google" branch instead of "Master".
+Use Nexus 5 API 24 as a working emulator.
