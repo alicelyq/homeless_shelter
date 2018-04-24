@@ -74,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     boolean successful = modelInstance.loginUser(database, userId, password);
                     if (successful) {
-
                         startActivity(dashboardPage);
                     } else {
                         if (!Model.getInstance().accountAttempt.equals(userId)) {

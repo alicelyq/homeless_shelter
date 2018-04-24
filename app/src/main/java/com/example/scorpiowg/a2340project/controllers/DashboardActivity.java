@@ -12,6 +12,7 @@ import com.example.scorpiowg.a2340project.R;
 import com.example.scorpiowg.a2340project.model.Model;
 import com.example.scorpiowg.a2340project.model.Shelter;
 import com.example.scorpiowg.a2340project.model.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -21,6 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class DashboardActivity extends AppCompatActivity {
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +36,12 @@ public class DashboardActivity extends AppCompatActivity {
         // button
         Button releaseButton = findViewById(R.id.release);
         Button shelter = findViewById(R.id.search);
+        Button logout = findViewById(R.id.logout);
 
         // intents
         final Intent dashboardPage = new Intent(this, DashboardActivity.class);
         final Intent shelterPage = new Intent(this, ShelterListActivity.class);
+        final Intent mainPage = new Intent(this, MainActivity.class);
 //        final Intent mapPage = new Intent(this, MapActivity.class);
 
         // real database
@@ -86,5 +92,14 @@ public class DashboardActivity extends AppCompatActivity {
                 Log.d("process", "click search");
             }
         });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(mainPage);
+            }
+        });
+
     }
 }

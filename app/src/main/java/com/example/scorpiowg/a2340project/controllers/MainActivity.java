@@ -38,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The major activity of the app.
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         // intents
         final Intent loginPage = new Intent(this, LoginActivity.class);
         final Intent registerPage = new Intent(this, RegUserTypeActivity.class);
+        final Intent dashboardPage = new Intent(this, DashboardActivity.class);
 
         // read csv file, put initial shelters in local device
         InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_db);
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("process" ,"Gets Database User Data");
-                 Map localUsers = modelInstance.getDatabase();
+                Map localUsers = modelInstance.getDatabase();
                 for (DataSnapshot user: dataSnapshot.getChildren()) {
                     User curUser = null;
                     
@@ -203,9 +205,23 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 Log.d("NancyCheck", "onauthstatechanged");
                 if (firebaseAuth.getCurrentUser() != null) {
-                    startActivity(registerPage);
+                    String userEmail = firebaseAuth.getCurrentUser().getEmail();
+                    String[] separated = userEmail.split("@");
+                    String userId = separated[0];
+                    Log.d("nancycheck", "userid is: " + userId);
+                    Log.d("nancycheck", " " + Model.getInstance().getDatabase().size());
+                    for (String key: (Set<String>)Model.getInstance().getDatabase().keySet()) {
+                        Log.d("nancycheck", key);
+                    }
+                    if (Model.getInstance().getDatabase().containsKey(userId) == false) {
+                        Log.d("nancycheck", "userid not found");
+                        startActivity(registerPage);
+                    } else {
+                        Log.d("nancycheck", "gotodashboard");
+                        Model.getInstance().setUser((User)Model.getInstance().getDatabase().get(userId));
+                        startActivity(dashboardPage);
+                    }
                 }
-
             }
         };
 
